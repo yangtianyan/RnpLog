@@ -12,7 +12,7 @@
 #import "RnpDefine.h"
 
 static RnpEnterPlugView * instance;
-
+static UIWindow * tempWindow;
 @interface RnpEnterPlugView ()
 
 @property (nonatomic, strong) UIPanGestureRecognizer * pan;
@@ -28,11 +28,22 @@ static RnpEnterPlugView * instance;
             CGFloat width = 50;
             CGFloat height = width;
             //1. 创建一个window对象，并用一个对象强持有它
-            UIWindow *testWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-            testWindow.windowLevel = 9999;
-            [testWindow makeKeyAndVisible];
+            UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+            
+            if (@available(iOS 13.0, *)) {
+                NSArray *array = [[[UIApplication sharedApplication] connectedScenes] allObjects];
+                UIWindowScene * windowScene = (UIWindowScene*)(array.lastObject);
+                window.windowScene = windowScene;
+            } else {
+                // Fallback on earlier versions
+            };
+            window.windowLevel = 0;
+            [window makeKeyAndVisible];
             RnpEnterPlugView * view = [[RnpEnterPlugView alloc] initWithFrame:CGRectMake(20, screen_height - height - kBottomSafeHeight, width, height)];
-            [testWindow addSubview:view];
+            [window addSubview:view];
+            window.hidden = NO;
+            window.alpha = 1;
+            tempWindow = window;
             instance = view;
         });
     });
