@@ -27,8 +27,12 @@ static RnpEnterPlugView * instance;
             CGFloat screen_height = [UIScreen mainScreen].bounds.size.height;
             CGFloat width = 50;
             CGFloat height = width;
+            //1. 创建一个window对象，并用一个对象强持有它
+            UIWindow *testWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+            testWindow.windowLevel = 9999;
+            [testWindow makeKeyAndVisible];
             RnpEnterPlugView * view = [[RnpEnterPlugView alloc] initWithFrame:CGRectMake(20, screen_height - height - kBottomSafeHeight, width, height)];
-            [currentWindow() addSubview:view];
+            [testWindow addSubview:view];
             instance = view;
         });
     });
