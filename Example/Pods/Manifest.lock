@@ -1,0 +1,58 @@
+PODS:
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
+    - AFNetworking/NSURLSession
+  - Masonry (1.1.0)
+  - RnpKit/AttributedString (1.0.9):
+    - RnpKit/View
+  - RnpKit/Layout (1.0.9):
+    - Masonry
+    - RnpKit/View
+  - RnpKit/View (1.0.9)
+  - RnpLog (0.1.0):
+    - Masonry
+    - RnpKit/AttributedString
+    - RnpKit/Layout
+    - RnpKit/View
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
+
+DEPENDENCIES:
+  - AFNetworking
+  - RnpLog (from `../`)
+  - SDWebImage
+
+SPEC REPOS:
+  trunk:
+    - AFNetworking
+    - Masonry
+    - RnpKit
+    - SDWebImage
+
+EXTERNAL SOURCES:
+  RnpLog:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  RnpKit: 076c5018e82569454d55201eb7b6290d3f12b310
+  RnpLog: 46be32d171b85d293f350f144b05a253f509d094
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+
+PODFILE CHECKSUM: 087f6bf9d62b49afd135416033452e934eac1972
+
+COCOAPODS: 1.10.1

@@ -1,0 +1,37 @@
+{
+  "name": "RnpLog",
+  "version": "0.1.0",
+  "summary": "A short description of RnpLog.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/905935769@qq.com/RnpLog",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "905935769@qq.com": "yangtianyan@diyiedy.com"
+  },
+  "source": {
+    "git": "https://github.com/905935769@qq.com/RnpLog.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "RnpLog/Classes/**/*",
+  "frameworks": "UIKit",
+  "dependencies": {
+    "RnpKit/View": [
+
+    ],
+    "RnpKit/Layout": [
+
+    ],
+    "RnpKit/AttributedString": [
+
+    ],
+    "Masonry": [
+
+    ]
+  }
+}
