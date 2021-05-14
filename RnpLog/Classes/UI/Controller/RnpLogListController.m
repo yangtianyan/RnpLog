@@ -77,7 +77,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addRequest) name:kAddRequestNotification object:nil];
 }
 - (void)addRequest{
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 #pragma mark -- 生命周期
 - (void)viewDidLoad {
