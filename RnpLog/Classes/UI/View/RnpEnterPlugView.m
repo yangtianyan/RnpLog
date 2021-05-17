@@ -13,6 +13,22 @@
 
 static RnpEnterPlugView * instance;
 static UIWindow * tempWindow;
+
+@interface _RnpWindow : UIWindow
+
+@end
+@implementation _RnpWindow
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    if (CGRectContainsPoint(instance.frame, point)) {
+        return instance;
+    }
+    return nil;
+}
+
+@end
+
 @interface RnpEnterPlugView ()
 
 @property (nonatomic, strong) UIPanGestureRecognizer * pan;
@@ -28,7 +44,7 @@ static UIWindow * tempWindow;
             CGFloat width = 50;
             CGFloat height = width;
             //1. 创建一个window对象，并用一个对象强持有它
-            UIWindow *window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+            UIWindow *window = [[_RnpWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
             
             if (@available(iOS 13.0, *)) {
                 NSArray *array = [[[UIApplication sharedApplication] connectedScenes] allObjects];
