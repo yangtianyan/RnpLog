@@ -31,6 +31,21 @@
     if (self.task.originalRequest.HTTPBody) {
         NSString * string = [[NSString alloc] initWithData:self.task.originalRequest.HTTPBody encoding:NSUTF8StringEncoding];
         p_body = [NSString stringWithFormat:@"{\n%@\n}",string];
+    }else if (self.task.originalRequest.HTTPBodyStream){
+        uint8_t d[1024] = {0};
+        NSInputStream *stream = self.task.originalRequest.HTTPBodyStream;
+        NSMutableData *data = [[NSMutableData alloc] init];
+        [stream open];
+        
+        while ([stream hasBytesAvailable]) {
+            NSInteger len = [stream read:d maxLength:1024];
+            if (len > 0 && stream.streamError == nil) {
+                [data appendBytes:(void *)d length:len];
+            }
+        }
+        [stream close];
+        NSString * string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        p_body = [NSString stringWithFormat:@"{\n%@\n}",string];
     }
     NSString * p_response = @"{\n\n}";
     if (self.originalData) {

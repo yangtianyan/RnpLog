@@ -160,18 +160,20 @@ static UIWindow * tempWindow;
 
 - (void)tapClick{
     UIViewController * rootViewController = currentWindow().rootViewController;
-    if ([rootViewController isKindOfClass:UINavigationController.class]) {
-        [self navControllerPushForController:(UINavigationController *)rootViewController];
-    }else if ([rootViewController isKindOfClass:UITabBarController.class]){
-        UIViewController * showController = [(UITabBarController *)rootViewController viewControllers][[(UITabBarController *)rootViewController selectedIndex]];
-        if ([showController isKindOfClass:UINavigationController.class]) {
-            [self navControllerPushForController:(UINavigationController *)showController];
-        }else{
-            [self presentViewControllerForController:showController];
-        }
-    }else{
-        [self presentViewControllerForController:rootViewController];
-    }
+    [self presentViewControllerForController:rootViewController];
+
+//    if ([rootViewController isKindOfClass:UINavigationController.class]) {
+//        [self navControllerPushForController:(UINavigationController *)rootViewController];
+//    }else if ([rootViewController isKindOfClass:UITabBarController.class]){
+//        UIViewController * showController = [(UITabBarController *)rootViewController viewControllers][[(UITabBarController *)rootViewController selectedIndex]];
+//        if ([showController isKindOfClass:UINavigationController.class]) {
+//            [self navControllerPushForController:(UINavigationController *)showController];
+//        }else{
+//            [self presentViewControllerForController:showController];
+//        }
+//    }else{
+//        [self presentViewControllerForController:rootViewController];
+//    }
 }
 
 - (void)navControllerPushForController:(UINavigationController *)navController{

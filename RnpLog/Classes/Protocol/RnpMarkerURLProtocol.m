@@ -11,6 +11,7 @@
 #import "RnpCaptureDataManager.h"
 /* -- Model -- */
 #import "RnpDataModel.h"
+#import <WebKit/WebKit.h>
 @interface RnpMarkerURLProtocol()<NSURLSessionDelegate>
 @property(nonatomic,strong)NSURLSession * session;
 @end
@@ -50,9 +51,27 @@
     [NSURLProtocol setProperty:@YES
                         forKey:hasInitKey
                      inRequest:mutableReqeust];
-    return [mutableReqeust copy];
-}
+    NSMutableDictionary *cookieDic = [NSMutableDictionary dictionary];
+    NSMutableString *cookieValue = [NSMutableString stringWithFormat:@""];
+    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    for (NSHTTPCookie *cookie in [cookieJar cookies]) {
+        [cookieDic setObject:cookie.value forKey:cookie.name];
+    }
 
+    // cookie重复，先放到字典进行去重，再进行拼接
+    for (NSString *key in cookieDic) {
+        NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
+        [cookieValue appendString:appendString];
+    }
+    // cookie重复，先放到字典进行去重，再进行拼接
+    for (NSString *key in cookieDic) {
+        NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
+        [cookieValue appendString:appendString];
+    }
+    NSLog(@"request: %@\nCookie: %@",mutableReqeust,cookieValue);
+    [mutableReqeust addValue:cookieValue forHTTPHeaderField:@"Cookie"];
+    return mutableReqeust;
+}
 
 //开始请求
 - (void)startLoading
@@ -95,6 +114,15 @@
 /// 这个地方可以延迟执行
 /// 抓包
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition))completionHandler {
+    if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+        NSString * set_cookie = [(NSHTTPURLResponse *)response allHeaderFields][@"Set-Cookie"];
+        if (set_cookie) {
+            NSArray * cookies = [NSHTTPCookie cookiesWithResponseHeaderFields:[(NSHTTPURLResponse *)response allHeaderFields] forURL:response.URL];
+            for (NSHTTPCookie * cookie in cookies) {
+                [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+            }
+        }
+    }
     [self.client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
     completionHandler(NSURLSessionResponseAllow);
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -106,7 +134,12 @@
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data
 {
     RnpDataModel * model = RnpCaptureDataManager.instance.requests_dict[dataTask];
-    model.originalData = data;
+    NSMutableData * newData = [data mutableCopy];
+    if (model.originalData) {
+        newData = [[NSMutableData alloc] initWithData:model.originalData];
+        [newData appendData:data];
+    }
+    model.originalData = newData;
 //    NSLog(@"currentRequest: %@  %@", dataTask.currentRequest, dataTask.response);
     // 可以做消息拦截
     [self.client URLProtocol:self didLoadData:data];
@@ -121,6 +154,16 @@
     [NSURLProtocol registerClass:[RnpMarkerURLProtocol class]];
     if (![sessionConfiguration isSwizzle]) {
         [sessionConfiguration load];
+    }
+    //实现WKWebview拦截功能
+    Class cls = NSClassFromString(@"WKBrowsingContextController");
+    SEL sel = NSSelectorFromString(@"registerSchemeForCustomProtocol:");
+    if ([(id)cls respondsToSelector:sel]) {
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [cls performSelector:sel withObject:@"http"];
+        [cls performSelector:sel withObject:@"https"];
+    #pragma clang diagnostic pop
     }
 }
 

@@ -45,6 +45,20 @@
         }];
     });
     
+    WKWebView * webview = WKWebViewNew().rnp
+    .addToSuperView(self.view)
+    .frame(CGRectMake(100, 400, 100, 100))
+    .view;
+    
+    UIButtonNew().rnp
+    .addToSuperView(self.view)
+    .backgroundColor(UIColor.blackColor)
+    .frame(CGRectMake(250, 100, 100, 100))
+    .text(@"点击webview请求", UIControlStateNormal)
+    .addClickBlock(^(id  _Nonnull btn) {
+        [webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://www.taobao.com/"]]];
+    });
+    
     UIImageView * imageView = UIImageViewNew().rnp
     .addToSuperView(self.view)
     .frame(CGRectMake(100, 300, 100, 100))
