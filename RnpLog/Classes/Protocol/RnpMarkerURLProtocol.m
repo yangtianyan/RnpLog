@@ -84,9 +84,7 @@
     self.session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[[NSOperationQueue alloc] init]];
     // 注 这里也可以添加代理 捕获用户请求数据
     NSURLSessionDataTask * task = [self.session dataTaskWithRequest:self.request];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [task  resume];//开始任务
-    });
+    [task  resume];//开始任务
     [RnpCaptureDataManager.instance addRequest:task];
 }
 
