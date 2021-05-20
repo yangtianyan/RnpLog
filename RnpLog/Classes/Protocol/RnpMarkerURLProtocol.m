@@ -12,6 +12,7 @@
 #import "RnpBreakpointManager.h"
 /* -- Model -- */
 #import "RnpDataModel.h"
+#import "RnpBreakpointModel.h"
 #import <WebKit/WebKit.h>
 @interface RnpMarkerURLProtocol()<NSURLSessionDelegate>
 @property(nonatomic,strong)NSURLSession * session;
@@ -53,22 +54,6 @@
 //自定义网络请求，如果不需要处理直接返回request。
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request{
     NSMutableURLRequest *mutableReqeust = [request mutableCopy];
-//    [NSURLProtocol setProperty:@YES
-//                        forKey:hasInitKey
-//                     inRequest:mutableReqeust];
-//    NSMutableDictionary *cookieDic = [NSMutableDictionary dictionary];
-//    NSMutableString *cookieValue = [NSMutableString stringWithFormat:@""];
-//    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-//    for (NSHTTPCookie *cookie in [cookieJar cookies]) {
-//        [cookieDic setObject:cookie.value forKey:cookie.name];
-//    }
-//    // cookie重复，先放到字典进行去重，再进行拼接
-//    for (NSString *key in cookieDic) {
-//        NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
-//        [cookieValue appendString:appendString];
-//    }
-//    NSLog(@"request: %@\nCookie: %@",mutableReqeust,cookieValue);
-//    [mutableReqeust addValue:cookieValue forHTTPHeaderField:@"Cookie"];
     return mutableReqeust;
 }
 
@@ -96,6 +81,8 @@
     [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
     NSLog(@"************ 开始请求 %@",mutableRequest.URL);
     NSURLSessionConfiguration * configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];//创建一个临时会话配置
+//    mutableRequest.URL.absoluteString;
+    mutableRequest.URL = [NSURL URLWithString:@"https://www.baidu.com"]; // yty fix 可以篡改请求接口
     //网络请求
     self.session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[[NSOperationQueue alloc] init]];
     // 注 这里也可以添加代理 捕获用户请求数据
@@ -121,6 +108,12 @@
     if (error){
         [self.client URLProtocol:self didFailWithError:error];
     }else{
+        RnpBreakpointModel * breakpoint = [RnpBreakpointManager.instance getModelForUrl:task.originalRequest.URL.absoluteString];
+        RnpDataModel * model = RnpCaptureDataManager.instance.requests_dict[task];
+        if (breakpoint) {
+            model.hookData = breakpoint.mockResultData;
+            [self.client URLProtocol:self didLoadData:model.hookData];
+        }
 //        [self delayDidLoadData:task];
         [self.client URLProtocolDidFinishLoading:self];
     }
@@ -151,7 +144,9 @@
         [newData appendData:data];
     }
     model.originalData = newData;
-    [self.client URLProtocol:self didLoadData:data];
+    if (![RnpBreakpointManager.instance getModelForUrl:dataTask.originalRequest.URL.absoluteString]) {
+        [self.client URLProtocol:self didLoadData:data];
+    }
 }
 - (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session{
     NSLog(@"");

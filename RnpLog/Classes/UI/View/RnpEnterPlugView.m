@@ -10,6 +10,7 @@
 #import "RnpLogListController.h"
 /* -- Util -- */
 #import "RnpDefine.h"
+#import "NSObject+top.h"
 
 static RnpEnterPlugView * instance;
 static UIWindow * tempWindow;
@@ -161,38 +162,19 @@ static UIWindow * tempWindow;
 - (void)tapClick{
     UIViewController * rootViewController = currentWindow().rootViewController;
     [self presentViewControllerForController:rootViewController];
-
-//    if ([rootViewController isKindOfClass:UINavigationController.class]) {
-//        [self navControllerPushForController:(UINavigationController *)rootViewController];
-//    }else if ([rootViewController isKindOfClass:UITabBarController.class]){
-//        UIViewController * showController = [(UITabBarController *)rootViewController viewControllers][[(UITabBarController *)rootViewController selectedIndex]];
-//        if ([showController isKindOfClass:UINavigationController.class]) {
-//            [self navControllerPushForController:(UINavigationController *)showController];
-//        }else{
-//            [self presentViewControllerForController:showController];
-//        }
-//    }else{
-//        [self presentViewControllerForController:rootViewController];
-//    }
 }
 
-- (void)navControllerPushForController:(UINavigationController *)navController{
-    RnpLogListController * controller = [RnpLogListController new];
-    [navController pushViewController:controller animated:YES];
-    
-}
 - (void)presentViewControllerForController:(UIViewController *)controller{
    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:[RnpLogListController new]];
-    [controller presentViewController:nav animated:YES completion:nil];
+    [[self topViewControllerWithRootViewController:controller] presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark -- Public
 + (RnpEnterPlugView *)instance{
     return instance;
 }
-+ (void)setInstance:(RnpEnterPlugView *)instance{
-    
-}
++ (void)setInstance:(RnpEnterPlugView *)instance{}
+
 + (void)show{
     [UIView animateWithDuration:0.5 animations:^{
         instance.alpha = 1;

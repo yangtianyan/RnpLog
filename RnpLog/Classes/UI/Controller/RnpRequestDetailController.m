@@ -40,9 +40,7 @@
     NSMutableAttributedString * attribute = [[NSMutableAttributedString alloc] initWithString:content];
     NSString * pattern0 = @"((.*?)\\s=)|(\"(.*?)\"\\s:)";
     NSRange contentRange0 = NSMakeRange(0, content.length);
-//    NSRegularExpression.init(pattern: pattern0, options: .caseInsensitive);
     NSRegularExpression * express0 = [[NSRegularExpression alloc] initWithPattern:pattern0 options:NSRegularExpressionCaseInsensitive error:nil];
-//    let expressResults0 = express0?.matches(in: content, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: contentRange0)
     NSArray<NSTextCheckingResult *> * expressResults0 = [express0 matchesInString:content options:NSMatchingReportProgress range:contentRange0];
 
     for (NSTextCheckingResult *check in expressResults0) {
@@ -68,9 +66,7 @@
             attribute.rnp.addAttributes_range(@{NSForegroundColorAttributeName: keycolor}, range);
         }
     }
-
     self.textView.attributedText = attribute;
-    
 }
 #pragma mark -- setter
 - (void)setModel:(RnpDataModel *)model

@@ -37,6 +37,7 @@
         session.requestSerializer.timeoutInterval = 50;
         session.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html", nil];
         NSString * url = @"https://dev.namibox.com/dy/dyhome?grade=4b&device_screen_width=375.000000";
+        url = @"https://unsplash.com/napi/photos?page=0&per_page=2&order_by=latest";
 //        url = @"https://www.taobao.com/";
         [session GET:url parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class RnpBreakpointModel;
 @interface RnpBreakpointInfoController : UIViewController
 
+@property (nonatomic, assign) int type;// 0 - 添加 1 - 查看编辑
+
 @property (nonatomic, strong) RnpDataModel * dataModel;
 
 @property (nonatomic, strong) RnpBreakpointModel * breakpoint;

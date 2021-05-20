@@ -9,4 +9,13 @@
 
 @implementation RnpBreakpointModel
 
+- (instancetype)init
+{
+    if (self = [super init]) {
+        self.isActivate = true;
+        self.isAfter = true;
+    }
+    return self;
+}
+
 @end
