@@ -82,5 +82,10 @@
     }
 
 }
+- (void)clear{
+    [self.mutable_requests removeAllObjects];
+    [self.mutable_requests_dict removeAllObjects];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kClearRequestNotification object:nil];
 
+}
 @end

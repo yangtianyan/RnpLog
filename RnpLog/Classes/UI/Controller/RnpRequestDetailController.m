@@ -60,7 +60,7 @@
         attribute.rnp.addAttributes_range(@{NSForegroundColorAttributeName : httpcolor}, range);
     }
 
-    NSArray * keys = @[@"URL:",@"Method:",@"Headers:",@"RequestBody:",@"Response:", @"HookResponse:"];
+    NSArray * keys = @[@"URL:",@"Method:",@"Headers:",@"RequestBody:",@"Response:",@"ResponseHeader:", @"HookResponse:"];
     for (NSString * m_key in keys) {
         UIColor * keycolor = rgba(146, 38, 143, 1);
         NSRange range = [content rangeOfString:m_key];

@@ -36,8 +36,9 @@
         session.responseSerializer = [AFHTTPResponseSerializer serializer];// 响应
         session.requestSerializer.timeoutInterval = 50;
         session.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html", nil];
-        
-        [session GET:@"https://www.taobao.com/" parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSString * url = @"https://dev.namibox.com/dy/dyhome?grade=4b&device_screen_width=375.000000";
+//        url = @"https://www.taobao.com/";
+        [session GET:url parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
             NSLog(@"success %@",string);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {

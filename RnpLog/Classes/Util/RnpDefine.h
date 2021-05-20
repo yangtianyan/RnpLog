@@ -13,6 +13,8 @@
 #define kBottomSafeHeight (RnpBottomSafeHeight())
 
 #define kAddRequestNotification @"kAddRequestNotification"
+#define kClearRequestNotification @"kClearRequestNotification"
+
 #import <RnpKit/RnpKitView.h>
 #import <RnpKit/RnpBaseViewChain+Layout.h>
 #import <Masonry/Masonry.h>

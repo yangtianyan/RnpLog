@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addRequest:(NSURLSessionDataTask *)task;
 
+/// 清空
+- (void)clear;
 @end
 
 NS_ASSUME_NONNULL_END

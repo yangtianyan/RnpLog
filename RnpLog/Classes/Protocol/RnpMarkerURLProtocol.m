@@ -9,6 +9,7 @@
 #import "RnpSessionConfiguration.h"
 /* -- Manager -- */
 #import "RnpCaptureDataManager.h"
+#import "RnpBreakpointManager.h"
 /* -- Model -- */
 #import "RnpDataModel.h"
 #import <WebKit/WebKit.h>
@@ -43,33 +44,31 @@
     if ([NSURLProtocol propertyForKey: hasInitKey inRequest:request] ) {
         return NO;
     }
+    NSString * content_type = [request valueForHTTPHeaderField:@"Content-Type"];
+    if (content_type && [content_type containsString:@"multipart/form-data"]) {
+        return NO;
+    }
     return YES;
 }
 //自定义网络请求，如果不需要处理直接返回request。
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request{
     NSMutableURLRequest *mutableReqeust = [request mutableCopy];
-    [NSURLProtocol setProperty:@YES
-                        forKey:hasInitKey
-                     inRequest:mutableReqeust];
-    NSMutableDictionary *cookieDic = [NSMutableDictionary dictionary];
-    NSMutableString *cookieValue = [NSMutableString stringWithFormat:@""];
-    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    for (NSHTTPCookie *cookie in [cookieJar cookies]) {
-        [cookieDic setObject:cookie.value forKey:cookie.name];
-    }
-
-    // cookie重复，先放到字典进行去重，再进行拼接
-    for (NSString *key in cookieDic) {
-        NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
-        [cookieValue appendString:appendString];
-    }
-    // cookie重复，先放到字典进行去重，再进行拼接
-    for (NSString *key in cookieDic) {
-        NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
-        [cookieValue appendString:appendString];
-    }
-    NSLog(@"request: %@\nCookie: %@",mutableReqeust,cookieValue);
-    [mutableReqeust addValue:cookieValue forHTTPHeaderField:@"Cookie"];
+//    [NSURLProtocol setProperty:@YES
+//                        forKey:hasInitKey
+//                     inRequest:mutableReqeust];
+//    NSMutableDictionary *cookieDic = [NSMutableDictionary dictionary];
+//    NSMutableString *cookieValue = [NSMutableString stringWithFormat:@""];
+//    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+//    for (NSHTTPCookie *cookie in [cookieJar cookies]) {
+//        [cookieDic setObject:cookie.value forKey:cookie.name];
+//    }
+//    // cookie重复，先放到字典进行去重，再进行拼接
+//    for (NSString *key in cookieDic) {
+//        NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
+//        [cookieValue appendString:appendString];
+//    }
+//    NSLog(@"request: %@\nCookie: %@",mutableReqeust,cookieValue);
+//    [mutableReqeust addValue:cookieValue forHTTPHeaderField:@"Cookie"];
     return mutableReqeust;
 }
 
@@ -78,12 +77,29 @@
 {
     //业务逻辑写这里
     NSMutableURLRequest * mutableRequest = [[self request] mutableCopy];
+    [NSURLProtocol setProperty:@YES
+                        forKey:hasInitKey
+                     inRequest:mutableRequest];
+    NSMutableDictionary *cookieDic = [NSMutableDictionary dictionary];
+    NSMutableString *cookieValue = [NSMutableString stringWithFormat:@""];
+    NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray * cookies = [cookieJar cookiesForURL:mutableRequest.URL];
+    for (NSHTTPCookie *cookie in cookies) {
+        [cookieDic setObject:cookie.value forKey:cookie.name];
+    }
+    // cookie重复，先放到字典进行去重，再进行拼接
+    for (NSString *key in cookieDic) {
+        NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
+        [cookieValue appendString:appendString];
+    }
+    NSLog(@"request: %@\nCookie: %@",mutableRequest,cookieValue);
+    [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
     NSLog(@"************ 开始请求 %@",mutableRequest.URL);
     NSURLSessionConfiguration * configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];//创建一个临时会话配置
     //网络请求
     self.session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[[NSOperationQueue alloc] init]];
     // 注 这里也可以添加代理 捕获用户请求数据
-    NSURLSessionDataTask * task = [self.session dataTaskWithRequest:self.request];
+    NSURLSessionDataTask * task = [self.session dataTaskWithRequest:mutableRequest];
     [task  resume];//开始任务
     [RnpCaptureDataManager.instance addRequest:task];
 }
@@ -97,14 +113,15 @@
 
 #pragma mark ---- NSURLSessionDelegate
 /*
- NSURLSessionDelegate接到数据后,通过URLProtocol传出去
- */
+   NSURLSessionDelegate接到数据后,通过URLProtocol传出去
+*/
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
 {
     //在这写入数据
     if (error){
         [self.client URLProtocol:self didFailWithError:error];
     }else{
+//        [self delayDidLoadData:task];
         [self.client URLProtocolDidFinishLoading:self];
     }
 }
@@ -123,10 +140,6 @@
     }
     [self.client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
     completionHandler(NSURLSessionResponseAllow);
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//
-//    });
-//
 }
 
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data
@@ -138,12 +151,15 @@
         [newData appendData:data];
     }
     model.originalData = newData;
-//    NSLog(@"currentRequest: %@  %@", dataTask.currentRequest, dataTask.response);
-    // 可以做消息拦截
     [self.client URLProtocol:self didLoadData:data];
 }
 - (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session{
     NSLog(@"");
+}
+
+- (void)delayDidLoadData:(NSURLSessionTask *)dataTask{
+    RnpDataModel * model = RnpCaptureDataManager.instance.requests_dict[dataTask];
+    [self.client URLProtocol:self didLoadData:model.originalData];
 }
 
 /// 开始监听

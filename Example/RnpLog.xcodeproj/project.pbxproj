@@ -38,7 +38,7 @@
 
 /* Begin PBXFileReference section */
 		17B7A56CAECAF22D080BCF59 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		2372DCF7AB7D5C6D09A6E77E /* RnpLog.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RnpLog.podspec; path = ../RnpLog.podspec; sourceTree = "<group>"; };
+		2372DCF7AB7D5C6D09A6E77E /* RnpLog.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RnpLog.podspec; path = ../RnpLog.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3A593D180CDBD9EA7186D7AB /* Pods-RnpLog_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnpLog_Example.debug.xcconfig"; path = "Target Support Files/Pods-RnpLog_Example/Pods-RnpLog_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		50D346EA0C2C722F93818FC1 /* Pods-RnpLog_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RnpLog_Tests.release.xcconfig"; path = "Target Support Files/Pods-RnpLog_Tests/Pods-RnpLog_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* RnpLog_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RnpLog_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
