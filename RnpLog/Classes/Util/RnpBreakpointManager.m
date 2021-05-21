@@ -69,10 +69,19 @@
 #pragma mark -- Public
 // 添加断点
 - (void)addBreakpointWithModel:(RnpBreakpointModel *)model{
-    if (!self.mutable_breakpoint_dict[model.url]) {
+    RnpBreakpointModel * breakpoint = self.mutable_breakpoint_dict[model.url];
+    if (!breakpoint) {
         self.mutable_breakpoint_dict[model.url] = model;
         [self.mutable_all_breakpoint addObject:model];
         self.mutable_activate_breakpoint_dict[model.url] = model;
+    }else{
+        breakpoint.url = model.url;
+        breakpoint.mockResultData = model.mockResultData;
+        breakpoint.mockRquestBodyData = model.mockRquestBodyData;
+        breakpoint.mockRquestHeaderData = model.mockRquestHeaderData;
+        breakpoint.isAfter = model.isAfter;
+        breakpoint.isBefore = model.isBefore;
+        breakpoint.isActivate = model.isActivate;
     }
 }
 

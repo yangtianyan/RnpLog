@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSObject (top)
 - (UIViewController *)topViewControllerWithRootViewController:(UIViewController *)rootViewController;
 - (UIViewController *)topViewControllerWithWindow:(UIWindow *)window;
+@property (nonatomic, weak, readonly) UIViewController * topViewController;
 @end
 
 NS_ASSUME_NONNULL_END

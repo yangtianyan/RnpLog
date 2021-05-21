@@ -14,6 +14,9 @@
 #import "RnpDataModel.h"
 #import "RnpBreakpointModel.h"
 #import <WebKit/WebKit.h>
+/* -- Controller -- */
+#import "DYBreakpointRequestController.h"
+#import "DYBreakpointResponseController.h"
 @interface RnpMarkerURLProtocol()<NSURLSessionDelegate>
 @property(nonatomic,strong)NSURLSession * session;
 @end
@@ -80,13 +83,25 @@
     NSLog(@"request: %@\nCookie: %@",mutableRequest,cookieValue);
     [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
     NSLog(@"************ 开始请求 %@",mutableRequest.URL);
-    NSURLSessionConfiguration * configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];//创建一个临时会话配置
 //    mutableRequest.URL.absoluteString;
-    mutableRequest.URL = [NSURL URLWithString:@"https://www.baidu.com"]; // yty fix 可以篡改请求接口
+//    mutableRequest.URL = [NSURL URLWithString:@"https://www.baidu.com"]; // yty fix 可以篡改请求接口
+    RnpBreakpointModel * breakpoint = [RnpBreakpointManager.instance getModelForUrl:mutableRequest.URL.absoluteString];
+    if (breakpoint.isActivate && breakpoint.isBefore) {
+        __weak typeof(self) weakSelf = self;
+        [DYBreakpointRequestController showWithRequest:mutableRequest completion:^{
+            [weakSelf startFetchWithRequest:mutableRequest];
+        }];
+    }else{
+        [self startFetchWithRequest:mutableRequest];
+    }
+}
+
+- (void)startFetchWithRequest:(NSURLRequest *)request{
     //网络请求
+    NSURLSessionConfiguration * configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];//创建一个临时会话配置
     self.session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:[[NSOperationQueue alloc] init]];
     // 注 这里也可以添加代理 捕获用户请求数据
-    NSURLSessionDataTask * task = [self.session dataTaskWithRequest:mutableRequest];
+    NSURLSessionDataTask * task = [self.session dataTaskWithRequest:request];
     [task  resume];//开始任务
     [RnpCaptureDataManager.instance addRequest:task];
 }
@@ -110,13 +125,24 @@
     }else{
         RnpBreakpointModel * breakpoint = [RnpBreakpointManager.instance getModelForUrl:task.originalRequest.URL.absoluteString];
         RnpDataModel * model = RnpCaptureDataManager.instance.requests_dict[task];
-        if (breakpoint) {
-            model.hookData = breakpoint.mockResultData;
-            [self.client URLProtocol:self didLoadData:model.hookData];
+        if (breakpoint.isActivate && breakpoint.isAfter) {
+            __weak typeof(self) weakSelf = self;
+            [DYBreakpointResponseController showWithDataModel:model completion:^{
+                [weakSelf finishFetchWithDataModel:model];
+            }];
+        }else{
+            if (breakpoint && breakpoint.mockResultData) {
+                model.hookData = breakpoint.mockResultData;
+            }
+            [self finishFetchWithDataModel:model];
         }
-//        [self delayDidLoadData:task];
-        [self.client URLProtocolDidFinishLoading:self];
     }
+}
+
+- (void)finishFetchWithDataModel:(RnpDataModel *)model{
+    [self.client URLProtocol:self didLoadData:model.hookData ?: model.originalData];
+    [self.client URLProtocolDidFinishLoading:self];
+
 }
 
 /// 这个地方可以延迟执行
@@ -144,7 +170,8 @@
         [newData appendData:data];
     }
     model.originalData = newData;
-    if (![RnpBreakpointManager.instance getModelForUrl:dataTask.originalRequest.URL.absoluteString]) {
+    RnpBreakpointModel * breakpoint = [RnpBreakpointManager.instance getModelForUrl:dataTask.originalRequest.URL.absoluteString];
+    if (!breakpoint) {
         [self.client URLProtocol:self didLoadData:data];
     }
 }

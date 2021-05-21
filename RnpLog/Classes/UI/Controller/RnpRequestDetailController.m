@@ -6,11 +6,14 @@
 //
 
 #import "RnpRequestDetailController.h"
+#import "RnpBreakpointInfoController.h"
 /* -- Model -- */
 #import "RnpDataModel.h"
 /* -- Util -- */
 #import "RnpDefine.h"
 #import <RnpKit/RnpKitAttributedString.h>
+#import "NSString+log.h"
+
 @interface RnpRequestDetailController ()<UITextViewDelegate>
 
 @property (nonatomic, strong) UITextView * textView;
@@ -32,32 +35,13 @@
 - (void)initNav{
     UIBarButtonItem * copy = [[UIBarButtonItem alloc] initWithTitle:@"复制" style:UIBarButtonItemStylePlain target:self action:@selector(copyAction)];
     UIBarButtonItem * airDrop = [[UIBarButtonItem alloc] initWithTitle:@"分享" style:UIBarButtonItemStylePlain target:self action:@selector(shareAction)];
-    self.navigationItem.rightBarButtonItems = @[airDrop,copy];
+    UIBarButtonItem * breakpoint = [[UIBarButtonItem alloc] initWithTitle:@"设置断点" style:UIBarButtonItemStylePlain target:self action:@selector(breakpointAct)];
+    self.navigationItem.rightBarButtonItems = @[airDrop,copy,breakpoint];
 }
 
 - (void)showText{
     NSString * content = [self.model rnpLogDataFormat];
-    NSMutableAttributedString * attribute = [[NSMutableAttributedString alloc] initWithString:content];
-    NSString * pattern0 = @"((.*?)\\s=)|(\"(.*?)\"\\s:)";
-    NSRange contentRange0 = NSMakeRange(0, content.length);
-    NSRegularExpression * express0 = [[NSRegularExpression alloc] initWithPattern:pattern0 options:NSRegularExpressionCaseInsensitive error:nil];
-    NSArray<NSTextCheckingResult *> * expressResults0 = [express0 matchesInString:content options:NSMatchingReportProgress range:contentRange0];
-
-    for (NSTextCheckingResult *check in expressResults0) {
-        NSRange range = NSMakeRange(check.range.location, check.range.length > 1 ? check.range.length - 1 : check.range.length);
-        UIColor * keycolor = [UIColor colorWithRed:58/255.f green:181/255.f blue:75/255.f alpha:1];
-        attribute.rnp.addAttributes_range(@{NSForegroundColorAttributeName : keycolor}, range);
-    }
-    
-    NSString * pattern = @"((https|http|ftp|rtsp|mms)?:\\/\\/)(.*?)(\"|\\s)";
-    NSRegularExpression * express = [[NSRegularExpression alloc] initWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:nil];
-    NSArray<NSTextCheckingResult *> * expressResults = [express matchesInString:content options:NSMatchingReportProgress range:contentRange0];
-    for (NSTextCheckingResult *check in expressResults) {
-        NSRange range = NSMakeRange(check.range.location, check.range.length > 1 ? check.range.length - 1 : check.range.length);
-        UIColor * httpcolor = [UIColor colorWithRed:97/255.f green:210/255.f blue:214/255.f alpha:1];
-        attribute.rnp.addAttributes_range(@{NSForegroundColorAttributeName : httpcolor}, range);
-    }
-
+    NSMutableAttributedString * attribute = content.toLogAttributedString.mutableCopy;
     NSArray * keys = @[@"URL:",@"Method:",@"Headers:",@"RequestBody:",@"Response:",@"ResponseHeader:", @"HookResponse:"];
     for (NSString * m_key in keys) {
         UIColor * keycolor = rgba(146, 38, 143, 1);
@@ -94,6 +78,11 @@
 - (void)shareAction {
     UIActivityViewController * vc = [[UIActivityViewController alloc] initWithActivityItems:@[self.textView.text] applicationActivities:nil];
     [self presentViewController:vc animated:YES completion:nil];
+}
+- (void)breakpointAct{
+    RnpBreakpointInfoController * vc = [RnpBreakpointInfoController new];
+    vc.dataModel = self.model;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -- 生命周期

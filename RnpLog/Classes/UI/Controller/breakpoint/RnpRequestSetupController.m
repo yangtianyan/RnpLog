@@ -8,6 +8,7 @@
 #import "RnpRequestSetupController.h"
 /* -- Util -- */
 #import "RnpDefine.h"
+#import "NSString+log.h"
 @interface RnpRequestSetupController ()
 
 @property (nonatomic, strong) UITextView * textView;
@@ -20,11 +21,13 @@
     UIBarButtonItem * saveItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(saveAct)];
     self.navigationItem.rightBarButtonItems =@[saveItem] ;
 }
+
 - (void)initUI{
     self.textView = UITextViewNew().rnp
     .backgroundColor(UIColor.whiteColor)
     .translatesAutoresizingMaskIntoConstraints(false)
     .addToSuperView(self.view)
+    .attributedText(self.text.toLogAttributedString)
     .mas_makeConstraints(^(MASConstraintMaker *make){
         make.edges.mas_equalTo(0);
     })

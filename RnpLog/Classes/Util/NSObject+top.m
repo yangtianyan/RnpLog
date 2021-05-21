@@ -6,7 +6,7 @@
 //
 
 #import "NSObject+top.h"
-
+#import "RnpDefine.h"
 @implementation NSObject (top)
 
 - (UIViewController *)topViewControllerWithRootViewController:
@@ -28,5 +28,10 @@
 }
 - (UIViewController *)topViewControllerWithWindow:(UIWindow *)window{
     return [self topViewControllerWithRootViewController:window.rootViewController];
+}
+
+- (UIViewController *)topViewController
+{
+    return [self topViewControllerWithWindow:currentWindow()];
 }
 @end

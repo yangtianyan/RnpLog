@@ -18,6 +18,7 @@
 /* -- Util -- */
 #import "RnpDefine.h"
 #import "NSData+log.h"
+#import "NSDictionary+log.h"
 
 static const NSString * kUrl = @"kUrl";
 static const NSString * kRequestHeader = @"设置请求头";
@@ -38,6 +39,10 @@ static const NSString * kRequestAfter = @"请求后";
 
 @property (nonatomic, copy)   NSString * mock_response;
 
+@property (nonatomic, copy)   NSString * mock_request_header;
+
+@property (nonatomic, copy)   NSString * mock_request_body;
+
 @end
 
 @implementation RnpBreakpointInfoController
@@ -56,22 +61,52 @@ static const NSString * kRequestAfter = @"请求后";
     }];
 }
 - (void)initData{
-    self.breakpoint = self.breakpoint ?: [RnpBreakpointModel new];
+    if (!self.breakpoint) {
+        self.breakpoint = [RnpBreakpointModel new];
+        self.breakpoint.mockResultData = self.dataModel.originalData;
+//        self.breakpoint.mockRquestHeaderData = [self.dataModel.task.originalRequest.allHTTPHeaderFields.toJson dataUsingEncoding:NSUTF8StringEncoding];
+//        self.breakpoint.mockRquestBodyData = [self requestBody];
+    }
+    self.mock_response = self.breakpoint.mockResultData.toString;
+//    self.mock_request_header = self.breakpoint.mockRquestHeaderData.toString;
+//    self.mock_request_body = self.breakpoint.mockRquestBodyData.toString;
+
     if (self.breakpoint.isActivate) {
-        self.dataArr = @[kUrl,kRequestHeader,kRequestBody,kResponse,kEnabled,kRequestBefore,kRequestAfter];
+        self.dataArr = @[kUrl,kResponse,kEnabled,kRequestBefore,kRequestAfter];
     }else{
-        self.dataArr = @[kUrl,kRequestHeader,kRequestBody,kResponse];
+        self.dataArr = @[kUrl,kResponse,kEnabled];
     }
     if (self.dataModel) {
         self.url = self.dataModel.task.originalRequest.URL.absoluteString;
     }else{
         self.url = self.breakpoint.url;
     }
-    self.mock_response = self.breakpoint.mockResultData.toString;
     [self.breakpoint addObserver:self forKeyPath:@"isActivate" options:NSKeyValueObservingOptionNew context:nil];
     [self.breakpoint addObserver:self forKeyPath:@"isBefore" options:NSKeyValueObservingOptionNew context:nil];
     [self.breakpoint addObserver:self forKeyPath:@"isAfter" options:NSKeyValueObservingOptionNew context:nil];
 }
+- (NSData *)requestBody{
+    NSURLRequest * request = self.dataModel.task.originalRequest;
+    if (request.HTTPBody) {
+        return request.HTTPBody;
+    }else if (request.HTTPBodyStream){
+        uint8_t d[1024] = {0};
+        NSInputStream *stream = request.HTTPBodyStream;
+        NSMutableData *data = [[NSMutableData alloc] init];
+        [stream open];
+        
+        while ([stream hasBytesAvailable]) {
+            NSInteger len = [stream read:d maxLength:1024];
+            if (len > 0 && stream.streamError == nil) {
+                [data appendBytes:(void *)d length:len];
+            }
+        }
+        [stream close];
+        return data;
+    }
+    return nil;
+}
+
 #pragma mark -- Action
 - (void)saveAct{
     if (self.url.length > 0) {
@@ -79,8 +114,30 @@ static const NSString * kRequestAfter = @"请求后";
         if (self.mock_response) {
             self.breakpoint.mockResultData = [self.mock_response dataUsingEncoding:NSUTF8StringEncoding];
         }
-        [RnpBreakpointManager.instance addBreakpointWithModel:self.breakpoint];
-        [self.navigationController popViewControllerAnimated:YES];
+        if (self.mock_request_body) {
+            self.breakpoint.mockRquestBodyData = [self.mock_request_body dataUsingEncoding:NSUTF8StringEncoding];
+        }
+        
+        if (self.mock_request_header) {
+            self.breakpoint.mockResultData = [self.mock_request_header dataUsingEncoding:NSUTF8StringEncoding];
+        }
+        
+        if ([RnpBreakpointManager.instance getModelForUrl:self.url]) {
+            __weak typeof(self) weakSelf = self;
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"" message:@"已设置断点, 确认更换断点信息?" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [RnpBreakpointManager.instance addBreakpointWithModel:weakSelf.breakpoint];
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            }];
+            [alertController addAction:cancelAction];
+            [alertController addAction:okAction];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }else{
+            [RnpBreakpointManager.instance addBreakpointWithModel:self.breakpoint];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 #pragma mark -- lazy
@@ -158,15 +215,28 @@ static const NSString * kRequestAfter = @"请求后";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.view endEditing:YES];
     NSString * string = self.dataArr[indexPath.row];
-    RnpRequestSetupController * controller = [RnpRequestSetupController new];
-    __weak typeof(self) weakSelf = self;
-    if ([string isEqual:kResponse]) {
-        controller.text = self.mock_response;
-        controller.onSaveBlock = ^(NSString * _Nonnull text) {
-            weakSelf.mock_response = text;
-        };
+    if([string isEqual:kResponse] || [string isEqual:kRequestHeader] || [string isEqual:kRequestBody]){
+        RnpRequestSetupController * controller = [RnpRequestSetupController new];
+        controller.title = string;
+        __weak typeof(self) weakSelf = self;
+        if ([string isEqual:kResponse]) {
+            controller.text = self.mock_response;
+            controller.onSaveBlock = ^(NSString * _Nonnull text) {
+                weakSelf.mock_response = text;
+            };
+        }else if ([string isEqual:kRequestHeader]){
+            controller.text = self.mock_request_header;
+            controller.onSaveBlock = ^(NSString * _Nonnull text) {
+                weakSelf.mock_request_header = text;
+            };
+        }else if ([string isEqual:kRequestBody]){
+            controller.text = self.mock_request_body;
+            controller.onSaveBlock = ^(NSString * _Nonnull text) {
+                weakSelf.mock_request_body = text;
+            };
+        }
+        [self.navigationController pushViewController:controller animated:YES];
     }
-    [self.navigationController pushViewController:controller animated:YES];
 }
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {

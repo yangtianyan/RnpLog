@@ -21,6 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSData * mockResultData;// 模拟的数据
 
+@property (nonatomic, copy) NSData * mockRquestHeaderData;// 模拟的请求头数据
+
+@property (nonatomic, copy) NSData * mockRquestBodyData;// 模拟器的请求体数据
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -11,6 +11,7 @@
 #import <SDWebImage/SDWebImage.h>
 #import <AFNetworking/AFNetworking.h>
 #import <RnpKit/RnpKitView.h>
+//#import <RnpLog/NSObject+>
 
 @interface RNPViewController ()
 
@@ -39,8 +40,14 @@
         NSString * url = @"https://dev.namibox.com/dy/dyhome?grade=4b&device_screen_width=375.000000";
         url = @"https://unsplash.com/napi/photos?page=0&per_page=2&order_by=latest";
 //        url = @"https://www.taobao.com/";
+        __weak typeof(self) weakSelf = self;
         [session GET:url parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSString *string = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"请求成功" message:[NSString stringWithFormat:@"响应结果 %@", string] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            }];
+            [alertController addAction:cancelAction];
+            [weakSelf presentViewController:alertController animated:YES completion:nil];
             NSLog(@"success %@",string);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"failure");

@@ -22,6 +22,12 @@
 		04212DB6265632AD007AB0C7 /* RnpBreakpointSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04212DB4265632AD007AB0C7 /* RnpBreakpointSwitchCell.m */; };
 		04212DE526566778007AB0C7 /* NSObject+top.h in Headers */ = {isa = PBXBuildFile; fileRef = 04212DE326566778007AB0C7 /* NSObject+top.h */; };
 		04212DE626566778007AB0C7 /* NSObject+top.m in Sources */ = {isa = PBXBuildFile; fileRef = 04212DE426566778007AB0C7 /* NSObject+top.m */; };
+		04212E3826574196007AB0C7 /* DYBreakpointRequestController.h in Headers */ = {isa = PBXBuildFile; fileRef = 04212E3626574196007AB0C7 /* DYBreakpointRequestController.h */; };
+		04212E3926574196007AB0C7 /* DYBreakpointRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04212E3726574196007AB0C7 /* DYBreakpointRequestController.m */; };
+		04212E8726578469007AB0C7 /* NSString+log.h in Headers */ = {isa = PBXBuildFile; fileRef = 04212E8526578469007AB0C7 /* NSString+log.h */; };
+		04212E8826578469007AB0C7 /* NSString+log.m in Sources */ = {isa = PBXBuildFile; fileRef = 04212E8626578469007AB0C7 /* NSString+log.m */; };
+		04212E922657881B007AB0C7 /* DYBreakpointResponseController.h in Headers */ = {isa = PBXBuildFile; fileRef = 04212E902657881B007AB0C7 /* DYBreakpointResponseController.h */; };
+		04212E932657881B007AB0C7 /* DYBreakpointResponseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04212E912657881B007AB0C7 /* DYBreakpointResponseController.m */; };
 		04762E2F6696F6B57AC647288F800D2D /* SDWebImageCacheKeyFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = E6B250424A41319B85BB55ECF65C5C6C /* SDWebImageCacheKeyFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04A0B79B132840B90C4BBC27DE969787 /* RnpUITextViewChain.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57F548FD6DA485B1C7C71873A42EDD /* RnpUITextViewChain.m */; };
 		051800760BD797043C7450FAB2F13F67 /* NSData+log.h in Headers */ = {isa = PBXBuildFile; fileRef = C3EEA617789114DCCA46B40445F27ABC /* NSData+log.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -417,6 +423,12 @@
 		04212DB4265632AD007AB0C7 /* RnpBreakpointSwitchCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RnpBreakpointSwitchCell.m; sourceTree = "<group>"; };
 		04212DE326566778007AB0C7 /* NSObject+top.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+top.h"; sourceTree = "<group>"; };
 		04212DE426566778007AB0C7 /* NSObject+top.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+top.m"; sourceTree = "<group>"; };
+		04212E3626574196007AB0C7 /* DYBreakpointRequestController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DYBreakpointRequestController.h; sourceTree = "<group>"; };
+		04212E3726574196007AB0C7 /* DYBreakpointRequestController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DYBreakpointRequestController.m; sourceTree = "<group>"; };
+		04212E8526578469007AB0C7 /* NSString+log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+log.h"; sourceTree = "<group>"; };
+		04212E8626578469007AB0C7 /* NSString+log.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+log.m"; sourceTree = "<group>"; };
+		04212E902657881B007AB0C7 /* DYBreakpointResponseController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DYBreakpointResponseController.h; sourceTree = "<group>"; };
+		04212E912657881B007AB0C7 /* DYBreakpointResponseController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DYBreakpointResponseController.m; sourceTree = "<group>"; };
 		04C507C657632C81373A559A6807EE77 /* RnpDataModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RnpDataModel.h; sourceTree = "<group>"; };
 		04F533FA50B637593192B456EF412223 /* MASViewAttribute.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASViewAttribute.m; path = Masonry/MASViewAttribute.m; sourceTree = "<group>"; };
 		0620FDED2244E2AF500899021774433F /* SDInternalMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDInternalMacros.h; path = SDWebImage/Private/SDInternalMacros.h; sourceTree = "<group>"; };
@@ -861,6 +873,10 @@
 				ADFC01E3CEC34D4E44084DA1FFE828F8 /* RnpBreakpointListController.m */,
 				04212D4626560217007AB0C7 /* RnpRequestSetupController.h */,
 				04212D4726560217007AB0C7 /* RnpRequestSetupController.m */,
+				04212E3626574196007AB0C7 /* DYBreakpointRequestController.h */,
+				04212E3726574196007AB0C7 /* DYBreakpointRequestController.m */,
+				04212E902657881B007AB0C7 /* DYBreakpointResponseController.h */,
+				04212E912657881B007AB0C7 /* DYBreakpointResponseController.m */,
 			);
 			path = breakpoint;
 			sourceTree = "<group>";
@@ -1511,6 +1527,8 @@
 				04212D3426550A9A007AB0C7 /* RnpBreakpointManager.m */,
 				04212DE326566778007AB0C7 /* NSObject+top.h */,
 				04212DE426566778007AB0C7 /* NSObject+top.m */,
+				04212E8526578469007AB0C7 /* NSString+log.h */,
+				04212E8626578469007AB0C7 /* NSString+log.m */,
 			);
 			name = Util;
 			path = RnpLog/Classes/Util;
@@ -1717,9 +1735,11 @@
 				A92D22333B0E7A82C8B407FCEC31DBBB /* RnpBreakpointInfoController.h in Headers */,
 				04212DB5265632AD007AB0C7 /* RnpBreakpointSwitchCell.h in Headers */,
 				76BBFF7C3EF9ED30C07990D9DADE883B /* RnpBreakpointListController.h in Headers */,
+				04212E922657881B007AB0C7 /* DYBreakpointResponseController.h in Headers */,
 				8CD36A0FDD0CBEAFCA522ECD4883CC65 /* RnpBreakpointModel.h in Headers */,
 				062986B720FB15FD6C9AF2534D50035B /* RnpCaptureDataManager.h in Headers */,
 				04212D3526550A9A007AB0C7 /* RnpBreakpointManager.h in Headers */,
+				04212E8726578469007AB0C7 /* NSString+log.h in Headers */,
 				6B6DFDE0C53083B02AD757B2CCAE8CE0 /* RnpDataModel.h in Headers */,
 				4B3015C5BC254A04D77105CBB94435CE /* RnpDefine.h in Headers */,
 				2730AE0FA07E6DCCA567B78B62A58959 /* RnpEnterPlugView.h in Headers */,
@@ -1727,6 +1747,7 @@
 				BD59A24B287A4BCE5E4F03F82A021364 /* RnpLogListController.h in Headers */,
 				04212D6C26560658007AB0C7 /* RnpAddBreakpointUrlCell.h in Headers */,
 				DA3E5323821D570ADD21B047AA2773D4 /* RnpMarkerURLProtocol.h in Headers */,
+				04212E3826574196007AB0C7 /* DYBreakpointRequestController.h in Headers */,
 				423B93F5E715401614FBFC95AACE41B4 /* RnpRequestCell.h in Headers */,
 				04212D4826560217007AB0C7 /* RnpRequestSetupController.h in Headers */,
 				6257A906BC6E96A874747BC94978CA88 /* RnpRequestDetailController.h in Headers */,
@@ -2030,13 +2051,16 @@
 				88C370289C1390603BA78271E51B2D11 /* RnpCaptureDataManager.m in Sources */,
 				F3E6F6049DF55E9BEB675C19A75E2149 /* RnpDataModel.m in Sources */,
 				F4D8793FBA7D1F9AFA996299514C0576 /* RnpEnterPlugView.m in Sources */,
+				04212E932657881B007AB0C7 /* DYBreakpointResponseController.m in Sources */,
 				34DB99FC1D1770B6950A0D6A1C8FF60E /* RnpLog-dummy.m in Sources */,
 				4000825779B3B1F45F4C6C0D3C888C2A /* RnpLogListController.m in Sources */,
 				A221282DB1298364571F3CFCBB67C440 /* RnpMarkerURLProtocol.m in Sources */,
 				35A4FC132B0BA3066F84726366F67576 /* RnpRequestCell.m in Sources */,
+				04212E8826578469007AB0C7 /* NSString+log.m in Sources */,
 				04212D3626550A9A007AB0C7 /* RnpBreakpointManager.m in Sources */,
 				8D8F9C2A4E8B91325CB6F9A920BD0803 /* RnpRequestDetailController.m in Sources */,
 				9F189D149F9ADB6FC91523545122A94D /* RnpSessionConfiguration.m in Sources */,
+				04212E3926574196007AB0C7 /* DYBreakpointRequestController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
