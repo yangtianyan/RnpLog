@@ -12,10 +12,17 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        self.isActivate = true;
+        _isActivate = true;
         self.isAfter = true;
     }
     return self;
+}
+
+- (void)setIsActivate:(BOOL)isActivate
+{
+    _isActivate = isActivate;
+    self.isAfter = isActivate;
+    self.isBefore = isActivate;
 }
 
 @end
