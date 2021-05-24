@@ -109,10 +109,10 @@
     })
     .text(title)
     .view;
-    NSMutableAttributedString * attribute = info.toLogAttributedString;
+    
     *textView = UITextViewNew().rnp
     .addToSuperView(view)
-    .attributedText(attribute)
+    .attributedText(info.toLogAttributedString)
     .mas_makeConstraints(^(MASConstraintMaker * make){
         make.left.right.equalTo(label);
         make.top.equalTo(label.mas_bottom).offset(10.f);

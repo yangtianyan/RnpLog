@@ -23,6 +23,7 @@
 }
 
 - (void)initUI{
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.textView = UITextViewNew().rnp
     .backgroundColor(UIColor.whiteColor)
     .translatesAutoresizingMaskIntoConstraints(false)

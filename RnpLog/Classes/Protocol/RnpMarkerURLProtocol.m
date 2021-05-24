@@ -10,6 +10,7 @@
 /* -- Manager -- */
 #import "RnpCaptureDataManager.h"
 #import "RnpBreakpointManager.h"
+#import "RnpReplaceHostManager.h"
 /* -- Model -- */
 #import "RnpDataModel.h"
 #import "RnpBreakpointModel.h"
@@ -83,8 +84,8 @@
     NSLog(@"request: %@\nCookie: %@",mutableRequest,cookieValue);
     [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
     NSLog(@"************ 开始请求 %@",mutableRequest.URL);
-//    mutableRequest.URL.absoluteString;
 //    mutableRequest.URL = [NSURL URLWithString:@"https://www.baidu.com"]; // yty fix 可以篡改请求接口
+    mutableRequest = [RnpReplaceHostManager.instance checkAndReplaceHost:mutableRequest];
     RnpBreakpointModel * breakpoint = [RnpBreakpointManager.instance getModelForUrl:mutableRequest.URL.absoluteString];
     if (breakpoint.isActivate && breakpoint.isBefore) {
         __weak typeof(self) weakSelf = self;
@@ -128,21 +129,19 @@
         if (breakpoint.isActivate && breakpoint.isAfter) {
             __weak typeof(self) weakSelf = self;
             [DYBreakpointResponseController showWithDataModel:model completion:^{
-                [weakSelf finishFetchWithDataModel:model];
+                [weakSelf finishFetchWithDataModel:model ];
             }];
         }else{
             if (breakpoint && breakpoint.mockResultData) {
                 model.hookData = breakpoint.mockResultData;
             }
-            [self finishFetchWithDataModel:model];
+            [self.client URLProtocolDidFinishLoading:self];
         }
     }
 }
 
 - (void)finishFetchWithDataModel:(RnpDataModel *)model{
     [self.client URLProtocol:self didLoadData:model.hookData ?: model.originalData];
-    [self.client URLProtocolDidFinishLoading:self];
-
 }
 
 /// 这个地方可以延迟执行

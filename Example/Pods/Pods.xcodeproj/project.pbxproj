@@ -28,6 +28,14 @@
 		04212E8826578469007AB0C7 /* NSString+log.m in Sources */ = {isa = PBXBuildFile; fileRef = 04212E8626578469007AB0C7 /* NSString+log.m */; };
 		04212E922657881B007AB0C7 /* DYBreakpointResponseController.h in Headers */ = {isa = PBXBuildFile; fileRef = 04212E902657881B007AB0C7 /* DYBreakpointResponseController.h */; };
 		04212E932657881B007AB0C7 /* DYBreakpointResponseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04212E912657881B007AB0C7 /* DYBreakpointResponseController.m */; };
+		04212F22265B4B03007AB0C7 /* RnpReplaceHostController.h in Headers */ = {isa = PBXBuildFile; fileRef = 04212F20265B4B03007AB0C7 /* RnpReplaceHostController.h */; };
+		04212F23265B4B03007AB0C7 /* RnpReplaceHostController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04212F21265B4B03007AB0C7 /* RnpReplaceHostController.m */; };
+		04212FEE265B755D007AB0C7 /* RnpReplaceHostCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 04212FEC265B755D007AB0C7 /* RnpReplaceHostCell.h */; };
+		04212FEF265B755D007AB0C7 /* RnpReplaceHostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04212FED265B755D007AB0C7 /* RnpReplaceHostCell.m */; };
+		04213000265B79EE007AB0C7 /* RnpReplaceHostManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 04212FFE265B79EE007AB0C7 /* RnpReplaceHostManager.h */; };
+		04213001265B79EE007AB0C7 /* RnpReplaceHostManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04212FFF265B79EE007AB0C7 /* RnpReplaceHostManager.m */; };
+		04213012265B7EBE007AB0C7 /* RnpReplaceHostModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 04213010265B7EBE007AB0C7 /* RnpReplaceHostModel.h */; };
+		04213013265B7EBE007AB0C7 /* RnpReplaceHostModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04213011265B7EBE007AB0C7 /* RnpReplaceHostModel.m */; };
 		04762E2F6696F6B57AC647288F800D2D /* SDWebImageCacheKeyFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = E6B250424A41319B85BB55ECF65C5C6C /* SDWebImageCacheKeyFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04A0B79B132840B90C4BBC27DE969787 /* RnpUITextViewChain.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57F548FD6DA485B1C7C71873A42EDD /* RnpUITextViewChain.m */; };
 		051800760BD797043C7450FAB2F13F67 /* NSData+log.h in Headers */ = {isa = PBXBuildFile; fileRef = C3EEA617789114DCCA46B40445F27ABC /* NSData+log.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -429,6 +437,14 @@
 		04212E8626578469007AB0C7 /* NSString+log.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+log.m"; sourceTree = "<group>"; };
 		04212E902657881B007AB0C7 /* DYBreakpointResponseController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DYBreakpointResponseController.h; sourceTree = "<group>"; };
 		04212E912657881B007AB0C7 /* DYBreakpointResponseController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DYBreakpointResponseController.m; sourceTree = "<group>"; };
+		04212F20265B4B03007AB0C7 /* RnpReplaceHostController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RnpReplaceHostController.h; sourceTree = "<group>"; };
+		04212F21265B4B03007AB0C7 /* RnpReplaceHostController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RnpReplaceHostController.m; sourceTree = "<group>"; };
+		04212FEC265B755D007AB0C7 /* RnpReplaceHostCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RnpReplaceHostCell.h; sourceTree = "<group>"; };
+		04212FED265B755D007AB0C7 /* RnpReplaceHostCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RnpReplaceHostCell.m; sourceTree = "<group>"; };
+		04212FFE265B79EE007AB0C7 /* RnpReplaceHostManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RnpReplaceHostManager.h; sourceTree = "<group>"; };
+		04212FFF265B79EE007AB0C7 /* RnpReplaceHostManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RnpReplaceHostManager.m; sourceTree = "<group>"; };
+		04213010265B7EBE007AB0C7 /* RnpReplaceHostModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RnpReplaceHostModel.h; sourceTree = "<group>"; };
+		04213011265B7EBE007AB0C7 /* RnpReplaceHostModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RnpReplaceHostModel.m; sourceTree = "<group>"; };
 		04C507C657632C81373A559A6807EE77 /* RnpDataModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RnpDataModel.h; sourceTree = "<group>"; };
 		04F533FA50B637593192B456EF412223 /* MASViewAttribute.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MASViewAttribute.m; path = Masonry/MASViewAttribute.m; sourceTree = "<group>"; };
 		0620FDED2244E2AF500899021774433F /* SDInternalMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDInternalMacros.h; path = SDWebImage/Private/SDInternalMacros.h; sourceTree = "<group>"; };
@@ -881,6 +897,24 @@
 			path = breakpoint;
 			sourceTree = "<group>";
 		};
+		04212F1F265B4A9A007AB0C7 /* replaceHost */ = {
+			isa = PBXGroup;
+			children = (
+				04212F20265B4B03007AB0C7 /* RnpReplaceHostController.h */,
+				04212F21265B4B03007AB0C7 /* RnpReplaceHostController.m */,
+			);
+			path = replaceHost;
+			sourceTree = "<group>";
+		};
+		04212FEB265B7543007AB0C7 /* ReplaceHost */ = {
+			isa = PBXGroup;
+			children = (
+				04212FEC265B755D007AB0C7 /* RnpReplaceHostCell.h */,
+				04212FED265B755D007AB0C7 /* RnpReplaceHostCell.m */,
+			);
+			path = ReplaceHost;
+			sourceTree = "<group>";
+		};
 		0B5190B01825AD6145BA6C2104C970E4 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -956,6 +990,8 @@
 				91686DCBEB9FE053C0E49129C6BD1E20 /* RnpBreakpointModel.m */,
 				04C507C657632C81373A559A6807EE77 /* RnpDataModel.h */,
 				8826D9776B42E7FBCF546A003671A353 /* RnpDataModel.m */,
+				04213010265B7EBE007AB0C7 /* RnpReplaceHostModel.h */,
+				04213011265B7EBE007AB0C7 /* RnpReplaceHostModel.m */,
 			);
 			name = Model;
 			path = RnpLog/Classes/Model;
@@ -1074,6 +1110,7 @@
 		6FE4D43DBD16545CBCB51A0734E2DA48 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				04212F1F265B4A9A007AB0C7 /* replaceHost */,
 				04212DE22656577A007AB0C7 /* breakpoint */,
 				CC77EA6009E2FCA39AD536E9AAA1B73D /* RnpLogListController.h */,
 				F88D5CB127516CFD82B1B4ED1BF63D6D /* RnpLogListController.m */,
@@ -1189,6 +1226,7 @@
 		8286FD27B70F5F71B52E42E0C313F7B3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04212FEB265B7543007AB0C7 /* ReplaceHost */,
 				04212D452655F8B0007AB0C7 /* AddBreakpoint */,
 				6701D8F04E056A727D024A9FDA6C1687 /* RnpEnterPlugView.h */,
 				74AA78B76267DFB7771BFBDEEE3DE9EC /* RnpEnterPlugView.m */,
@@ -1525,6 +1563,8 @@
 				438F640E0247751DC1FFBDCA16872A37 /* RnpCaptureDataManager.m */,
 				04212D3326550A9A007AB0C7 /* RnpBreakpointManager.h */,
 				04212D3426550A9A007AB0C7 /* RnpBreakpointManager.m */,
+				04212FFE265B79EE007AB0C7 /* RnpReplaceHostManager.h */,
+				04212FFF265B79EE007AB0C7 /* RnpReplaceHostManager.m */,
 				04212DE326566778007AB0C7 /* NSObject+top.h */,
 				04212DE426566778007AB0C7 /* NSObject+top.m */,
 				04212E8526578469007AB0C7 /* NSString+log.h */,
@@ -1731,6 +1771,7 @@
 			files = (
 				051800760BD797043C7450FAB2F13F67 /* NSData+log.h in Headers */,
 				0FBF1F1432229E6955D0E40BD3CBC42E /* NSDictionary+log.h in Headers */,
+				04213000265B79EE007AB0C7 /* RnpReplaceHostManager.h in Headers */,
 				04212DE526566778007AB0C7 /* NSObject+top.h in Headers */,
 				A92D22333B0E7A82C8B407FCEC31DBBB /* RnpBreakpointInfoController.h in Headers */,
 				04212DB5265632AD007AB0C7 /* RnpBreakpointSwitchCell.h in Headers */,
@@ -1739,7 +1780,9 @@
 				8CD36A0FDD0CBEAFCA522ECD4883CC65 /* RnpBreakpointModel.h in Headers */,
 				062986B720FB15FD6C9AF2534D50035B /* RnpCaptureDataManager.h in Headers */,
 				04212D3526550A9A007AB0C7 /* RnpBreakpointManager.h in Headers */,
+				04212FEE265B755D007AB0C7 /* RnpReplaceHostCell.h in Headers */,
 				04212E8726578469007AB0C7 /* NSString+log.h in Headers */,
+				04213012265B7EBE007AB0C7 /* RnpReplaceHostModel.h in Headers */,
 				6B6DFDE0C53083B02AD757B2CCAE8CE0 /* RnpDataModel.h in Headers */,
 				4B3015C5BC254A04D77105CBB94435CE /* RnpDefine.h in Headers */,
 				2730AE0FA07E6DCCA567B78B62A58959 /* RnpEnterPlugView.h in Headers */,
@@ -1751,6 +1794,7 @@
 				423B93F5E715401614FBFC95AACE41B4 /* RnpRequestCell.h in Headers */,
 				04212D4826560217007AB0C7 /* RnpRequestSetupController.h in Headers */,
 				6257A906BC6E96A874747BC94978CA88 /* RnpRequestDetailController.h in Headers */,
+				04212F22265B4B03007AB0C7 /* RnpReplaceHostController.h in Headers */,
 				57698B96913EECF6838E53C125FF4F42 /* RnpSessionConfiguration.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2049,18 +2093,22 @@
 				04212DB6265632AD007AB0C7 /* RnpBreakpointSwitchCell.m in Sources */,
 				04212DE626566778007AB0C7 /* NSObject+top.m in Sources */,
 				88C370289C1390603BA78271E51B2D11 /* RnpCaptureDataManager.m in Sources */,
+				04213001265B79EE007AB0C7 /* RnpReplaceHostManager.m in Sources */,
 				F3E6F6049DF55E9BEB675C19A75E2149 /* RnpDataModel.m in Sources */,
 				F4D8793FBA7D1F9AFA996299514C0576 /* RnpEnterPlugView.m in Sources */,
 				04212E932657881B007AB0C7 /* DYBreakpointResponseController.m in Sources */,
 				34DB99FC1D1770B6950A0D6A1C8FF60E /* RnpLog-dummy.m in Sources */,
+				04213013265B7EBE007AB0C7 /* RnpReplaceHostModel.m in Sources */,
 				4000825779B3B1F45F4C6C0D3C888C2A /* RnpLogListController.m in Sources */,
 				A221282DB1298364571F3CFCBB67C440 /* RnpMarkerURLProtocol.m in Sources */,
 				35A4FC132B0BA3066F84726366F67576 /* RnpRequestCell.m in Sources */,
+				04212FEF265B755D007AB0C7 /* RnpReplaceHostCell.m in Sources */,
 				04212E8826578469007AB0C7 /* NSString+log.m in Sources */,
 				04212D3626550A9A007AB0C7 /* RnpBreakpointManager.m in Sources */,
 				8D8F9C2A4E8B91325CB6F9A920BD0803 /* RnpRequestDetailController.m in Sources */,
 				9F189D149F9ADB6FC91523545122A94D /* RnpSessionConfiguration.m in Sources */,
 				04212E3926574196007AB0C7 /* DYBreakpointRequestController.m in Sources */,
+				04212F23265B4B03007AB0C7 /* RnpReplaceHostController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

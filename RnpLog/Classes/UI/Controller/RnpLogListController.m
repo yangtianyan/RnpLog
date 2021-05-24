@@ -8,6 +8,7 @@
 #import "RnpLogListController.h"
 #import "RnpRequestDetailController.h"
 #import "RnpBreakpointListController.h"
+#import "RnpReplaceHostController.h"
 /* -- View --*/
 #import "RnpEnterPlugView.h"
 #import "RnpRequestCell.h"
@@ -28,8 +29,10 @@
     self.navigationItem.leftBarButtonItem = backItem;
     UIBarButtonItem * clearItem = [[UIBarButtonItem alloc] initWithTitle:@"清空" style:UIBarButtonItemStylePlain target:self action:@selector(clearAct)];
     UIBarButtonItem * breakpointItem = [[UIBarButtonItem alloc] initWithTitle:@"断点" style:UIBarButtonItemStylePlain target:self action:@selector(breakpointAct)];
+    UIBarButtonItem * replaceItem = [[UIBarButtonItem alloc] initWithTitle:@"域名替换" style:UIBarButtonItemStylePlain target:self action:@selector(replaceHostAct)];
 
-    self.navigationItem.rightBarButtonItems =@[clearItem, breakpointItem] ;
+    self.navigationItem.rightBarButtonItems =@[clearItem, breakpointItem, replaceItem];
+    
     self.title = @"网络请求列表";
     
     self.view.rnp
@@ -50,6 +53,9 @@
 }
 - (void)breakpointAct{
     [self.navigationController pushViewController:[RnpBreakpointListController new] animated:YES];
+}
+- (void)replaceHostAct{
+    [self.navigationController pushViewController:[RnpReplaceHostController new] animated:YES];
 }
 #pragma mark -- lazy
 - (UITableView *)tableView

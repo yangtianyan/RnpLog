@@ -79,9 +79,9 @@
         breakpoint.mockResultData = model.mockResultData;
         breakpoint.mockRquestBodyData = model.mockRquestBodyData;
         breakpoint.mockRquestHeaderData = model.mockRquestHeaderData;
+        breakpoint.isActivate = model.isActivate;
         breakpoint.isAfter = model.isAfter;
         breakpoint.isBefore = model.isBefore;
-        breakpoint.isActivate = model.isActivate;
     }
 }
 
