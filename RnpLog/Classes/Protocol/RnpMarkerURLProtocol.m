@@ -134,6 +134,7 @@
         }else{
             if (breakpoint && breakpoint.mockResultData) {
                 model.hookData = breakpoint.mockResultData;
+                [self.client URLProtocol:self didLoadData:model.hookData ?: model.originalData];
             }
             [self.client URLProtocolDidFinishLoading:self];
         }
@@ -142,6 +143,7 @@
 
 - (void)finishFetchWithDataModel:(RnpDataModel *)model{
     [self.client URLProtocol:self didLoadData:model.hookData ?: model.originalData];
+    [self.client URLProtocolDidFinishLoading:self];
 }
 
 /// 这个地方可以延迟执行

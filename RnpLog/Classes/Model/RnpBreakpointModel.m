@@ -13,7 +13,7 @@
 {
     if (self = [super init]) {
         _isActivate = true;
-        self.isAfter = true;
+        _isAfter = true;
     }
     return self;
 }
@@ -21,8 +21,8 @@
 - (void)setIsActivate:(BOOL)isActivate
 {
     _isActivate = isActivate;
-    self.isAfter = isActivate;
-    self.isBefore = isActivate;
+    _isAfter = isActivate;
+    _isBefore = isActivate;
 }
 
 @end

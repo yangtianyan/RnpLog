@@ -62,11 +62,13 @@
     [self initUI];
 }
 + (void)showWithDataModel:(RnpDataModel *)dataModel completion:(void(^)(void))completion{
-    DYBreakpointResponseController * controller = [DYBreakpointResponseController new];
-    controller.completion = completion;
-    controller.dataModel = dataModel;
-    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:controller];
-    [controller.topViewController presentViewController:nav animated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        DYBreakpointResponseController * controller = [DYBreakpointResponseController new];
+        controller.completion = completion;
+        controller.dataModel = dataModel;
+        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:controller];
+        [controller.topViewController presentViewController:nav animated:YES completion:nil];
+    });
 }
 
 @end

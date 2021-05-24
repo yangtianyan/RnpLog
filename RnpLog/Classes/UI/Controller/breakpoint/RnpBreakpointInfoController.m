@@ -247,16 +247,16 @@ static const NSString * kRequestAfter = @"请求后";
 {
     if ([keyPath isEqual:@"isActivate"]) {
         if (self.breakpoint.isActivate == NO) {
-            self.dataArr = @[kUrl,kRequestHeader,kRequestBody,kResponse,kEnabled];
+            self.dataArr = @[kUrl,kResponse,kEnabled];
         }else{
             self.breakpoint.isAfter = YES;
             self.breakpoint.isBefore = NO;
-            self.dataArr = @[kUrl,kRequestHeader,kRequestBody,kResponse,kEnabled,kRequestBefore,kRequestAfter];
+            self.dataArr = @[kUrl,kResponse,kEnabled,kRequestBefore,kRequestAfter];
         }
     }else{
         if (self.breakpoint.isAfter == NO && self.breakpoint.isBefore == NO) {
             self.breakpoint.isActivate = NO;
-            self.dataArr = @[kUrl,kRequestHeader,kRequestBody,kResponse,kEnabled];
+            self.dataArr = @[kUrl,kResponse,kEnabled];
         }
     }
     [self.tableView reloadData];
