@@ -22,10 +22,9 @@ static UIWindow * tempWindow;
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
-    if (CGRectContainsPoint(instance.frame, point)) {
-        return instance;
-    }
-    return nil;
+    UIView * view = [super hitTest:point withEvent:event];
+    if([view isEqual:self]) return nil;
+    return view;
 }
 
 @end

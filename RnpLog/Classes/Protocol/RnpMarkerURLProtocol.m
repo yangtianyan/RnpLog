@@ -192,6 +192,10 @@
     if (![sessionConfiguration isSwizzle]) {
         [sessionConfiguration load];
     }
+    
+    return;
+    // 暂时拦截 wkwebview中post请求 body会丢失
+    //https://xiaoye220.github.io/NSProtocol-%E6%8B%A6%E6%88%AA-WKWebView/
     //实现WKWebview拦截功能
     Class cls = NSClassFromString(@"WKBrowsingContextController");
     SEL sel = NSSelectorFromString(@"registerSchemeForCustomProtocol:");
