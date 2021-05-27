@@ -18,6 +18,7 @@
 #import <RnpKit/RnpKitView.h>
 #import <RnpKit/RnpBaseViewChain+Layout.h>
 #import <Masonry/Masonry.h>
+#import <objc/runtime.h>
 
 static double RnpStatusFrame(){
     if (@available(iOS 13.0, *)) {
@@ -59,4 +60,20 @@ static double RnpBottomSafeHeight(){
     }
 }
 
-
+static void RnpMethodSwizzle(Class c,SEL origSEL,SEL overrideSEL)
+{
+    Method origMethod = class_getInstanceMethod(c, origSEL);
+    Method overrideMethod= class_getInstanceMethod(c, overrideSEL);
+    
+    //运行时函数class_addMethod 如果发现方法已经存在，会失败返回，也可以用来做检查用:
+    if(class_addMethod(c, origSEL, method_getImplementation(overrideMethod),method_getTypeEncoding(overrideMethod)))
+    {
+        //如果添加成功(在父类中重写的方法)，再把目标类中的方法替换为旧有的实现:
+        class_replaceMethod(c,overrideSEL, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
+    }
+    else
+    {
+        //addMethod会让目标类的方法指向新的实现，使用replaceMethod再将新的方法指向原先的实现，这样就完成了交换操作。
+        method_exchangeImplementations(origMethod,overrideMethod);
+    }
+}

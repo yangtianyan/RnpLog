@@ -6,10 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <WebKit/WebKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RnpHookAjaxHandler : NSObject
+@interface RnpHookAjaxHandler : NSObject<WKScriptMessageHandler>
 
 @end
 

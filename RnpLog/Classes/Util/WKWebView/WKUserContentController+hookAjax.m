@@ -6,7 +6,30 @@
 //
 
 #import "WKUserContentController+hookAjax.h"
+#import "RnpDefine.h"
+#import "RnpHookAjaxHandler.h"
 
 @implementation WKUserContentController (hookAjax)
++ (void)load{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        RnpMethodSwizzle(self.class, @selector(init), @selector(rnp_init));
+    });
+}
+
+- (instancetype)rnp_init
+{
+    WKUserContentController *obj = [self rnp_init];
+    [obj removeScriptMessageHandlerForName:@"IMYXHR"];
+    [obj addScriptMessageHandler:[RnpHookAjaxHandler new] name:@"IMYXHR"];
+    NSURL * url = [[NSBundle mainBundle] URLForResource:@"RnpLog" withExtension:@"bundle"];
+    NSBundle * bundle = [NSBundle bundleWithURL:url];
+    NSString * path = [bundle pathForResource:@"ajaxhook" ofType:@"js"];
+    NSString *jsScript = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    WKUserScript * script = [[WKUserScript alloc] initWithSource:jsScript injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:true];
+    [obj addUserScript:script];
+    return obj;
+}
+
 
 @end
