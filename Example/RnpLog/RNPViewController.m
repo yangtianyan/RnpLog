@@ -13,7 +13,7 @@
 #import <RnpKit/RnpKitView.h>
 //#import <RnpLog/NSObject+>
 
-@interface RNPViewController ()
+@interface RNPViewController ()<WKUIDelegate>
 
 @end
 
@@ -56,8 +56,9 @@
     
     WKWebView * webview = WKWebViewNew().rnp
     .addToSuperView(self.view)
-    .frame(CGRectMake(100, 400, 100, 100))
+    .frame(CGRectMake(00, 400, 300, 300))
     .view;
+    webview.UIDelegate = self;
     
     UIButtonNew().rnp
     .addToSuperView(self.view)
@@ -65,7 +66,9 @@
     .frame(CGRectMake(250, 100, 100, 100))
     .text(@"点击webview请求", UIControlStateNormal)
     .addClickBlock(^(id  _Nonnull btn) {
-        [webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://www.taobao.com/"]]];
+        NSString * url = @"http://47.99.46.244:8080/";
+//        url = @"https://www.baidu.com";
+        [webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     });
     
     UIImageView * imageView = UIImageViewNew().rnp
@@ -73,6 +76,16 @@
     .frame(CGRectMake(100, 300, 100, 100))
     .view;
     [imageView sd_setImageWithURL:[NSURL URLWithString:@"https://gimg2.baidu.com/image_search/src=http%3A%2F%2F1812.img.pp.sohu.com.cn%2Fimages%2Fblog%2F2009%2F11%2F18%2F18%2F8%2F125b6560a6ag214.jpg&refer=http%3A%2F%2F1812.img.pp.sohu.com.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623488454&t=8b7ba5546a5e46145ec4a10909b55fc8"]];
+}
+
+#pragma mark -  Alert弹窗
+- (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler {
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"提示" message:message ? : @"" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction * action = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        completionHandler();
+    }];
+    [alertController addAction:action];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning

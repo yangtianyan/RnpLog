@@ -1,0 +1,1 @@
+../../../../../RnpLog/Classes/Protocol/RnpSessionConfiguration.h

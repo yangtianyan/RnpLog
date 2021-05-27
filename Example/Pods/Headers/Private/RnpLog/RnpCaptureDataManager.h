@@ -1,0 +1,1 @@
+../../../../../RnpLog/Classes/Util/RnpCaptureDataManager.h

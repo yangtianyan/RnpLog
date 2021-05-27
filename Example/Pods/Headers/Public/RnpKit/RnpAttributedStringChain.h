@@ -1,0 +1,1 @@
+../../../RnpKit/RnpKit/Classes/AttributedString/RnpAttributedStringChain.h
