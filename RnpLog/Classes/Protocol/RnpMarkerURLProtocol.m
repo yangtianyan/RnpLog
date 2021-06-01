@@ -152,7 +152,7 @@
 
 
 /*
-
+    Webview中请求可能会重定向会造成html中依赖的资源文件读取不到(js,图片等),需要此方法
  */
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
                      willPerformHTTPRedirection:(NSHTTPURLResponse *)response

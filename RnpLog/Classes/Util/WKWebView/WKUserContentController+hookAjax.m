@@ -33,7 +33,6 @@
 }
 - (void)rnp_removeAllUserScripts{
     [self rnp_removeAllUserScripts];
-    NSLog(@"");
 }
 
 
