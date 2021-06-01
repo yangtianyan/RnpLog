@@ -26,7 +26,12 @@
     if (urlString.length == 0) {
         return;
     }
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30];
+    NSURL * url = [NSURL URLWithString:urlString];
+    if (url.host == nil) {
+        urlString = [NSString stringWithFormat:@"%@://%@%@",self.webView.URL.scheme,self.webView.URL.host,urlString];
+    }
+    url = [NSURL URLWithString:urlString];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30];
     request.HTTPMethod = method.uppercaseString;
     if ([requestData isKindOfClass:[NSString class]]) {
         request.HTTPBody = [requestData dataUsingEncoding:NSUTF8StringEncoding];

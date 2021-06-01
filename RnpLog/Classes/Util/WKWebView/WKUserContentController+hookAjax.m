@@ -14,6 +14,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         RnpMethodSwizzle(self.class, @selector(init), @selector(rnp_init));
+        RnpMethodSwizzle(self.class, @selector(removeAllUserScripts), @selector(rnp_removeAllUserScripts));
     });
 }
 
@@ -29,6 +30,10 @@
     WKUserScript * script = [[WKUserScript alloc] initWithSource:jsScript injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:true];
     [obj addUserScript:script];
     return obj;
+}
+- (void)rnp_removeAllUserScripts{
+    [self rnp_removeAllUserScripts];
+    NSLog(@"");
 }
 
 

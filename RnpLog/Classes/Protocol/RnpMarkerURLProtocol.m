@@ -60,6 +60,10 @@
     NSMutableURLRequest *mutableReqeust = [request mutableCopy];
     return mutableReqeust;
 }
++ (BOOL)requestIsCacheEquivalent:(NSURLRequest *)a toRequest:(NSURLRequest *)b
+{
+    return true;
+}
 
 //开始请求
 - (void)startLoading
@@ -146,6 +150,19 @@
     [self.client URLProtocolDidFinishLoading:self];
 }
 
+
+/*
+
+ */
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
+                     willPerformHTTPRedirection:(NSHTTPURLResponse *)response
+                                     newRequest:(NSURLRequest *)request
+ completionHandler:(void (^)(NSURLRequest * _Nullable))completionHandler{
+    [self.client URLProtocol:self wasRedirectedToRequest:request redirectResponse:response];
+    [task cancel];
+    NSError * error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil];
+    [self.client URLProtocol:self didFailWithError:error];
+}
 /// 这个地方可以延迟执行
 /// 抓包
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition))completionHandler {

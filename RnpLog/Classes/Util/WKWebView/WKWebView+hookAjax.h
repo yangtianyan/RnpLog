@@ -10,7 +10,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WKWebView (hookAjax)
-
+/*
+ 
+ 暂且废弃
+ 
+ */
 @end
 
 NS_ASSUME_NONNULL_END
