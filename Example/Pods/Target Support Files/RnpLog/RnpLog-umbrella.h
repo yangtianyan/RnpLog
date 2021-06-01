@@ -39,6 +39,7 @@
 #import "RnpDefine.h"
 #import "RnpReplaceHostManager.h"
 #import "RnpHookAjaxHandler.h"
+#import "WKUserContentController+hookAjax.h"
 #import "WKWebView+hookAjax.h"
 
 FOUNDATION_EXPORT double RnpLogVersionNumber;
