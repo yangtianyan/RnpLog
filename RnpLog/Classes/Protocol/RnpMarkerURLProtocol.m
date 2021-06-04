@@ -10,7 +10,7 @@
 /* -- Manager -- */
 #import "RnpCaptureDataManager.h"
 #import "RnpBreakpointManager.h"
-#import "RnpReplaceHostManager.h"
+#import "RnpHostManager.h"
 /* -- Model -- */
 #import "RnpDataModel.h"
 #import "RnpBreakpointModel.h"
@@ -89,7 +89,7 @@
     [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
     NSLog(@"************ 开始请求 %@",mutableRequest.URL);
 //    mutableRequest.URL = [NSURL URLWithString:@"https://www.baidu.com"]; // yty fix 可以篡改请求接口
-    mutableRequest = [RnpReplaceHostManager.instance checkAndReplaceHost:mutableRequest];
+    mutableRequest = [RnpHostManager.instance checkAndReplaceHost:mutableRequest];
     RnpBreakpointModel * breakpoint = [RnpBreakpointManager.instance getModelForUrl:mutableRequest.URL.absoluteString];
     if (breakpoint.isActivate && breakpoint.isBefore) {
         __weak typeof(self) weakSelf = self;

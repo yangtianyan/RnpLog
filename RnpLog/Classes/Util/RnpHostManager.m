@@ -1,41 +1,41 @@
 //
-//  RnpReplaceHostManager.m
+//  RnpHostManager.m
 //  RnpLog
 //
 //  Created by user on 2021/5/24.
 //
 
-#import "RnpReplaceHostManager.h"
+#import "RnpHostManager.h"
 
-@interface RnpReplaceHostManager ()
+@interface RnpHostManager ()
 
-@property (nonatomic, copy, readwrite) NSDictionary * host_dict;
+@property (nonatomic, copy, readwrite) NSDictionary * replace_host_dict;
 
 @end
 
-@implementation RnpReplaceHostManager
+@implementation RnpHostManager
 + (instancetype)shareManager{
-    static RnpReplaceHostManager * manager;
+    static RnpHostManager * manager;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        manager = [RnpReplaceHostManager new];
+        manager = [RnpHostManager new];
     });
     return manager;
 }
-+ (RnpReplaceHostManager *)instance
++ (RnpHostManager *)instance
 {
     return [self shareManager];
 }
-+ (void)setInstance:(RnpReplaceHostManager *)instance{}
++ (void)setInstance:(RnpHostManager *)instance{}
 
 
 - (void)replaceHostDict:(NSDictionary *)dict{
-    self.host_dict = dict;
+    self.replace_host_dict = dict;
 }
 
 - (NSMutableURLRequest *)checkAndReplaceHost:(NSMutableURLRequest *)mutableRequest
 {
-    NSString * replace = [self.host_dict valueForKey:mutableRequest.URL.host];
+    NSString * replace = [self.replace_host_dict valueForKey:mutableRequest.URL.host];
     NSLog(@"ori: %@ rep: %@",mutableRequest.URL.host, replace);
     if (replace) {
         NSString * url = mutableRequest.URL.absoluteString;

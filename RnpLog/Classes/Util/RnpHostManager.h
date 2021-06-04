@@ -1,5 +1,5 @@
 //
-//  RnpReplaceHostManager.h
+//  RnpHostManager.h
 //  RnpLog
 //
 //  Created by user on 2021/5/24.
@@ -9,11 +9,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RnpReplaceHostManager : NSObject
+@interface RnpHostManager : NSObject
 
-@property (nonatomic, strong, class) RnpReplaceHostManager * instance;
+@property (nonatomic, strong, class) RnpHostManager * instance;
 
-@property (nonatomic, copy, readonly) NSDictionary<NSString *, NSString *> * host_dict;
+@property (nonatomic, copy, readonly) NSDictionary<NSString *, NSString *> * replace_host_dict;
 
 - (void)replaceHostDict:(NSDictionary *)dict;
 

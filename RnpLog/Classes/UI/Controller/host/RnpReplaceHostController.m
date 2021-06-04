@@ -10,7 +10,7 @@
 #import "RnpReplaceHostCell.h"
 /* -- Util -- */
 #import "RnpDefine.h"
-#import "RnpReplaceHostManager.h"
+#import "RnpHostManager.h"
 #import "NSDictionary+log.h"
 /* -- Model -- */
 #import "RnpReplaceHostModel.h"
@@ -35,7 +35,7 @@
 
 - (void)initUI{
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    [self resetDataArrWithDictionary:RnpReplaceHostManager.instance.host_dict];
+    [self resetDataArrWithDictionary:RnpHostManager.instance.replace_host_dict];
     self.view.rnp
     .backgroundColor(UIColor.whiteColor)
     .addSubView(self.tableView)
@@ -70,7 +70,7 @@
             [dictionary setValue:model.replace_host forKey:model.original_host];
         }
     }
-    [RnpReplaceHostManager.instance replaceHostDict:dictionary];
+    [RnpHostManager.instance replaceHostDict:dictionary];
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)addAct{
