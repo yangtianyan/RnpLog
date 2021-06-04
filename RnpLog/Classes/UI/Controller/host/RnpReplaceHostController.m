@@ -31,6 +31,7 @@
     UIBarButtonItem * switchItem = [[UIBarButtonItem alloc] initWithTitle:@"切换" style:UIBarButtonItemStylePlain target:self action:@selector(switchAct)];
 
     self.navigationItem.rightBarButtonItems =@[saveItem,addItem,switchItem] ;
+    self.title = @"域名替换";
 }
 
 - (void)initUI{

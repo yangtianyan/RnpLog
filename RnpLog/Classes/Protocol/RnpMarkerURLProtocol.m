@@ -46,6 +46,9 @@
         ![request.URL.scheme isEqualToString:@"https"]) {
         return NO;
     }
+    if (![RnpHostManager.instance checkWhiteList:request]) {
+        return NO;
+    }
     if ([NSURLProtocol propertyForKey: hasInitKey inRequest:request] ) {
         return NO;
     }
