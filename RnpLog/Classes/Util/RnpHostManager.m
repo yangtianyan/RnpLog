@@ -64,5 +64,4 @@
     id host = [self.white_list_dict valueForKey:request.URL.host];
     return host;
 }
-
 @end
