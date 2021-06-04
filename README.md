@@ -22,7 +22,7 @@ pod 'RnpLog'
 
 ## Author
 
-905935769@qq.com, yangtianyan@diyiedy.com
+coderyty@163.com
 
 ## License
 
