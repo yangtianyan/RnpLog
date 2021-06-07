@@ -1,1 +1,1 @@
-../../../../../RnpLog/Classes/UI/View/ReplaceHost/RnpReplaceHostCell.h
+../../../../../RnpLog/Classes/UI/View/host/RnpReplaceHostCell.h

@@ -90,6 +90,8 @@
     }
     NSLog(@"request: %@\nCookie: %@",mutableRequest,cookieValue);
     [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
+//    [mutableRequest addValue:@"pingtas.qq.com" forHTTPHeaderField:@"Host"];
+
     NSLog(@"************ 开始请求 %@",mutableRequest.URL);
 //    mutableRequest.URL = [NSURL URLWithString:@"https://www.baidu.com"]; // yty fix 可以篡改请求接口
     mutableRequest = [RnpHostManager.instance checkAndReplaceHost:mutableRequest];
@@ -214,15 +216,15 @@
     }
     // 暂时拦截 wkwebview中post请求 body会丢失
     //https://xiaoye220.github.io/NSProtocol-%E6%8B%A6%E6%88%AA-WKWebView/
-    //实现WKWebview拦截功能
-    Class cls = NSClassFromString(@"WKBrowsingContextController");
-    SEL sel = NSSelectorFromString(@"registerSchemeForCustomProtocol:");
-    if ([(id)cls respondsToSelector:sel]) {
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [cls performSelector:sel withObject:@"http"];
-        [cls performSelector:sel withObject:@"https"];
-    #pragma clang diagnostic pop
+//    //实现WKWebview拦截功能
+//    Class cls = NSClassFromString(@"WKBrowsingContextController");
+//    SEL sel = NSSelectorFromString(@"registerSchemeForCustomProtocol:");
+//    if ([(id)cls respondsToSelector:sel]) {
+//    #pragma clang diagnostic push
+//    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+//        [cls performSelector:sel withObject:@"http"];
+//        [cls performSelector:sel withObject:@"https"];
+//    #pragma clang diagnostic pop
     }
 }
 

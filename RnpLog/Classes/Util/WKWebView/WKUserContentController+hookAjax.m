@@ -11,13 +11,20 @@
 
 @implementation WKUserContentController (hookAjax)
 + (void)load{
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        RnpMethodSwizzle(self.class, @selector(init), @selector(rnp_init));
+//        RnpMethodSwizzle(self.class, @selector(removeAllUserScripts), @selector(rnp_removeAllUserScripts));
+//    });
+}
++ (void)open{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         RnpMethodSwizzle(self.class, @selector(init), @selector(rnp_init));
         RnpMethodSwizzle(self.class, @selector(removeAllUserScripts), @selector(rnp_removeAllUserScripts));
     });
-}
 
+}
 - (instancetype)rnp_init
 {
     WKUserContentController *obj = [self rnp_init];

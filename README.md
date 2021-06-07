@@ -27,3 +27,6 @@ coderyty@163.com
 ## License
 
 RnpLog is available under the MIT license. See the LICENSE file for more info.
+
+
+WKWebView抓包功能暂时还有问题 但是能满足大部分场景 若需要webview抓包 请调用[RnpLogManager openWebViewCaught]
