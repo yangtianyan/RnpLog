@@ -87,6 +87,28 @@
     }
     NSLog(@"request: %@\nCookie: %@",mutableRequest,cookieValue);
     [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
+//
+//
+//
+//   NSDictionary * dict =  @{
+//      @"Accept": @"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+//      @"Accept-Encoding": @"gzip, deflate, br",
+//      @"Accept-Language": @"zh-cn",
+//      @"Connection": @"keep-alive",
+////      @"Cookie": @"ThinkingDataJSSDK_cross=%7B%22distinct_id%22%3A%2222E11EF6-6FC9-4B84-9503-FA90E43BABD8%22%2C%22device_id%22%3A%22179eb696bebb4b-0e2b715fdcd80c-67106c67-304500-179eb696becbe5%22%2C%22account_id%22%3A%2287101252%22%7D; appuuid=22E11EF6-6FC9-4B84-9503-FA90E43BABD8; usergrade=1b; bad_idee646b30-5f58-11e9-9552-192311c61dcb=41333fa1-c779-11eb-be01-ffdbb935e7d9; accessId=ee646b30-5f58-11e9-9552-192311c61dcb; pageViewNum=7; sessionid=bc13uerdo3ph92fd4mfgi4rfwnv3231e; sessionid=bc13uerdo3ph92fd4mfgi4rfwnv3231e; deviceid=22E11EF6-6FC9-4B84-9503-FA90E43BABD8; deviceid=22E11EF6-6FC9-4B84-9503-FA90E43BABD8",
+////     @"Deviceid": @"22E11EF6-6FC9-4B84-9503-FA90E43BABD8",
+////      @"User-Agent": @"Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 iPhoneX NBDIYI/iOS/8.3.4/AppStore"
+//      @"User-Agent" : @"Mozilla/5.0 (iPhone; CPU iPhone OS 12_4_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 iPhone6 NBDIYI/iOS/8.3.4/AppStore",
+//      @"Cookie" : @"sessionid=d3g2p8wph9cykl6xku1o8kiw0utfwjb8;usergrade=1b;ThinkingDataJSSDK_cross=%7B%22distinct_id%22%3A%2222E11EF6-6FC9-4B84-9503-FA90E43BABD8%22%2C%22device_id%22%3A%22179eb7d34e2295-098302b2b72b59-5794e4c-250125-179eb7d34e43f0%22%2C%22account_id%22%3A%2287101252%22%7D;deviceid=01A3BC59-19AE-4929-9DC0-B3466163B4B2;appuuid=01A3BC59-19AE-4929-9DC0-B3466163B4B2;",
+//      @"Deviceid" : @"01A3BC59-19AE-4929-9DC0-B3466163B4B2",
+//     @"Host": @"wweb.namibox.com",
+//     @"Referer": @"https://dev.namibox.com/dy/tab_recommend",
+//   };
+//    for (NSString * key in dict.allKeys) {
+//        [mutableRequest addValue:dict[key] forHTTPHeaderField:key];
+//    }
+    
+    
     NSLog(@"************ 开始请求 %@",mutableRequest.URL);
 //    mutableRequest.URL = [NSURL URLWithString:@"https://www.baidu.com"]; // yty fix 可以篡改请求接口
     mutableRequest = [RnpReplaceHostManager.instance checkAndReplaceHost:mutableRequest];
