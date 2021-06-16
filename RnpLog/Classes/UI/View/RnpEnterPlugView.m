@@ -59,7 +59,7 @@ static UIWindow * tempWindow;
             };
             window.windowLevel = 0;
             [window makeKeyAndVisible];
-            RnpEnterPlugView * view = [[RnpEnterPlugView alloc] initWithFrame:CGRectMake(20, screen_height - height - kBottomSafeHeight, width, height)];
+            RnpEnterPlugView * view = [[RnpEnterPlugView alloc] initWithFrame:CGRectMake(20, screen_height - height - kBottomSafeHeight - 200, width, height)];
             [window addSubview:view];
             window.hidden = NO;
             window.alpha = 1;
