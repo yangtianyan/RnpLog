@@ -19,6 +19,14 @@
 
 @implementation RNPViewController
 
++ (void)load
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"rnplog_show"];// 是否开启抓包设置
+    });
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

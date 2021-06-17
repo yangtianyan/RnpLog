@@ -19,5 +19,6 @@
         [cls performSelector:sel withObject:@"https"];
     #pragma clang diagnostic pop
         [WKUserContentController open];
+    }
 }
 @end

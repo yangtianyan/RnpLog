@@ -73,10 +73,13 @@
 #pragma mark -- Action
 - (void)copyAction {
     UIPasteboard * board = [UIPasteboard generalPasteboard];
-    board.string = self.textView.text;
+    board.string = [self.model rnpLogDataFormatToJson];
 }
 - (void)shareAction {
-    UIActivityViewController * vc = [[UIActivityViewController alloc] initWithActivityItems:@[self.textView.text] applicationActivities:nil];
+    NSString * text = self.textView.text;
+    text = [text stringByReplacingOccurrencesOfString:@"\n\n\n" withString:@","];
+    text = [NSString stringWithFormat:@"{%@}",text];
+    UIActivityViewController * vc = [[UIActivityViewController alloc] initWithActivityItems:@[[self.model rnpLogDataFormatToJson]] applicationActivities:nil];
     [self presentViewController:vc animated:YES completion:nil];
 }
 - (void)breakpointAct{
