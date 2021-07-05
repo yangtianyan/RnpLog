@@ -79,7 +79,31 @@
     NSString * text = self.textView.text;
     text = [text stringByReplacingOccurrencesOfString:@"\n\n\n" withString:@","];
     text = [NSString stringWithFormat:@"{%@}",text];
-    UIActivityViewController * vc = [[UIActivityViewController alloc] initWithActivityItems:@[[self.model rnpLogDataFormatToJson]] applicationActivities:nil];
+    NSString * string = [self.model rnpLogDataFormatToJson];
+    NSDate *currentDate = [NSDate date];//获取当前时间，日期
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd-hh:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:currentDate];
+   
+    NSString *json_path = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"文本-%@.txt",dateString]];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:json_path]) {
+        [[NSFileManager defaultManager] removeItemAtPath:json_path error:nil];
+    }
+    [[NSFileManager defaultManager] createFileAtPath:json_path contents:[string dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
+    UIActivityViewController * vc = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL fileURLWithPath:json_path]] applicationActivities:nil];
+    //去除特定的分享功能 不需要展现的Activity类型
+    vc.excludedActivityTypes = @[
+                                         UIActivityTypePostToFacebook,
+                                         UIActivityTypePostToTwitter,
+                                         UIActivityTypePostToWeibo,
+                                         UIActivityTypeMessage,
+                                         UIActivityTypeMail,
+                                         UIActivityTypeAssignToContact,
+                                         UIActivityTypeSaveToCameraRoll,
+                                         UIActivityTypeAddToReadingList,
+                                         UIActivityTypePostToFlickr,
+                                         UIActivityTypePostToVimeo,
+                                         ];
     [self presentViewController:vc animated:YES completion:nil];
 }
 - (void)breakpointAct{
