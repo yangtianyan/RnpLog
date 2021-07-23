@@ -25,7 +25,7 @@
     [obj addScriptMessageHandler:[RnpHookAjaxHandler new] name:@"IMYXHR"];
     NSURL * url = [[NSBundle mainBundle] URLForResource:@"RnpLog" withExtension:@"bundle"];
     NSBundle * bundle = [NSBundle bundleWithURL:url];
-    NSString * path = [bundle pathForResource:@"ajaxhook" ofType:@"js"];
+    NSString * path = [bundle pathForResource:@"ajaxhook" ofType:@"js" inDirectory:@"JS"];
     NSString *jsScript = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     WKUserScript * script = [[WKUserScript alloc] initWithSource:jsScript injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:true];
     [obj addUserScript:script];

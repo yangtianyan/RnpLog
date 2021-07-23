@@ -77,6 +77,7 @@
     NSMutableString *cookieValue = [NSMutableString stringWithFormat:@""];
     NSHTTPCookieStorage *cookieJar = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     NSArray * cookies = [cookieJar cookiesForURL:mutableRequest.URL];
+    cookies = [cookieJar cookies];
     for (NSHTTPCookie *cookie in cookies) {
         [cookieDic setObject:cookie.value forKey:cookie.name];
     }
@@ -90,23 +91,26 @@
 //
 //
 //
-//   NSDictionary * dict =  @{
-//      @"Accept": @"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-//      @"Accept-Encoding": @"gzip, deflate, br",
-//      @"Accept-Language": @"zh-cn",
-//      @"Connection": @"keep-alive",
-////      @"Cookie": @"ThinkingDataJSSDK_cross=%7B%22distinct_id%22%3A%2222E11EF6-6FC9-4B84-9503-FA90E43BABD8%22%2C%22device_id%22%3A%22179eb696bebb4b-0e2b715fdcd80c-67106c67-304500-179eb696becbe5%22%2C%22account_id%22%3A%2287101252%22%7D; appuuid=22E11EF6-6FC9-4B84-9503-FA90E43BABD8; usergrade=1b; bad_idee646b30-5f58-11e9-9552-192311c61dcb=41333fa1-c779-11eb-be01-ffdbb935e7d9; accessId=ee646b30-5f58-11e9-9552-192311c61dcb; pageViewNum=7; sessionid=bc13uerdo3ph92fd4mfgi4rfwnv3231e; sessionid=bc13uerdo3ph92fd4mfgi4rfwnv3231e; deviceid=22E11EF6-6FC9-4B84-9503-FA90E43BABD8; deviceid=22E11EF6-6FC9-4B84-9503-FA90E43BABD8",
-////     @"Deviceid": @"22E11EF6-6FC9-4B84-9503-FA90E43BABD8",
-////      @"User-Agent": @"Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 iPhoneX NBDIYI/iOS/8.3.4/AppStore"
-//      @"User-Agent" : @"Mozilla/5.0 (iPhone; CPU iPhone OS 12_4_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 iPhone6 NBDIYI/iOS/8.3.4/AppStore",
+   NSDictionary * dict =  @{
+      @"Accept": @"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      @"Accept-Encoding": @"gzip, deflate, br",
+      @"Accept-Language": @"zh-cn",
+      @"Connection": @"keep-alive",
+//      @"Cookie": @"ThinkingDataJSSDK_cross=%7B%22distinct_id%22%3A%2222E11EF6-6FC9-4B84-9503-FA90E43BABD8%22%2C%22device_id%22%3A%22179eb696bebb4b-0e2b715fdcd80c-67106c67-304500-179eb696becbe5%22%2C%22account_id%22%3A%2287101252%22%7D; appuuid=22E11EF6-6FC9-4B84-9503-FA90E43BABD8; usergrade=1b; bad_idee646b30-5f58-11e9-9552-192311c61dcb=41333fa1-c779-11eb-be01-ffdbb935e7d9; accessId=ee646b30-5f58-11e9-9552-192311c61dcb; pageViewNum=7; sessionid=bc13uerdo3ph92fd4mfgi4rfwnv3231e; sessionid=bc13uerdo3ph92fd4mfgi4rfwnv3231e; deviceid=22E11EF6-6FC9-4B84-9503-FA90E43BABD8; deviceid=22E11EF6-6FC9-4B84-9503-FA90E43BABD8",
+//     @"Deviceid": @"22E11EF6-6FC9-4B84-9503-FA90E43BABD8",
+//      @"User-Agent": @"Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 iPhoneX NBDIYI/iOS/8.3.4/AppStore"
+      @"User-Agent" : @"Mozilla/5.0 (iPhone; CPU iPhone OS 12_4_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 iPhone6 NBDIYI/iOS/8.3.4/AppStore",
 //      @"Cookie" : @"sessionid=d3g2p8wph9cykl6xku1o8kiw0utfwjb8;usergrade=1b;ThinkingDataJSSDK_cross=%7B%22distinct_id%22%3A%2222E11EF6-6FC9-4B84-9503-FA90E43BABD8%22%2C%22device_id%22%3A%22179eb7d34e2295-098302b2b72b59-5794e4c-250125-179eb7d34e43f0%22%2C%22account_id%22%3A%2287101252%22%7D;deviceid=01A3BC59-19AE-4929-9DC0-B3466163B4B2;appuuid=01A3BC59-19AE-4929-9DC0-B3466163B4B2;",
-//      @"Deviceid" : @"01A3BC59-19AE-4929-9DC0-B3466163B4B2",
+//      @"Cookie":@"ThinkingDataJSSDK_cross=%7B%22distinct_id%22%3A%2217ac1ee1c9fd2f-0604ffe60418-450e7f57-304500-17ac1ee1ca0a67%22%2C%22device_id%22%3A%2217ac1f59382b45-0a1da227b5b0768-450e7f57-304500-17ac1f59383bea%22%2C%22account_id%22%3A%2287101252%22%7D; bookcase_books=tape1a_000002,tape1a_002001,; usergrade=1a; deviceid=BE11D31D-B62B-45FF-8CAE-033BF8AC450E; sessionid=koxlv6u5wg57dx8jccm8f16z5essi1ql;",
+      //deviceid=BE11D31D-B62B-45FF-8CAE-033BF8AC450E; sessionid=koxlv6u5wg57dx8jccm8f16z5essi1ql
+//      @"Cookie": @"sessionid=koxlv6u5wg57dx8jccm8f16z5essi1ql;XSRF-TOKEN=7539a54d-a778-4604-bc7c-b4cc185df370;deviceid=01A3BC59-19AE-4929-9DC0-B3466163B4B2;usergrade=1a;bookcase_books=tape1a_000002,tape1a_002001,;appuuid=01A3BC59-19AE-4929-9DC0-B3466163B4B2;ThinkingDataJSSDK_cross=%7B%22distinct_id%22%3A%2201A3BC59-19AE-4929-9DC0-B3466163B4B2%22%2C%22device_id%22%3A%2217ac1ee1a18273-08d9c2d027bf46-955714f-250125-17ac1ee1a19109%22%2C%22account_id%22%3A%2287101453%22%7D;",
+      @"Deviceid" : @"01A3BC59-19AE-4929-9DC0-B3466163B4B2",
 //     @"Host": @"wweb.namibox.com",
 //     @"Referer": @"https://dev.namibox.com/dy/tab_recommend",
-//   };
-//    for (NSString * key in dict.allKeys) {
-//        [mutableRequest addValue:dict[key] forHTTPHeaderField:key];
-//    }
+   };
+    for (NSString * key in dict.allKeys) {
+        [mutableRequest addValue:dict[key] forHTTPHeaderField:key];
+    }
     
     
     NSLog(@"************ 开始请求 %@",mutableRequest.URL);
