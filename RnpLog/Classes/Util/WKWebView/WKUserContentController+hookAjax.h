@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WKUserContentController (hookAjax)
 
++ (void)open;
+
 @end
 
 NS_ASSUME_NONNULL_END

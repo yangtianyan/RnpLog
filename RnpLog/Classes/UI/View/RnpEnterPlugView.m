@@ -40,6 +40,10 @@ static UIWindow * tempWindow;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            BOOL isShow = [[NSUserDefaults standardUserDefaults] boolForKey:@"rnplog_show"];
+            if (!isShow) {
+                return;
+            }
             CGFloat screen_height = [UIScreen mainScreen].bounds.size.height;
             CGFloat width = 50;
             CGFloat height = width;
@@ -55,7 +59,7 @@ static UIWindow * tempWindow;
             };
             window.windowLevel = 0;
             [window makeKeyAndVisible];
-            RnpEnterPlugView * view = [[RnpEnterPlugView alloc] initWithFrame:CGRectMake(20, screen_height - height - kBottomSafeHeight, width, height)];
+            RnpEnterPlugView * view = [[RnpEnterPlugView alloc] initWithFrame:CGRectMake(20, screen_height - height - kBottomSafeHeight - 200, width, height)];
             [window addSubview:view];
             window.hidden = NO;
             window.alpha = 1;

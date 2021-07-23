@@ -1,6 +1,0 @@
-framework module RnpLog {
-  umbrella header "RnpLog-umbrella.h"
-
-  export *
-  module * { export * }
-}

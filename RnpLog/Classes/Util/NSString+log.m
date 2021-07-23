@@ -33,5 +33,9 @@
     }
     return attribute;;
 }
-
+- (id)toJson;{
+    NSData * data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+    return json ?: self;
+}
 @end

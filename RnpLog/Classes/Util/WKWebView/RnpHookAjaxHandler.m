@@ -28,6 +28,7 @@
     }
     NSURL * url = [NSURL URLWithString:urlString];
     if (url.host == nil) {
+        // hook ajax后拿到的url可能不完整 需要手动拼接
         urlString = [NSString stringWithFormat:@"%@://%@%@",self.webView.URL.scheme,self.webView.URL.host,urlString];
     }
     url = [NSURL URLWithString:urlString];

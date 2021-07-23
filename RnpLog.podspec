@@ -33,7 +33,7 @@ TODO: Add long description of the pod here.
   s.source_files = 'RnpLog/Classes/**/*'
   
    s.resource_bundles = {
-     'RnpLog' => ['RnpLog/Assets/*']
+     'RnpLog' => ['RnpLog/Assets/**/*']
    }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'

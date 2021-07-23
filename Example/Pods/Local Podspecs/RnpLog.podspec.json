@@ -21,7 +21,7 @@
   "source_files": "RnpLog/Classes/**/*",
   "resource_bundles": {
     "RnpLog": [
-      "RnpLog/Assets/*"
+      "RnpLog/Assets/**/*"
     ]
   },
   "frameworks": "UIKit",

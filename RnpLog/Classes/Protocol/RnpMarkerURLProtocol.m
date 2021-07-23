@@ -10,7 +10,7 @@
 /* -- Manager -- */
 #import "RnpCaptureDataManager.h"
 #import "RnpBreakpointManager.h"
-#import "RnpReplaceHostManager.h"
+#import "RnpHostManager.h"
 /* -- Model -- */
 #import "RnpDataModel.h"
 #import "RnpBreakpointModel.h"
@@ -27,6 +27,10 @@
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        BOOL isShow = [[NSUserDefaults standardUserDefaults] boolForKey:@"rnplog_show"];
+        if (!isShow) {
+            return;
+        }
         [RnpMarkerURLProtocol startMonitor];
     });
 }
@@ -44,6 +48,9 @@
     // 不是网络请求，不处理
     if (![request.URL.scheme isEqualToString:@"http"] &&
         ![request.URL.scheme isEqualToString:@"https"]) {
+        return NO;
+    }
+    if (![RnpHostManager.instance checkWhiteList:request]) {
         return NO;
     }
     if ([NSURLProtocol propertyForKey: hasInitKey inRequest:request] ) {
@@ -88,6 +95,7 @@
     }
     NSLog(@"request: %@\nCookie: %@",mutableRequest,cookieValue);
     [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
+<<<<<<< HEAD
 //
 //
 //
@@ -113,9 +121,13 @@
     }
     
     
+=======
+//    [mutableRequest addValue:@"pingtas.qq.com" forHTTPHeaderField:@"Host"];
+
+>>>>>>> main
     NSLog(@"************ 开始请求 %@",mutableRequest.URL);
 //    mutableRequest.URL = [NSURL URLWithString:@"https://www.baidu.com"]; // yty fix 可以篡改请求接口
-    mutableRequest = [RnpReplaceHostManager.instance checkAndReplaceHost:mutableRequest];
+    mutableRequest = [RnpHostManager.instance checkAndReplaceHost:mutableRequest];
     RnpBreakpointModel * breakpoint = [RnpBreakpointManager.instance getModelForUrl:mutableRequest.URL.absoluteString];
     if (breakpoint.isActivate && breakpoint.isBefore) {
         __weak typeof(self) weakSelf = self;
@@ -178,7 +190,7 @@
 
 
 /*
-
+    Webview中请求可能会重定向会造成html中依赖的资源文件读取不到(js,图片等),需要此方法
  */
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
                      willPerformHTTPRedirection:(NSHTTPURLResponse *)response
@@ -237,16 +249,16 @@
     }
     // 暂时拦截 wkwebview中post请求 body会丢失
     //https://xiaoye220.github.io/NSProtocol-%E6%8B%A6%E6%88%AA-WKWebView/
-    //实现WKWebview拦截功能
-    Class cls = NSClassFromString(@"WKBrowsingContextController");
-    SEL sel = NSSelectorFromString(@"registerSchemeForCustomProtocol:");
-    if ([(id)cls respondsToSelector:sel]) {
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [cls performSelector:sel withObject:@"http"];
-        [cls performSelector:sel withObject:@"https"];
-    #pragma clang diagnostic pop
-    }
+//    //实现WKWebview拦截功能
+//    Class cls = NSClassFromString(@"WKBrowsingContextController");
+//    SEL sel = NSSelectorFromString(@"registerSchemeForCustomProtocol:");
+//    if ([(id)cls respondsToSelector:sel]) {
+//    #pragma clang diagnostic push
+//    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+//        [cls performSelector:sel withObject:@"http"];
+//        [cls performSelector:sel withObject:@"https"];
+//    #pragma clang diagnostic pop
+//    }
 }
 
 /// 停止监听

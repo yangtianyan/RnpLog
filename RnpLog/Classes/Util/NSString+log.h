@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (log)
 - (NSAttributedString *)toLogAttributedString;
+- (id)toJson;
 @end
 
 NS_ASSUME_NONNULL_END
