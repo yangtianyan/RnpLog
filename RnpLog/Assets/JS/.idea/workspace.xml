@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a048b0a5-cf43-43aa-abb0-d9470cf79101" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../Example/Pods/Headers/Private/RnpLog/WKWebView+hookAjax.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Example/Pods/Headers/Public/RnpLog/WKWebView+hookAjax.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Example/Pods/Pods.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Example/Pods/Pods.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Resources/ajaxhook.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Resources/imywk_hookajax.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Classes/Protocol/RnpMarkerURLProtocol.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../Classes/Protocol/RnpMarkerURLProtocol.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Classes/Util/WKWebView/WKUserContentController+hookAjax.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../Classes/Util/WKWebView/WKUserContentController+hookAjax.m" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectId" id="1vYdn61Z3UXQ6gX3YPeNX76xKkg" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a048b0a5-cf43-43aa-abb0-d9470cf79101" name="Default Changelist" comment="" />
+      <created>1626743122396</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1626743122396</updated>
+      <workItem from="1626743122882" duration="1180000" />
+      <workItem from="1626744422253" duration="9000" />
+      <workItem from="1626747608454" duration="1586000" />
+      <workItem from="1626952331232" duration="6000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
