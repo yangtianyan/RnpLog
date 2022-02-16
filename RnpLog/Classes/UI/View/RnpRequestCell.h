@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) RnpDataModel * model;
 
+@property (nonatomic, copy) void(^longPressBlock)(void);
+
 @end
 
 NS_ASSUME_NONNULL_END

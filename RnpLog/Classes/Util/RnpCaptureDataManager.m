@@ -86,6 +86,20 @@
     [self.mutable_requests removeAllObjects];
     [self.mutable_requests_dict removeAllObjects];
     [[NSNotificationCenter defaultCenter] postNotificationName:kClearRequestNotification object:nil];
+}
+/// 清空除model外的所有
+- (void)clearOther:(RnpDataModel *)model{
+    [self.mutable_requests removeAllObjects];
+    [self.mutable_requests_dict removeAllObjects];
+    [self.mutable_requests addObject:model];
+    [self.mutable_requests_dict setObject:model forKey:model.task];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kClearRequestNotification object:nil];
+}
 
+/// 清除model数据
+- (void)clearWith:(RnpDataModel *)model{
+    [self.mutable_requests removeObject:model];
+    [self.mutable_requests_dict removeObjectForKey:model.task];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kClearRequestNotification object:nil];
 }
 @end

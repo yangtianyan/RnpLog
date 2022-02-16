@@ -81,7 +81,27 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     RnpRequestCell * cell = tableView.rnp.dequeueReusableCellWithClass(RnpRequestCell.class);
-    cell.model = RnpCaptureDataManager.instance.requests[RnpCaptureDataManager.instance.requests.count-indexPath.row-1];
+    RnpDataModel * model = RnpCaptureDataManager.instance.requests[RnpCaptureDataManager.instance.requests.count-indexPath.row-1];
+    cell.model = model;
+    __weak typeof(self) weakSelf = self;
+    cell.longPressBlock = ^{
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        UIAlertAction * clear = [UIAlertAction actionWithTitle:@"清除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [RnpCaptureDataManager.instance clearWith:model];
+        }];
+        UIAlertAction * clearOther = [UIAlertAction actionWithTitle:@"清除其他" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [RnpCaptureDataManager.instance clearOther:model];
+        }];
+        [alert addAction:clear];
+        [alert addAction:clearOther];
+        [alert addAction:cancel];
+        [weakSelf presentViewController:alert animated:YES completion:^{
+            
+        }];
+    };
     return cell;
 }
 
@@ -94,8 +114,12 @@
 #pragma mark -- notification
 - (void)notification{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addRequest) name:kAddRequestNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:kClearRequestNotification object:nil];
 }
 - (void)addRequest{
+    [self reloadData];
+}
+- (void)reloadData{
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
