@@ -8,6 +8,8 @@
 #import "RnpChainDefine.h"
 #define RPCATEGORY_CHAIN_VIEWCLASS_IMPLEMENTATION(RPMethod,RPParaType, RPModelType, RPPropertyClass) RPCATEGORY_CHAIN_IMPLEMENTATION(RPMethod,RPParaType, view, RPModelType, RPPropertyClass)
 
+#define RPCATEGORY_CHAIN_VIEWCLASS_IMPLEMENTATION_VERSION(RPMethod,RPParaType, RPModelType, RPPropertyClass,VETRSION) RPCATEGORY_CHAIN_IMPLEMENTATION_VERSION(RPMethod,RPParaType, view, RPModelType, RPPropertyClass, VETRSION)
+
 #define RPCATEGORY_VIEW_IMPLEMENTATION(RPClass, modelType)\
 @implementation RPClass (EXT)\
 - (modelType *)rnp{\
@@ -189,6 +191,11 @@ RPCATEGORY_CHAIN_PROPERTY ObjectType (^ setNeedsLayout) (void);
 RPCATEGORY_CHAIN_PROPERTY ObjectType (^ setNeedsDisplay) (void);
 RPCATEGORY_CHAIN_PROPERTY ObjectType (^ setNeedsDisplayRect) (CGRect rect);
 RPCATEGORY_CHAIN_PROPERTY ObjectType (^ translatesAutoresizingMaskIntoConstraints) (BOOL b);
+RPCATEGORY_CHAIN_PROPERTY ObjectType (^ sendToBack) (void);
+RPCATEGORY_CHAIN_PROPERTY ObjectType (^ bringToFront) (void);
+RPCATEGORY_CHAIN_PROPERTY ObjectType (^ addToStackView) (UIStackView *stackView) API_AVAILABLE(ios(9.0));
+RPCATEGORY_CHAIN_PROPERTY ObjectType (^ removeToStackView) (void) API_AVAILABLE(ios(9.0));
+
 
 @end
 

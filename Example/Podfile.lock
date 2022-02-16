@@ -15,20 +15,20 @@ PODS:
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
   - Masonry (1.1.0)
-  - RnpKit/AttributedString (1.0.9):
+  - RnpKit/AttributedString (1.2.0):
     - RnpKit/View
-  - RnpKit/Layout (1.0.9):
+  - RnpKit/Layout (1.2.0):
     - Masonry
     - RnpKit/View
-  - RnpKit/View (1.0.9)
+  - RnpKit/View (1.2.0)
   - RnpLog (0.1.0):
     - Masonry
     - RnpKit/AttributedString
     - RnpKit/Layout
     - RnpKit/View
-  - SDWebImage (5.11.1):
-    - SDWebImage/Core (= 5.11.1)
-  - SDWebImage/Core (5.11.1)
+  - SDWebImage (5.12.3):
+    - SDWebImage/Core (= 5.12.3)
+  - SDWebImage/Core (5.12.3)
 
 DEPENDENCIES:
   - AFNetworking
@@ -49,10 +49,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  RnpKit: 076c5018e82569454d55201eb7b6290d3f12b310
+  RnpKit: c289210813fd78178f28d1b5bde98aa27d9ca632
   RnpLog: 47f9728b43f2d3d566a2a94c88497c484c6f371c
-  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f
 
 PODFILE CHECKSUM: f589ad2741425c80cb48082b744d6fec95407225
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.2
