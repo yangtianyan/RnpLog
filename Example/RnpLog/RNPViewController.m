@@ -74,7 +74,7 @@
     .frame(CGRectMake(250, 100, 100, 100))
     .text(@"点击webview请求", UIControlStateNormal)
     .addClickBlock(^(id  _Nonnull btn) {
-        NSString * url = @"http://47.99.46.244:8080/";
+        NSString * url = @"http://47.98.190.136:8080/";
 //        url = @"https://www.baidu.com";
         [webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     });

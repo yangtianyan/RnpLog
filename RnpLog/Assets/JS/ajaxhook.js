@@ -73,7 +73,9 @@
 				this.omtHeaders = {};
 			}
 			this.omtHeaders[arg[0]] = arg[1];
-			// window.alert("omtHeaders" + JSON.stringify(this.omtHeaders));
+//            window.alert("omtHeaders" + JSON.stringify(this.omtHeaders));
+//            window.alert("omtHeaders" + JSON.stringify(arg);
+            window.alert("omtHeaders" + JSON.stringify(arg));
 		},
 		getAllResponseHeaders: function(arg, xhr) {
 			var headers = this.omtResponseHeaders;

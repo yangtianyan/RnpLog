@@ -94,7 +94,7 @@
         [cookieValue appendString:appendString];
     }
     NSLog(@"request: %@\nCookie: %@",mutableRequest,cookieValue);
-//    [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
+    [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
 //
 //
 //
@@ -115,9 +115,9 @@
 //     @"Host": @"wweb.namibox.com",
 //     @"Referer": @"https://dev.namibox.com/dy/tab_recommend",
    };
-    for (NSString * key in dict.allKeys) {
-        [mutableRequest addValue:dict[key] forHTTPHeaderField:key];
-    }
+//    for (NSString * key in dict.allKeys) {
+//        [mutableRequest addValue:dict[key] forHTTPHeaderField:key];
+//    }
     
     
 //    [mutableRequest addValue:@"pingtas.qq.com" forHTTPHeaderField:@"Host"];
