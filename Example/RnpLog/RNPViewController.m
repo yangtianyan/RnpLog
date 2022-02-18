@@ -56,9 +56,9 @@
             }];
             [alertController addAction:cancelAction];
             [weakSelf presentViewController:alertController animated:YES completion:nil];
-            NSLog(@"success %@",string);
+//            NSLog(@"success %@",string);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"failure");
+//            NSLog(@"failure");
         }];
     });
     

@@ -26,26 +26,15 @@
 
 	function nativeCallback(xhrId, statusCode, responseText, responseHeaders, error) {
 		var xhr = window.OMTAjax.hookedXHR[xhrId];
-		// window.alert("nativeCallback");
 		if (xhr.isAborted) { // 如果该请求已经手动取消了
-//            return;
-//        }
 
-//        if (error) {
 			xhr.readyState = 1;
-//            if (xhr.onerror) {
-//                xhr.onerror();
-//            }
 		} else {
 			xhr.status = statusCode;
 			xhr.responseText = responseText;
 			xhr.readyState = 4;
 
 			xhr.omtResponseHeaders = responseHeaders;
-
-//            if (xhr.onload) {
-//                xhr.onload();
-//            }
 		}
         if (xhr.readyState >= 3) {
             if (xhr.status >= 200 && xhr.status < 300) {
@@ -68,14 +57,13 @@
 	// hook ajax send 方法
 	window.OMTAjax.hookAjax({
 		setRequestHeader: function(arg, xhr) {
-			log("onreadystatechange called:");
+			// log("onreadystatechange called:" + document.cookie);
 			if (!this.omtHeaders) {
 				this.omtHeaders = {};
 			}
+			// log("setRequestHeader: " + JSON.stringify(arg));
 			this.omtHeaders[arg[0]] = arg[1];
-//            window.alert("omtHeaders" + JSON.stringify(this.omtHeaders));
-//            window.alert("omtHeaders" + JSON.stringify(arg);
-//             window.alert("omtHeaders" + JSON.stringify(arg));
+			// this.omtHeaders['Cookie'] = document.cookie;
 		},
 		getAllResponseHeaders: function(arg, xhr) {
 			var headers = this.omtResponseHeaders;
@@ -91,9 +79,6 @@
 			}
 		},
 		getResponseHeader: function(arg, xhr) {
-//            if (this.omtResponseHeaders && this.omtResponseHeaders[arg[0]]) {
-//                return this.omtResponseHeaders(arg[0]);
-//            }
             for (key in this.omtResponseHeaders) {
                 if (key.toLowerCase() == arg[0].toLowerCase()) {
                     return this.omtResponseHeaders[key];
@@ -107,18 +92,15 @@
 		send: function(arg, xhr) {
 			this.isAborted = false;
             // iOS9需要对get方式进行hook，10及以上可以不需要
-			// window.alert("send " + xhr);
 			if (this.omtOpenArg[0].toUpperCase() === 'POST' || this.omtOpenArg[0].toUpperCase() === 'GET') {
 				var params = {};
 				params.data = arg[0];
 				params.method = this.omtOpenArg[0];
 				params.headers = this.omtHeaders;
-
+				params.headers['Cookie'] = document.cookie;
+				// window.alert(document.cookie);
 				var url = this.omtOpenArg[1];
 				var location = window.location;
-//                if(!url.startsWith(location.protocol)) {
-//                    url = location.origin + url;
-//                }
 				params.url = url;
 
 				var xhrId = 'xhrId' + (new Date()).getTime();
@@ -134,16 +116,12 @@
 			}
 		},
 		abort: function(arg, xhr) {
-			// window.alert("abort " + arg);
 			if (this.omtOpenArg[0] === 'POST' || this.omtOpenArg[0] === 'post') {
 				if (xhr.onabort) {
 					xhr.onabort()
 				}
 				return true;
 			}
-		},
-		arguments: function (arg, xhr) {
-			// window.alert("arguments " + arg);
 		},
 	});
 
@@ -232,6 +210,7 @@
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', "http://debugger/" +
 			encodeURIComponent(msg));
+		xhr.withCredentials = true;
 		xhr.send(null);
 	}
 

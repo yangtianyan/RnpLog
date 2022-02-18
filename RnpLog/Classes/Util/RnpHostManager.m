@@ -40,7 +40,7 @@
 - (NSMutableURLRequest *)checkAndReplaceHost:(NSMutableURLRequest *)mutableRequest
 {
     NSString * replace = [self.replace_host_dict valueForKey:mutableRequest.URL.host];
-    NSLog(@"ori: %@ rep: %@",mutableRequest.URL.host, replace);
+//    NSLog(@"ori: %@ rep: %@",mutableRequest.URL.host, replace);
     if (replace) {
         NSString * url = mutableRequest.URL.absoluteString;
         url = [url stringByReplacingOccurrencesOfString:mutableRequest.URL.host withString:replace];

@@ -59,7 +59,7 @@
         }
     }];
     [task resume];
-    NSLog(@"");
+//    NSLog(@"");
 }
 
 - (void)requestCallback:(id)requestId httpCode:(NSInteger)httpCode headers:(NSDictionary *)headers data:(NSString *)data

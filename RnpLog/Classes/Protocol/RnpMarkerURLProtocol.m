@@ -96,7 +96,7 @@
         NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
         [cookieValue appendString:appendString];
     }
-    NSLog(@"request: %@\nCookie: %@",mutableRequest,cookieValue);
+//    NSLog(@"request: %@\nCookie: %@",mutableRequest,cookieValue);
     [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
 //
 //
@@ -125,7 +125,7 @@
     
 //    [mutableRequest addValue:@"pingtas.qq.com" forHTTPHeaderField:@"Host"];
 
-    NSLog(@"************ 开始请求 %@",mutableRequest.URL);
+//    NSLog(@"************ 开始请求 %@",mutableRequest.URL);
 //    mutableRequest.URL = [NSURL URLWithString:@"https://www.baidu.com"]; // yty fix 可以篡改请求接口
     mutableRequest = [RnpHostManager.instance checkAndReplaceHost:mutableRequest];
     RnpBreakpointModel * breakpoint = [RnpBreakpointManager.instance getModelForUrl:mutableRequest.URL.absoluteString];
