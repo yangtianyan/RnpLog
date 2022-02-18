@@ -33,6 +33,7 @@
     self.navigationController.navigationBar.backgroundColor = UIColor.whiteColor;
     self.textField = UITextFieldNew().rnp
     .placeholder(@"请输入(不区分大小写)")
+    .clearButtonMode(UITextFieldViewModeWhileEditing)
     .view;
     
     __weak typeof(self) weakSelf = self;
