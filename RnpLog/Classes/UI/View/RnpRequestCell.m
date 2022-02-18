@@ -41,10 +41,13 @@
             make.height.mas_equalTo(1);
         });
         
+        
         self.contentView.rnp
         .backgroundColor(UIColor.whiteColor)
         .addSubView(self.titleLB)
-        .addSubView(self.dateLB);
+        .addSubView(self.dateLB)
+        .addGesture([[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longAct)])
+        ;
         [self setupLayout];
     }
     return self;
@@ -106,6 +109,10 @@
     [_model.task removeObserver:self forKeyPath:@"response"];
     [_model.task removeObserver:self forKeyPath:@"error"];
 }
+- (void)longAct{
+    !self.longPressBlock ?: self.longPressBlock();
+}
+
 - (void)dealloc
 {
     [self removeObserver];
