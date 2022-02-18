@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="a048b0a5-cf43-43aa-abb0-d9470cf79101" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../../../Example/Pods/Headers/Private/RnpLog/WKWebView+hookAjax.h" beforeDir="false" />

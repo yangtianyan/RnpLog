@@ -14,7 +14,8 @@
     
     @try {
     string = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
-        
+    string = [string stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
+
     }@catch (NSException *exception) {
         
     }
