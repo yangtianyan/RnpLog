@@ -64,7 +64,7 @@
     
     WKWebView * webview = WKWebViewNew().rnp
     .addToSuperView(self.view)
-    .frame(CGRectMake(00, 400, 300, 300))
+    .frame(CGRectMake(self.view.frame.size.width - 300, 400, 300, 300))
     .view;
     webview.UIDelegate = self;
     

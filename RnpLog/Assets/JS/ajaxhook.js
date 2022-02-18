@@ -26,7 +26,7 @@
 
 	function nativeCallback(xhrId, statusCode, responseText, responseHeaders, error) {
 		var xhr = window.OMTAjax.hookedXHR[xhrId];
-
+		// window.alert("nativeCallback");
 		if (xhr.isAborted) { // 如果该请求已经手动取消了
 //            return;
 //        }
@@ -65,17 +65,17 @@
             }
         }
 	}
-
 	// hook ajax send 方法
 	window.OMTAjax.hookAjax({
 		setRequestHeader: function(arg, xhr) {
+			log("onreadystatechange called:");
 			if (!this.omtHeaders) {
 				this.omtHeaders = {};
 			}
 			this.omtHeaders[arg[0]] = arg[1];
 //            window.alert("omtHeaders" + JSON.stringify(this.omtHeaders));
 //            window.alert("omtHeaders" + JSON.stringify(arg);
-            window.alert("omtHeaders" + JSON.stringify(arg));
+//             window.alert("omtHeaders" + JSON.stringify(arg));
 		},
 		getAllResponseHeaders: function(arg, xhr) {
 			var headers = this.omtResponseHeaders;
@@ -107,6 +107,7 @@
 		send: function(arg, xhr) {
 			this.isAborted = false;
             // iOS9需要对get方式进行hook，10及以上可以不需要
+			// window.alert("send " + xhr);
 			if (this.omtOpenArg[0].toUpperCase() === 'POST' || this.omtOpenArg[0].toUpperCase() === 'GET') {
 				var params = {};
 				params.data = arg[0];
@@ -133,14 +134,17 @@
 			}
 		},
 		abort: function(arg, xhr) {
+			// window.alert("abort " + arg);
 			if (this.omtOpenArg[0] === 'POST' || this.omtOpenArg[0] === 'post') {
 				if (xhr.onabort) {
 					xhr.onabort()
 				}
 				return true;
 			}
-		}
-
+		},
+		arguments: function (arg, xhr) {
+			// window.alert("arguments " + arg);
+		},
 	});
 
 	function hookAjax(proxy) {
@@ -206,7 +210,7 @@
 		function hookfunc(func) {
 			return function() {
 				var args = [].slice.call(arguments);
-
+				// window.alert("hookfunc " + args);
 				// call() 方法调用一个函数, 其具有一个指定的this值和分别地提供的参数
 				// 该方法的作用和 apply() 方法类似，只有一个区别，就是call()方法接受的是若干个参数的列表，而apply()方法接受的是一个包含多个参数的数组
 				if (proxy[func]) {
@@ -222,6 +226,13 @@
 		}
 
 		return window._ahrealxhr;
+	}
+
+	function log(msg) {
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', "http://debugger/" +
+			encodeURIComponent(msg));
+		xhr.send(null);
 	}
 
 })();

@@ -60,6 +60,9 @@
     if (content_type && [content_type containsString:@"multipart/form-data"]) {
         return NO;
     }
+    if ([[[request URL] host] isEqualToString:@"debugger"]){
+        NSLog(@"JS打印: %@ \n", [[[request URL] path] substringFromIndex: 1]);
+    }
     return YES;
 }
 //自定义网络请求，如果不需要处理直接返回request。
