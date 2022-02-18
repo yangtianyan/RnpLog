@@ -10,6 +10,7 @@
 #import "RnpBreakpointListController.h"
 #import "RnpReplaceHostController.h"
 #import "RnpHostManagerController.h"
+#import "RnpLogSearchListController.h"
 /* -- View --*/
 #import "RnpEnterPlugView.h"
 #import "RnpRequestCell.h"
@@ -31,11 +32,12 @@
     UIBarButtonItem * clearItem = [[UIBarButtonItem alloc] initWithTitle:@"清空" style:UIBarButtonItemStylePlain target:self action:@selector(clearAct)];
     UIBarButtonItem * breakpointItem = [[UIBarButtonItem alloc] initWithTitle:@"断点" style:UIBarButtonItemStylePlain target:self action:@selector(breakpointAct)];
     UIBarButtonItem * replaceItem = [[UIBarButtonItem alloc] initWithTitle:@"域名管理" style:UIBarButtonItemStylePlain target:self action:@selector(hostAct)];
+    UIBarButtonItem * searchItem = [[UIBarButtonItem alloc] initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(searchAct)];
 
-    self.navigationItem.rightBarButtonItems =@[clearItem, breakpointItem, replaceItem];
-    
+    self.navigationItem.rightBarButtonItems =@[clearItem, breakpointItem, replaceItem, searchItem];
+    self.navigationController.navigationBar.backgroundColor = UIColor.whiteColor;
     self.title = @"网络请求列表";
-    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.rnp
     .backgroundColor(UIColor.whiteColor)
     .addSubView(self.tableView);
@@ -57,6 +59,9 @@
 }
 - (void)hostAct{
     [self.navigationController pushViewController:[RnpHostManagerController new] animated:YES];
+}
+- (void)searchAct{
+    [self.navigationController pushViewController:[RnpLogSearchListController new] animated:YES];
 }
 #pragma mark -- lazy
 - (UITableView *)tableView
