@@ -10,6 +10,7 @@
 #import "RnpBreakpointListController.h"
 #import "RnpReplaceHostController.h"
 #import "RnpHostManagerController.h"
+#import "RnpLogSearchListController.h"
 /* -- View --*/
 #import "RnpEnterPlugView.h"
 #import "RnpRequestCell.h"
@@ -31,11 +32,12 @@
     UIBarButtonItem * clearItem = [[UIBarButtonItem alloc] initWithTitle:@"清空" style:UIBarButtonItemStylePlain target:self action:@selector(clearAct)];
     UIBarButtonItem * breakpointItem = [[UIBarButtonItem alloc] initWithTitle:@"断点" style:UIBarButtonItemStylePlain target:self action:@selector(breakpointAct)];
     UIBarButtonItem * replaceItem = [[UIBarButtonItem alloc] initWithTitle:@"域名管理" style:UIBarButtonItemStylePlain target:self action:@selector(hostAct)];
+    UIBarButtonItem * searchItem = [[UIBarButtonItem alloc] initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(searchAct)];
 
-    self.navigationItem.rightBarButtonItems =@[clearItem, breakpointItem, replaceItem];
-    
+    self.navigationItem.rightBarButtonItems =@[clearItem, breakpointItem, replaceItem, searchItem];
+    self.navigationController.navigationBar.backgroundColor = UIColor.whiteColor;
     self.title = @"网络请求列表";
-    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.view.rnp
     .backgroundColor(UIColor.whiteColor)
     .addSubView(self.tableView);
@@ -57,6 +59,9 @@
 }
 - (void)hostAct{
     [self.navigationController pushViewController:[RnpHostManagerController new] animated:YES];
+}
+- (void)searchAct{
+    [self.navigationController pushViewController:[RnpLogSearchListController new] animated:YES];
 }
 #pragma mark -- lazy
 - (UITableView *)tableView
@@ -81,7 +86,27 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     RnpRequestCell * cell = tableView.rnp.dequeueReusableCellWithClass(RnpRequestCell.class);
-    cell.model = RnpCaptureDataManager.instance.requests[RnpCaptureDataManager.instance.requests.count-indexPath.row-1];
+    RnpDataModel * model = RnpCaptureDataManager.instance.requests[RnpCaptureDataManager.instance.requests.count-indexPath.row-1];
+    cell.model = model;
+    __weak typeof(self) weakSelf = self;
+    cell.longPressBlock = ^{
+        UIAlertController * alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"关闭" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        UIAlertAction * clear = [UIAlertAction actionWithTitle:@"清除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [RnpCaptureDataManager.instance clearWith:model];
+        }];
+        UIAlertAction * clearOther = [UIAlertAction actionWithTitle:@"清除其他" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [RnpCaptureDataManager.instance clearOther:model];
+        }];
+        [alert addAction:clear];
+        [alert addAction:clearOther];
+        [alert addAction:cancel];
+        [weakSelf presentViewController:alert animated:YES completion:^{
+            
+        }];
+    };
     return cell;
 }
 
@@ -94,8 +119,12 @@
 #pragma mark -- notification
 - (void)notification{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addRequest) name:kAddRequestNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:kClearRequestNotification object:nil];
 }
 - (void)addRequest{
+    [self reloadData];
+}
+- (void)reloadData{
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });

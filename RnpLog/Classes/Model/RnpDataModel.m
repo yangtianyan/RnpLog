@@ -19,6 +19,7 @@
 }
 - (NSString *)rnpLogDataFormat
 {
+    ///    string = [string stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
     NSString * p_url = [NSString stringWithFormat:@"%@",self.task.originalRequest.URL];
     NSString * p_method          = self.task.originalRequest.HTTPMethod;
     NSString * p_header          = [self requestHeader];
