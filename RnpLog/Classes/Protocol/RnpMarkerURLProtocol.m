@@ -11,6 +11,7 @@
 #import "RnpCaptureDataManager.h"
 #import "RnpBreakpointManager.h"
 #import "RnpHostManager.h"
+#import "WKUserContentController+hookAjax.h"
 /* -- Model -- */
 #import "RnpDataModel.h"
 #import "RnpBreakpointModel.h"
@@ -259,6 +260,7 @@
         [cls performSelector:sel withObject:@"https"];
     #pragma clang diagnostic pop
     }
+    [WKUserContentController open];
 }
 
 /// 停止监听
