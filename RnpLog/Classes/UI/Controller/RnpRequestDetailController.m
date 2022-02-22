@@ -104,6 +104,9 @@
                                          UIActivityTypePostToFlickr,
                                          UIActivityTypePostToVimeo,
                                          ];
+    if ([vc respondsToSelector:@selector(popoverPresentationController)]) {
+        vc.popoverPresentationController.sourceView = self.view;
+    }
     [self presentViewController:vc animated:YES completion:nil];
 }
 - (void)breakpointAct{
