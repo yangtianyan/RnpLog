@@ -42,7 +42,7 @@
 - (void)showText{
     NSString * content = [self.model rnpLogDataFormat];
     NSMutableAttributedString * attribute = content.toLogAttributedString.mutableCopy;
-    NSArray * keys = @[@"URL:",@"Method:",@"Headers:",@"RequestBody:",@"Response:",@"ResponseHeader:", @"HookResponse:"];
+    NSArray * keys = @[@"OriginURL:",@"RedirectedURL:",@"Method:",@"Headers:",@"RequestBody:",@"Response:",@"ResponseHeader:", @"HookResponse:"];
     for (NSString * m_key in keys) {
         UIColor * keycolor = rgba(146, 38, 143, 1);
         NSRange range = [content rangeOfString:m_key];

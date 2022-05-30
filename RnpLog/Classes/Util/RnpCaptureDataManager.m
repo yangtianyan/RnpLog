@@ -75,7 +75,7 @@
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss SS"];
         NSString *currentDateStr = [dateFormatter stringFromDate: date];
 
-        model.request_date = currentDateStr;
+        model.requestDate = currentDateStr;
         [self.mutable_requests addObject:model];
         [self.mutable_requests_dict setObject:model forKey:task];
         [[NSNotificationCenter defaultCenter] postNotificationName:kAddRequestNotification object:model];
