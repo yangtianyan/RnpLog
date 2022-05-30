@@ -40,10 +40,12 @@ static UIWindow * tempWindow;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+#ifndef LogForceShow
             BOOL isShow = [[NSUserDefaults standardUserDefaults] boolForKey:@"rnplog_show"];
             if (!isShow) {
                 return;
             }
+#endif
             CGFloat screen_height = [UIScreen mainScreen].bounds.size.height;
             CGFloat width = 50;
             CGFloat height = width;

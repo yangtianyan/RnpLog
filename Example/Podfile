@@ -4,10 +4,13 @@ target 'RnpLog_Example' do
   pod 'RnpLog', :path => '../'
   pod 'AFNetworking'
   pod 'SDWebImage'
-
-  target 'RnpLog_Tests' do
-    inherit! :search_paths
-
-    
-  end
+end
+post_install do |installer_representation|
+    installer_representation.pods_project.targets.each do |target|
+        if target.name == 'RnpLog'
+            target.build_configurations.each do |config|
+                config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)','LogForceShow=1']
+            end
+        end
+    end
 end

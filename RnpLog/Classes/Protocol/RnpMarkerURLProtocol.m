@@ -27,10 +27,12 @@
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+#ifndef LogForceShow
         BOOL isShow = [[NSUserDefaults standardUserDefaults] boolForKey:@"rnplog_show"];
         if (!isShow) {
             return;
         }
+#endif
         [RnpMarkerURLProtocol startMonitor];
     });
 }
