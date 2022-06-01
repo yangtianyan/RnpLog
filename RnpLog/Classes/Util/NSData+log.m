@@ -11,11 +11,6 @@
 
 - (NSString *)toString{
     NSString * string = [self toOriginString];
-    string = [string stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
-    return string;
-}
-
-- (NSString *)toOriginString{
     NSString * string;
     @try {
         NSError * error;
@@ -25,10 +20,13 @@
         }else{
             string = [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
         }
+        string = [string stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
     }@catch (NSException *exception) {
         
     }
     return string;
+
 }
+
 
 @end

@@ -46,9 +46,25 @@
             }
         }
         [stream close];
-        p_body = data.toOriginString;
+        p_body = [self toStringWithData:data];
     }
     return p_body;
+}
+
+- (NSString *)toStringWithData:(NSData *)data{
+    NSString * string;
+    @try {
+        NSError * error;
+        id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
+        if (json) {
+            string = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:json options:kNilOptions error:nil] encoding:NSUTF8StringEncoding];
+        }else{
+            string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        }
+    }@catch (NSException *exception) {
+        
+    }
+    return string;
 }
 
 
