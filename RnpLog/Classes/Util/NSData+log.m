@@ -10,7 +10,6 @@
 @implementation NSData (log)
 
 - (NSString *)toString{
-    NSString * string = [self toOriginString];
     NSString * string;
     @try {
         NSError * error;
