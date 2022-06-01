@@ -21,6 +21,8 @@
 		03857E006B142470B2195B85C12F2664 /* RnpReplaceHostCell.h in Headers */ = {isa = PBXBuildFile; fileRef = E2FC93C6A295D705ECE0DB30958B4B91 /* RnpReplaceHostCell.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		038624C9D9CAC879C0B263616C798B10 /* SDAnimatedImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CE063E81BC261CB2CE99217BBC95A75 /* SDAnimatedImage.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		040190A5485A4653E84BF38EFA20957C /* SDImageGIFCoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 323B24340377C9893C2F376998285D47 /* SDImageGIFCoder.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		045837C028476482001FD233 /* NSURLRequest+curl.h in Headers */ = {isa = PBXBuildFile; fileRef = 045837BE28476482001FD233 /* NSURLRequest+curl.h */; };
+		045837C128476482001FD233 /* NSURLRequest+curl.m in Sources */ = {isa = PBXBuildFile; fileRef = 045837BF28476482001FD233 /* NSURLRequest+curl.m */; };
 		048F6273533BCC5EEDEA762F9E76140F /* RnpSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 06323426012BFC377B9D29BE56BE6E0E /* RnpSessionConfiguration.m */; };
 		051B9256BD557C2F30C99C15390DD8C7 /* imywk_hookajax.js in Resources */ = {isa = PBXBuildFile; fileRef = 12DA1A777E9AF063A410379D44A1BD99 /* imywk_hookajax.js */; };
 		05DC523EED85BA5725B11E94150E9C5A /* RnpBreakpointInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = F028AD960EF8BAB20CD77D39DB5D1F24 /* RnpBreakpointInfoController.m */; };
@@ -436,6 +438,8 @@
 		03F43FC182E5A372CA402682464FD524 /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLResponseSerialization.h; path = AFNetworking/AFURLResponseSerialization.h; sourceTree = "<group>"; };
 		04365A5066DA14472E3FA9A334242210 /* SDImageTransformer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDImageTransformer.h; path = SDWebImage/Core/SDImageTransformer.h; sourceTree = "<group>"; };
 		0447FF82C4C87F01215727C8DEDAC153 /* SDMemoryCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDMemoryCache.h; path = SDWebImage/Core/SDMemoryCache.h; sourceTree = "<group>"; };
+		045837BE28476482001FD233 /* NSURLRequest+curl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+curl.h"; sourceTree = "<group>"; };
+		045837BF28476482001FD233 /* NSURLRequest+curl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+curl.m"; sourceTree = "<group>"; };
 		05C5973536E1704B00F8818F34EAE31C /* NSButton+WebCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSButton+WebCache.h"; path = "SDWebImage/Core/NSButton+WebCache.h"; sourceTree = "<group>"; };
 		05DF01CED8C587FCFA69BB8F040C4B76 /* RnpHostManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RnpHostManager.h; sourceTree = "<group>"; };
 		05DF21A9BDC0382C189F20BD40230822 /* UIImage+MultiFormat.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+MultiFormat.h"; path = "SDWebImage/Core/UIImage+MultiFormat.h"; sourceTree = "<group>"; };
@@ -459,11 +463,11 @@
 		122D2411D68B12943E778F53AA4D8161 /* RnpAddBreakpointUrlCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RnpAddBreakpointUrlCell.h; sourceTree = "<group>"; };
 		126F6BDDE1B4ADE617D98162D10BB55E /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSArray+MASAdditions.m"; path = "Masonry/NSArray+MASAdditions.m"; sourceTree = "<group>"; };
 		12A99A1848478CE2A2E844D1A3D81748 /* RnpDataModel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RnpDataModel.m; sourceTree = "<group>"; };
-		12DA1A777E9AF063A410379D44A1BD99 /* imywk_hookajax.js */ = {isa = PBXFileReference; includeInIndex = 1; path = imywk_hookajax.js; sourceTree = "<group>"; };
+		12DA1A777E9AF063A410379D44A1BD99 /* imywk_hookajax.js */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.javascript; path = imywk_hookajax.js; sourceTree = "<group>"; };
 		130FB5369C2C1F4329FB92C8D6583A0B /* NSImage+Compatibility.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSImage+Compatibility.m"; path = "SDWebImage/Core/NSImage+Compatibility.m"; sourceTree = "<group>"; };
 		1576A92BB8BF5F43AD5E2E1943FB88D0 /* RnpLog-RnpLog */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "RnpLog-RnpLog"; path = RnpLog.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		158F4942878480AF2D4FD7714C37D971 /* AFImageDownloader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFImageDownloader.m; path = "UIKit+AFNetworking/AFImageDownloader.m"; sourceTree = "<group>"; };
-		166DFCEE52F7E0FFE49CE0E0096028B1 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		166DFCEE52F7E0FFE49CE0E0096028B1 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		16E7E1F6B0397E8A54D2A6AF4FAECFB9 /* RnpBaseViewChain+Layout.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "RnpBaseViewChain+Layout.h"; path = "RnpKit/Classes/Layout/RnpBaseViewChain+Layout.h"; sourceTree = "<group>"; };
 		1716C6711F9A9F2D9BD9DEE20669FF61 /* SDImageAssetManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDImageAssetManager.m; path = SDWebImage/Private/SDImageAssetManager.m; sourceTree = "<group>"; };
 		172CF7708ADB9B090AA5E4FB5F702CB8 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIActivityIndicatorView+AFNetworking.h"; path = "UIKit+AFNetworking/UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
@@ -583,7 +587,7 @@
 		612D9A20493C28FC36B1642FCCC145A5 /* SDWebImage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SDWebImage.debug.xcconfig; sourceTree = "<group>"; };
 		6274DCE7BBAC5EFB00F7F472CEFB0A59 /* RnpUISwitchChain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RnpUISwitchChain.h; path = RnpKit/Classes/View/RnpUISwitchChain.h; sourceTree = "<group>"; };
 		639413E43E018BC445EED6D309CDCC3C /* SDWebImageDefine.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageDefine.m; path = SDWebImage/Core/SDWebImageDefine.m; sourceTree = "<group>"; };
-		645E12606704AF46C46B37F373CC4050 /* JS */ = {isa = PBXFileReference; includeInIndex = 1; name = JS; path = RnpLog/Assets/JS; sourceTree = "<group>"; };
+		645E12606704AF46C46B37F373CC4050 /* JS */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = JS; path = RnpLog/Assets/JS; sourceTree = "<group>"; };
 		64D82949EE3D32465037C5855DC7EA5F /* MASConstraint+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MASConstraint+Private.h"; path = "Masonry/MASConstraint+Private.h"; sourceTree = "<group>"; };
 		659529A42D2F147E65B01C025AAB36F5 /* RnpEnterPlugView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RnpEnterPlugView.h; sourceTree = "<group>"; };
 		664575B5A2849233F3532DFE4E6A193B /* RnpMutableAttributedStringChain.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RnpMutableAttributedStringChain.m; path = RnpKit/Classes/AttributedString/RnpMutableAttributedStringChain.m; sourceTree = "<group>"; };
@@ -622,7 +626,7 @@
 		7F0893D2F1FE9548BE971A6F74D21499 /* MASConstraint.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASConstraint.h; path = Masonry/MASConstraint.h; sourceTree = "<group>"; };
 		7F8B8C63C137EFCA1AC23B0912FF32EB /* RnpAttributedDefine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RnpAttributedDefine.h; path = RnpKit/Classes/AttributedString/RnpAttributedDefine.h; sourceTree = "<group>"; };
 		7FAAF20E64F6702D4664E55DE7997311 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSData+ImageContentType.h"; path = "SDWebImage/Core/NSData+ImageContentType.h"; sourceTree = "<group>"; };
-		801231E11BF7D1A8A93D9510BA6D8E59 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		801231E11BF7D1A8A93D9510BA6D8E59 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		802880F0A0AD5FA669341654C9C4EC81 /* RnpUIProgressViewChain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RnpUIProgressViewChain.h; path = RnpKit/Classes/View/RnpUIProgressViewChain.h; sourceTree = "<group>"; };
 		8038072A1D51DD23AA698F9379840A96 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+WebCacheOperation.h"; path = "SDWebImage/Core/UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		81CFC6FEBF397B6D980069127B8F7C75 /* SDImageGraphics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDImageGraphics.h; path = SDWebImage/Core/SDImageGraphics.h; sourceTree = "<group>"; };
@@ -664,7 +668,7 @@
 		9D3C302D63416DA092A617A7A817BAA6 /* RnpUITextFieldChain.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RnpUITextFieldChain.m; path = RnpKit/Classes/View/RnpUITextFieldChain.m; sourceTree = "<group>"; };
 		9D91B626F4E9B4810D2884EBB677E4F5 /* SDImageCodersManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SDImageCodersManager.h; path = SDWebImage/Core/SDImageCodersManager.h; sourceTree = "<group>"; };
 		9D93987B198B76BA06BE7980D0615D78 /* MASUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASUtilities.h; path = Masonry/MASUtilities.h; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DED91520F1001076B015D17D395C3FD /* SDWebImageDownloaderDecryptor.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDWebImageDownloaderDecryptor.m; path = SDWebImage/Core/SDWebImageDownloaderDecryptor.m; sourceTree = "<group>"; };
 		9E86F36CE84E8AD38067DE7DED24E6A1 /* UIImage+MultiFormat.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+MultiFormat.m"; path = "SDWebImage/Core/UIImage+MultiFormat.m"; sourceTree = "<group>"; };
 		9F443120A40232F26B84B7DF956103FF /* SDWebImage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SDWebImage.release.xcconfig; sourceTree = "<group>"; };
@@ -697,7 +701,7 @@
 		AC63CEFA20E2CF3A9E3A333EF5B94F0F /* Masonry-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Masonry-prefix.pch"; sourceTree = "<group>"; };
 		AF3031220FA0488F1E264D49EE196E13 /* RnpUIControlChain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RnpUIControlChain.h; path = RnpKit/Classes/View/RnpUIControlChain.h; sourceTree = "<group>"; };
 		AF5CAB8FEB11BF3055159190614D1339 /* RnpKitView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RnpKitView.h; path = RnpKit/Classes/View/RnpKitView.h; sourceTree = "<group>"; };
-		AF878E80792C2E64212B4C33D52AE8FA /* ajaxhook.js */ = {isa = PBXFileReference; includeInIndex = 1; path = ajaxhook.js; sourceTree = "<group>"; };
+		AF878E80792C2E64212B4C33D52AE8FA /* ajaxhook.js */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.javascript; path = ajaxhook.js; sourceTree = "<group>"; };
 		AFC6BD017ABE1CD20B061540E2EE0129 /* AFCompatibilityMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFCompatibilityMacros.h; path = AFNetworking/AFCompatibilityMacros.h; sourceTree = "<group>"; };
 		B0B214D775196BA7CA8E17E53048A493 /* SDWebImage */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = SDWebImage; path = libSDWebImage.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0BEDBBC6633A97D050FE28B3BF61387 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "View+MASShorthandAdditions.h"; path = "Masonry/View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
@@ -737,7 +741,7 @@
 		CE5DC41D7A1E317B930E38C221152748 /* RnpRequestCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RnpRequestCell.h; sourceTree = "<group>"; };
 		CE7F62A4CE9F2EB998FCFC020CB7B7AB /* UIImageView+HighlightedWebCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+HighlightedWebCache.m"; path = "SDWebImage/Core/UIImageView+HighlightedWebCache.m"; sourceTree = "<group>"; };
 		CEB8B2A287B91965B93F152FD1175261 /* RnpUIProgressViewChain.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RnpUIProgressViewChain.m; path = RnpKit/Classes/View/RnpUIProgressViewChain.m; sourceTree = "<group>"; };
-		D0D5BD326C02C53037F8CAD8031E65F0 /* RnpLog.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = RnpLog.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D0D5BD326C02C53037F8CAD8031E65F0 /* RnpLog.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = RnpLog.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D15AD7D2A5A40B408A7513F81630EF89 /* RnpBreakpointManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RnpBreakpointManager.m; sourceTree = "<group>"; };
 		D16DBE9242D4D267371B5A6509004749 /* SDImageAWebPCoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SDImageAWebPCoder.m; path = SDWebImage/Core/SDImageAWebPCoder.m; sourceTree = "<group>"; };
 		D2DD30251B0EDAECF80B428A0E1D593A /* RnpBreakpointInfoController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RnpBreakpointInfoController.h; sourceTree = "<group>"; };
@@ -887,7 +891,6 @@
 				94564E1E2BE8163C1BE68C8B50F6C454 /* WKUserContentController+hookAjax.h */,
 				A0BF786F3B4E8033A44687362FF3E33D /* WKUserContentController+hookAjax.m */,
 			);
-			name = WKWebView;
 			path = WKWebView;
 			sourceTree = "<group>";
 		};
@@ -927,7 +930,6 @@
 				9C9AE54DD9F6171854DC3C97F7405C8B /* RnpRequestSetupController.h */,
 				A6341148112A7ADFB82DF4953D4CCEDB /* RnpRequestSetupController.m */,
 			);
-			name = breakpoint;
 			path = breakpoint;
 			sourceTree = "<group>";
 		};
@@ -960,7 +962,6 @@
 				6A4D32A24415950565E2F91BDE837CBD /* Support Files */,
 				FBBD421CF2820EEF42E41D490C9E6E01 /* View */,
 			);
-			name = RnpKit;
 			path = RnpKit;
 			sourceTree = "<group>";
 		};
@@ -987,7 +988,6 @@
 				E8FE859E21B1F0C196CBC4B093FDE26C /* RnpWhiteListHostCell.h */,
 				55D65A35B84EBF91043DCAFC5C504C42 /* RnpWhiteListHostCell.m */,
 			);
-			name = host;
 			path = host;
 			sourceTree = "<group>";
 		};
@@ -1010,7 +1010,6 @@
 				D0C0DD8AA484A7838B305B04EFD6AC6E /* AddBreakpoint */,
 				4572D165D78470DFA5A1D50BD667B801 /* host */,
 			);
-			name = View;
 			path = View;
 			sourceTree = "<group>";
 		};
@@ -1153,6 +1152,8 @@
 				05DF01CED8C587FCFA69BB8F040C4B76 /* RnpHostManager.h */,
 				0A26C156F6CD06EB0EA1DF3E38874743 /* RnpHostManager.m */,
 				1DA5C1B13129C10917D690C2BD01F44E /* WKWebView */,
+				045837BE28476482001FD233 /* NSURLRequest+curl.h */,
+				045837BF28476482001FD233 /* NSURLRequest+curl.m */,
 			);
 			name = Util;
 			path = RnpLog/Classes/Util;
@@ -1181,7 +1182,6 @@
 				C86C9C8C010BB4F58D1897A116F4CC64 /* RnpReplaceHostController.h */,
 				736952A43D7A191470FDFECCDD0DFFAC /* RnpReplaceHostController.m */,
 			);
-			name = host;
 			path = host;
 			sourceTree = "<group>";
 		};
@@ -1205,7 +1205,6 @@
 				C211DE5EC724DC049282D0344D32B76B /* Core */,
 				27B84447A12A278D1309ADC701DE703F /* Support Files */,
 			);
-			name = SDWebImage;
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
@@ -1220,7 +1219,6 @@
 				C5673B069847EF6EDA637ECD12DF96EE /* Support Files */,
 				9845AE82973EB8D3C7F2D784B7705FF8 /* UIKit */,
 			);
-			name = AFNetworking;
 			path = AFNetworking;
 			sourceTree = "<group>";
 		};
@@ -1427,7 +1425,6 @@
 				6D818782E92D69FF88D083E6A4962D32 /* ViewController+MASAdditions.m */,
 				3AD37B2D2043AD969B3D019CDBE9D99A /* Support Files */,
 			);
-			name = Masonry;
 			path = Masonry;
 			sourceTree = "<group>";
 		};
@@ -1440,7 +1437,6 @@
 				8ED35E26F101705E36A56920053487DE /* RnpBreakpointSwitchCell.h */,
 				B2941F9C7ACCD6704E38ED8D704452F0 /* RnpBreakpointSwitchCell.m */,
 			);
-			name = AddBreakpoint;
 			path = AddBreakpoint;
 			sourceTree = "<group>";
 		};
@@ -1514,7 +1510,6 @@
 				39CC3FFAE7DE5A51CEBB60C68271FF32 /* breakpoint */,
 				B674CC2FE160D39AA17391EFADB3D1DB /* host */,
 			);
-			name = Controller;
 			path = Controller;
 			sourceTree = "<group>";
 		};
@@ -1795,6 +1790,7 @@
 				F81C4DDC3480E3D3DF88746E62DC8DAB /* RnpBreakpointModel.h in Headers */,
 				097D8661A79710B79AA14E8E2C9A1041 /* RnpBreakpointSwitchCell.h in Headers */,
 				9E4BFDF3ED1A0EE6EEDC180C27B36576 /* RnpBreakpointWhiteListController.h in Headers */,
+				045837C028476482001FD233 /* NSURLRequest+curl.h in Headers */,
 				CFD7DEE023A34722F6698CF39870FB76 /* RnpCaptureDataManager.h in Headers */,
 				F81B15D4101CE753C17B95C2BCA50DFA /* RnpDataModel.h in Headers */,
 				8B87720D2CAF1CAD07B77AD04160B8CC /* RnpDefine.h in Headers */,
@@ -2138,6 +2134,7 @@
 				E57853A462E2F9036828B3D881BCDBDE /* RnpLogSearchListController.m in Sources */,
 				E285B1531001FE414C1DED8A92236880 /* RnpMarkerURLProtocol.m in Sources */,
 				EFE55C6B0FE72DC02640BBBE64FFEC17 /* RnpReplaceHostCell.m in Sources */,
+				045837C128476482001FD233 /* NSURLRequest+curl.m in Sources */,
 				D245A09BA30C83E34066DF9BC7CA70D4 /* RnpReplaceHostController.m in Sources */,
 				3D8BB0A8CD055771E4262AB0998CD3A0 /* RnpReplaceHostModel.m in Sources */,
 				2C2A119886B868F56D57C57D13086032 /* RnpRequestCell.m in Sources */,
@@ -2755,8 +2752,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				SYMROOT = "${SRCROOT}/../build";
 			};

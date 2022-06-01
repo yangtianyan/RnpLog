@@ -13,6 +13,8 @@
 #import "RnpDefine.h"
 #import <RnpKit/RnpKitAttributedString.h>
 #import "NSString+log.h"
+#import "NSURLRequest+curl.h"
+
 
 @interface RnpRequestDetailController ()<UITextViewDelegate>
 
@@ -72,8 +74,24 @@
 }
 #pragma mark -- Action
 - (void)copyAction {
-    UIPasteboard * board = [UIPasteboard generalPasteboard];
-    board.string = [self.model rnpLogDataFormatToJson];
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"复制" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    __weak typeof(self) weakSelf = self;
+    UIAlertAction * copy = [UIAlertAction actionWithTitle:@"返回值" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIPasteboard * board = [UIPasteboard generalPasteboard];
+        board.string = [weakSelf.model rnpLogDataFormatToJson];
+    }];
+    UIAlertAction * curl = [UIAlertAction actionWithTitle:@"curl" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIPasteboard * board = [UIPasteboard generalPasteboard];
+        board.string = [weakSelf.model.task.originalRequest curl];
+    }];
+    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alertController addAction:copy];
+    [alertController addAction:curl];
+    [alertController addAction:cancel];
+    [self presentViewController:alertController animated:true completion:nil];
+
 }
 - (void)shareAction {
     NSString * text = self.textView.text;
