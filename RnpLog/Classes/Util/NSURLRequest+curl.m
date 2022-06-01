@@ -61,6 +61,14 @@
         }else{
             string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         }
+        NSMutableString * mutableStr = [string mutableCopy];
+        [mutableStr enumerateSubstringsInRange:NSMakeRange(0, string.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL * _Nonnull stop) {
+            if ([substring isEqualToString:@"\""]) {
+                // 转义特殊字符串
+                [mutableStr replaceOccurrencesOfString:@"\"" withString:@"\\\"" options:NSLiteralSearch range:enclosingRange];
+            }
+        }];
+        string = mutableStr.copy;
     }@catch (NSException *exception) {
         
     }
