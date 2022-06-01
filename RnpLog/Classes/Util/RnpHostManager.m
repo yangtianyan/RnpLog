@@ -41,7 +41,7 @@
 {
     NSString * host = mutableRequest.URL.host;
     if (mutableRequest.URL.port) {
-        host = [NSString stringWithFormat:@"%@:%@",host, mutableRequest.URL.host];
+        host = [NSString stringWithFormat:@"%@:%@",host, mutableRequest.URL.port];
     }
     NSString * replace = [self.replace_host_dict valueForKey:host];
 //    NSLog(@"ori: %@ rep: %@",host, replace);
