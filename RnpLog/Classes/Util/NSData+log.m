@@ -25,7 +25,6 @@
         }else{
             string = [[NSString alloc] initWithData:self encoding:NSUTF8StringEncoding];
         }
-        string = [string stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
     }@catch (NSException *exception) {
         
     }
