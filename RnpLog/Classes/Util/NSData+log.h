@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSData (log)
 - (NSString *)toString;
+- (NSString *)toOriginString;
 @end
 
 NS_ASSUME_NONNULL_END

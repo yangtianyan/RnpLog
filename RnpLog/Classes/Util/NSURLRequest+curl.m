@@ -46,7 +46,7 @@
             }
         }
         [stream close];
-        p_body = data.toString;
+        p_body = data.toOriginString;
     }
     return p_body;
 }

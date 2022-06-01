@@ -10,6 +10,12 @@
 @implementation NSData (log)
 
 - (NSString *)toString{
+    NSString * string = [self toOriginString];
+    string = [string stringByReplacingOccurrencesOfString:@"\\/" withString:@"/"];
+    return string;
+}
+
+- (NSString *)toOriginString{
     NSString * string;
     @try {
         NSError * error;
