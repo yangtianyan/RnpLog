@@ -89,7 +89,7 @@
         tag = @"✅ ";
     }
     self.titleLB.text = [NSString stringWithFormat:@"%@ %@",tag, task.originalRequest.URL];
-    self.dateLB.text = [NSString stringWithFormat:@"%@", model.request_date];
+    self.dateLB.text = [NSString stringWithFormat:@"%@", model.requestDate];
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {

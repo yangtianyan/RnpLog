@@ -17,7 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) NSData * hookData;
 
-@property (nonatomic, copy)   NSString * request_date;
+@property (nonatomic, copy)   NSString * requestDate;
+
+@property (nonatomic, copy)  NSString * redirectedUrl;
 
 - (NSString *)rnpLogDataFormat;
 

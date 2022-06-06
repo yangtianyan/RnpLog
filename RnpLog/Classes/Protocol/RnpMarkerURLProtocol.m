@@ -28,10 +28,12 @@
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+#ifndef LogForceShow
         BOOL isShow = [[NSUserDefaults standardUserDefaults] boolForKey:@"rnplog_show"];
         if (!isShow) {
             return;
         }
+#endif
         [RnpMarkerURLProtocol startMonitor];
     });
 }
@@ -197,10 +199,12 @@
                      willPerformHTTPRedirection:(NSHTTPURLResponse *)response
                                      newRequest:(NSURLRequest *)request
  completionHandler:(void (^)(NSURLRequest * _Nullable))completionHandler{
-    [self.client URLProtocol:self wasRedirectedToRequest:request redirectResponse:response];
-    [task cancel];
-    NSError * error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil];
-    [self.client URLProtocol:self didFailWithError:error];
+//    [self.client URLProtocol:self wasRedirectedToRequest:request redirectResponse:response];
+//    NSError * error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil];
+//    [self.client URLProtocol:self didFailWithError:error];
+    RnpDataModel * model = RnpCaptureDataManager.instance.requests_dict[task];
+    model.redirectedUrl = [NSString stringWithFormat:@"%@",request.URL];
+    completionHandler(request);
 }
 /// 这个地方可以延迟执行
 /// 抓包

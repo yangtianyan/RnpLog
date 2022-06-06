@@ -23,7 +23,7 @@
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"rnplog_show"];// 是否开启抓包设置
+//        [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"rnplog_show"];// 是否开启抓包设置
     });
 }
 
@@ -45,8 +45,7 @@
         session.responseSerializer = [AFHTTPResponseSerializer serializer];// 响应
         session.requestSerializer.timeoutInterval = 50;
         session.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json",@"text/javascript",@"text/html", nil];
-        NSString * url = @"https://dev.namibox.com/dy/dyhome?grade=4b&device_screen_width=375.000000";
-        url = @"https://unsplash.com/napi/photos?page=0&per_page=2&order_by=latest";
+        NSString * url = @"https://unsplash.com/napi/photos?page=0&per_page=2&order_by=latest";
 //        url = @"https://www.taobao.com/";
         __weak typeof(self) weakSelf = self;
         [session GET:url parameters:nil headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

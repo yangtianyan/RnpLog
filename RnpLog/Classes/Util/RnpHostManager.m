@@ -39,11 +39,15 @@
 
 - (NSMutableURLRequest *)checkAndReplaceHost:(NSMutableURLRequest *)mutableRequest
 {
-    NSString * replace = [self.replace_host_dict valueForKey:mutableRequest.URL.host];
-//    NSLog(@"ori: %@ rep: %@",mutableRequest.URL.host, replace);
+    NSString * host = mutableRequest.URL.host;
+    if (mutableRequest.URL.port) {
+        host = [NSString stringWithFormat:@"%@:%@",host, mutableRequest.URL.port];
+    }
+    NSString * replace = [self.replace_host_dict valueForKey:host];
+//    NSLog(@"ori: %@ rep: %@",host, replace);
     if (replace) {
         NSString * url = mutableRequest.URL.absoluteString;
-        url = [url stringByReplacingOccurrencesOfString:mutableRequest.URL.host withString:replace];
+        url = [url stringByReplacingOccurrencesOfString:host withString:replace];
         mutableRequest.URL = [NSURL URLWithString:url];
     }
     return mutableRequest;

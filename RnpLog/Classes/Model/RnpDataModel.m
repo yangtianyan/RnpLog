@@ -27,9 +27,17 @@
     NSString * p_response_header = [self responseHeader];
     NSString * p_response        = [self originalResponse];
     NSString * h_response        = [self hookResponse];
-    
-    NSMutableString * netLog = [@"URL: " mutableCopy];
-    [netLog appendString:p_url];
+    NSMutableString * netLog;
+    if (self.redirectedUrl.length) {
+        netLog = [@"OriginURL: " mutableCopy];
+        [netLog appendString:p_url];
+        [netLog appendString:@"\n\n\n"];
+        [netLog appendString:@"RedirectedURL: "];
+        [netLog appendString:self.redirectedUrl];
+    }else{
+        netLog = [@"URL: " mutableCopy];
+        [netLog appendString:p_url];
+    }
     [netLog appendString:@"\n\n\n"];
     [netLog appendString:@"Method: "];
     [netLog appendString:p_method];
@@ -60,14 +68,20 @@
     NSString * p_response_header = [self responseHeader];
     NSString * p_response        = [self originalResponse];
     NSString * h_response        = [self hookResponse];
-    NSMutableDictionary * json = @{
-        @"URL": p_url ?: @"",
+    NSMutableDictionary * json = @{}.mutableCopy;
+    if (self.redirectedUrl.length) {
+        [json setValue:p_url forKey:@"OriginURL"];
+        [json setValue:self.redirectedUrl forKey:@"RedirectedURL"];
+    }else{
+        [json setValue:p_url forKey:@"URL"];
+    }
+    [json addEntriesFromDictionary:@{
         @"Method": p_method ?: @"",
         @"Headers": p_header.toJson ?: @{},
         @"RequestBody": p_body.toJson ?: @"",
         @"ResponseHeader": p_response_header.toJson ?: @"",
         @"Response": p_response.toJson ?: @"",
-    }.mutableCopy;
+    }];
     if (h_response.length > 0) {
         [json setObject:h_response.toJson ?: @"" forKey:@"HookResponse"];
     }

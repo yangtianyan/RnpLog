@@ -13,6 +13,8 @@
 #import "RnpDefine.h"
 #import <RnpKit/RnpKitAttributedString.h>
 #import "NSString+log.h"
+#import "NSURLRequest+curl.h"
+
 
 @interface RnpRequestDetailController ()<UITextViewDelegate>
 
@@ -42,7 +44,7 @@
 - (void)showText{
     NSString * content = [self.model rnpLogDataFormat];
     NSMutableAttributedString * attribute = content.toLogAttributedString.mutableCopy;
-    NSArray * keys = @[@"URL:",@"Method:",@"Headers:",@"RequestBody:",@"Response:",@"ResponseHeader:", @"HookResponse:"];
+    NSArray * keys = @[@"OriginURL:",@"RedirectedURL:",@"Method:",@"Headers:",@"RequestBody:",@"Response:",@"ResponseHeader:", @"HookResponse:"];
     for (NSString * m_key in keys) {
         UIColor * keycolor = rgba(146, 38, 143, 1);
         NSRange range = [content rangeOfString:m_key];
@@ -72,8 +74,24 @@
 }
 #pragma mark -- Action
 - (void)copyAction {
-    UIPasteboard * board = [UIPasteboard generalPasteboard];
-    board.string = [self.model rnpLogDataFormatToJson];
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"复制" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    __weak typeof(self) weakSelf = self;
+    UIAlertAction * copy = [UIAlertAction actionWithTitle:@"返回值" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIPasteboard * board = [UIPasteboard generalPasteboard];
+        board.string = [weakSelf.model rnpLogDataFormatToJson];
+    }];
+    UIAlertAction * curl = [UIAlertAction actionWithTitle:@"curl" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIPasteboard * board = [UIPasteboard generalPasteboard];
+        board.string = [weakSelf.model.task.originalRequest curl];
+    }];
+    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alertController addAction:copy];
+    [alertController addAction:curl];
+    [alertController addAction:cancel];
+    [self presentViewController:alertController animated:true completion:nil];
+
 }
 - (void)shareAction {
     NSString * text = self.textView.text;
