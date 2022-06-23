@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)open;
 
++ (void)close;
+
 @end
 
 NS_ASSUME_NONNULL_END
