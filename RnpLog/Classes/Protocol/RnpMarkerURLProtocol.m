@@ -289,17 +289,17 @@ static BOOL isMonitor = false;
     if ([sessionConfiguration isSwizzle]) {
         [sessionConfiguration unload];
     }
-//    ///卸载webview抓包
-//    Class cls = NSClassFromString(@"WKBrowsingContextController");
-//    SEL sel = NSSelectorFromString(@"unregisterSchemeForCustomProtocol:");
-//    if ([(id)cls respondsToSelector:sel]) {
-//    #pragma clang diagnostic push
-//    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-//        [cls performSelector:sel withObject:@"http"];
-//        [cls performSelector:sel withObject:@"https"];
-//    #pragma clang diagnostic pop
-//    }
-//    [WKUserContentController close];
+    ///卸载webview抓包
+    Class cls = NSClassFromString(@"WKBrowsingContextController");
+    SEL sel = NSSelectorFromString(@"unregisterSchemeForCustomProtocol:");
+    if ([(id)cls respondsToSelector:sel]) {
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [cls performSelector:sel withObject:@"http"];
+        [cls performSelector:sel withObject:@"https"];
+    #pragma clang diagnostic pop
+    }
+    [WKUserContentController close];
 
 }
 @end
