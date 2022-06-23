@@ -83,7 +83,8 @@ static UIWindow * tempWindow;
         doubleTap.numberOfTapsRequired = 2;
         [tap requireGestureRecognizerToFail:doubleTap];
         self.rnp
-        .backgroundColor( [UIColor greenColor])
+        // 00bbff
+        .backgroundColor(rgba(0, 187, 255, 1))
         .cornerRadius(frame.size.width/2)
         .addSubView(UILabelNew().rnp
                     .text(@"抓包")
@@ -180,10 +181,16 @@ static UIWindow * tempWindow;
     UILabel * label = [self viewWithTag:1000];
     if (RnpMarkerURLProtocol.isMonitor) {
         [RnpMarkerURLProtocol stopMonitor];
-        label.text = @"暂停抓包";
+        label.rnp
+        .text(@"暂停抓包")
+        .font([UIFont boldSystemFontOfSize:12]);
+        self.backgroundColor = rgba(180, 180, 180, 1);
     }else{
         [RnpMarkerURLProtocol startMonitor];
-        label.text = @"抓包";
+        label.rnp
+        .text(@"抓包")
+        .font([UIFont boldSystemFontOfSize:16]);
+        self.backgroundColor = rgba(0, 187, 255, 1);
     }
 }
 
