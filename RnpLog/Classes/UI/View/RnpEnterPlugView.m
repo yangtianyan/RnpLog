@@ -11,6 +11,7 @@
 /* -- Util -- */
 #import "RnpDefine.h"
 #import "NSObject+top.h"
+#import "RnpSessionConfiguration.h"
 
 static RnpEnterPlugView * instance;
 static UIWindow * tempWindow;
@@ -77,6 +78,9 @@ static UIWindow * tempWindow;
         self.pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
         
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapClick)];
+        UITapGestureRecognizer * doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleClick)];
+        doubleTap.numberOfTapsRequired = 2;
+        [tap requireGestureRecognizerToFail:doubleTap];
         self.rnp
         .backgroundColor( [UIColor greenColor])
         .cornerRadius(frame.size.width/2)
@@ -86,8 +90,11 @@ static UIWindow * tempWindow;
                     .font([UIFont boldSystemFontOfSize:16])
                     .frame(CGRectMake(0,0,frame.size.width,frame.size.height))
                     .textAlignment(NSTextAlignmentCenter)
+                    .setTag(1000)
+                    .numberOfLines(2)
                     .view)
         .addGesture(tap)
+        .addGesture(doubleTap)
         .addGesture(self.pan);
     }
     return self;
@@ -167,6 +174,19 @@ static UIWindow * tempWindow;
 - (void)tapClick{
     UIViewController * rootViewController = currentWindow().rootViewController;
     [self presentViewControllerForController:rootViewController];
+}
+- (void)doubleClick{
+    UILabel * label = [self viewWithTag:1000];
+    if ([RnpSessionConfiguration defaultConfiguration].isSwizzle) {
+        [RnpSessionConfiguration.defaultConfiguration unload];
+        label.text = @"暂停抓包";
+    }else{
+        [RnpSessionConfiguration.defaultConfiguration load];
+        label.text = @"抓包";
+    }
+    
+    
+    
 }
 
 - (void)presentViewControllerForController:(UIViewController *)controller{
