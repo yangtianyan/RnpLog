@@ -12,6 +12,9 @@ static NSString * const hasInitKey = @"RnpMarkerProtocolKey";
 
 @interface RnpMarkerURLProtocol : NSURLProtocol
 
+/// 是否在监听
+@property (nonatomic, assign, class) BOOL isMonitor;
+
 + (void)startMonitor ;
 
 /// 停止监听

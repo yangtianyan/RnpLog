@@ -12,6 +12,7 @@
 #import "RnpDefine.h"
 #import "NSObject+top.h"
 #import "RnpSessionConfiguration.h"
+#import "RnpMarkerURLProtocol.h"
 
 static RnpEnterPlugView * instance;
 static UIWindow * tempWindow;
@@ -177,16 +178,13 @@ static UIWindow * tempWindow;
 }
 - (void)doubleClick{
     UILabel * label = [self viewWithTag:1000];
-    if ([RnpSessionConfiguration defaultConfiguration].isSwizzle) {
-        [RnpSessionConfiguration.defaultConfiguration unload];
+    if (RnpMarkerURLProtocol.isMonitor) {
+        [RnpMarkerURLProtocol stopMonitor];
         label.text = @"暂停抓包";
     }else{
-        [RnpSessionConfiguration.defaultConfiguration load];
+        [RnpMarkerURLProtocol startMonitor];
         label.text = @"抓包";
     }
-    
-    
-    
 }
 
 - (void)presentViewControllerForController:(UIViewController *)controller{
