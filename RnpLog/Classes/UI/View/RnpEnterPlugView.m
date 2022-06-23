@@ -12,6 +12,7 @@
 #import "RnpDefine.h"
 #import "NSObject+top.h"
 #import "RnpSessionConfiguration.h"
+#import "RnpMarkerURLProtocol.h"
 
 static RnpEnterPlugView * instance;
 static UIWindow * tempWindow;
@@ -82,7 +83,8 @@ static UIWindow * tempWindow;
         doubleTap.numberOfTapsRequired = 2;
         [tap requireGestureRecognizerToFail:doubleTap];
         self.rnp
-        .backgroundColor( [UIColor greenColor])
+        // 00bbff
+        .backgroundColor(rgba(0, 187, 255, 1))
         .cornerRadius(frame.size.width/2)
         .addSubView(UILabelNew().rnp
                     .text(@"抓包")
@@ -177,16 +179,19 @@ static UIWindow * tempWindow;
 }
 - (void)doubleClick{
     UILabel * label = [self viewWithTag:1000];
-    if ([RnpSessionConfiguration defaultConfiguration].isSwizzle) {
-        [RnpSessionConfiguration.defaultConfiguration unload];
-        label.text = @"暂停抓包";
+    if (RnpMarkerURLProtocol.isMonitor) {
+        [RnpMarkerURLProtocol stopMonitor];
+        label.rnp
+        .text(@"暂停抓包")
+        .font([UIFont boldSystemFontOfSize:12]);
+        self.backgroundColor = rgba(180, 180, 180, 1);
     }else{
-        [RnpSessionConfiguration.defaultConfiguration load];
-        label.text = @"抓包";
+        [RnpMarkerURLProtocol startMonitor];
+        label.rnp
+        .text(@"抓包")
+        .font([UIFont boldSystemFontOfSize:16]);
+        self.backgroundColor = rgba(0, 187, 255, 1);
     }
-    
-    
-    
 }
 
 - (void)presentViewControllerForController:(UIViewController *)controller{

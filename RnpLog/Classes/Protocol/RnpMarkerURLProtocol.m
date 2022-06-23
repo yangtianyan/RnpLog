@@ -18,6 +18,10 @@
 /* -- Controller -- */
 #import "DYBreakpointRequestController.h"
 #import "DYBreakpointResponseController.h"
+#import <objc/runtime.h>
+
+static BOOL isMonitor = false;
+
 @interface RnpMarkerURLProtocol()<NSURLSessionDelegate>
 @property(nonatomic,strong)NSURLSession * session;
 @end
@@ -220,9 +224,14 @@
     [self.client URLProtocol:self didLoadData:model.originalData];
 }
 
++ (BOOL)isMonitor{
+    return isMonitor;
+}
+
 /// 开始监听
 + (void)startMonitor {
-    RnpSessionConfiguration *sessionConfiguration = [RnpSessionConfiguration defaultConfiguration];
+    isMonitor = true;
+     RnpSessionConfiguration *sessionConfiguration = [RnpSessionConfiguration defaultConfiguration];
     [NSURLProtocol registerClass:[RnpMarkerURLProtocol class]];
     if (![sessionConfiguration isSwizzle]) {
         [sessionConfiguration load];
@@ -243,10 +252,23 @@
 
 /// 停止监听
 + (void)stopMonitor {
+    isMonitor = false;
     RnpSessionConfiguration *sessionConfiguration = [RnpSessionConfiguration defaultConfiguration];
     [NSURLProtocol unregisterClass:[RnpMarkerURLProtocol class]];
     if ([sessionConfiguration isSwizzle]) {
         [sessionConfiguration unload];
     }
+//    ///卸载webview抓包
+//    Class cls = NSClassFromString(@"WKBrowsingContextController");
+//    SEL sel = NSSelectorFromString(@"unregisterSchemeForCustomProtocol:");
+//    if ([(id)cls respondsToSelector:sel]) {
+//    #pragma clang diagnostic push
+//    #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+//        [cls performSelector:sel withObject:@"http"];
+//        [cls performSelector:sel withObject:@"https"];
+//    #pragma clang diagnostic pop
+//    }
+//    [WKUserContentController close];
+
 }
 @end
