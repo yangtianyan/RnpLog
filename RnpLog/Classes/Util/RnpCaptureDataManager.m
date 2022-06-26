@@ -15,6 +15,9 @@
 
 @property (nonatomic, strong) NSMutableDictionary * mutable_requests_dict;
 
+@property (nonatomic, strong) NSMutableDictionary * redirecte_dict;
+
+
 @end
 @implementation RnpCaptureDataManager
 
@@ -49,6 +52,13 @@
     }
     return _mutable_requests_dict;
 }
+- (NSMutableDictionary *)redirecte_dict
+{
+    if (!_redirecte_dict) {
+        _redirecte_dict = [NSMutableDictionary new];
+    }
+    return _redirecte_dict;
+}
 - (NSArray *)requests
 {
     return self.mutable_requests;
@@ -80,8 +90,12 @@
         [self.mutable_requests_dict setObject:model forKey:task];
         [[NSNotificationCenter defaultCenter] postNotificationName:kAddRequestNotification object:model];
     }
-
 }
+/// 添加重定向url
+- (void)addRedirecte:(NSString *)redirecte_ur origin_url:(NSString *)origin_url{
+    [(NSMutableDictionary *)self.redirecte_dict setValue:redirecte_ur forKey:origin_url];
+}
+
 - (void)clear{
     [self.mutable_requests removeAllObjects];
     [self.mutable_requests_dict removeAllObjects];

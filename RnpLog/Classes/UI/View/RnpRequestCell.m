@@ -81,7 +81,10 @@
     NSString * tag = @"";
     if (task.response == nil) {
         if (task.error) {
-            tag = @"❌  ";
+            tag = @"❌ ";
+            if (model.redirectedUrl.length) {
+                tag = @"🔄 ";
+            }
         }else{
             tag = @"⚠️";
         }

@@ -6,7 +6,9 @@
 //
 
 #import "RnpHookAjaxHandler.h"
-
+#import "RnpCaptureDataManager.h"
+/* -- Model -- */
+#import "RnpDataModel.h"
 @interface RnpHookAjaxHandler ()
 
 @property (nonatomic, weak) WKWebView * webView;
@@ -22,16 +24,30 @@
     NSString *method = body[@"method"];
     id requestData = body[@"data"];
     NSDictionary *requestHeaders = body[@"headers"];
+    
+    NSMutableDictionary * mutable = [requestHeaders mutableCopy];
     NSString *urlString = body[@"url"];
     if (urlString.length == 0) {
         return;
     }
+    if ([urlString containsString:@"pay/payorder"]) {
+        NSLog(@"");
+    }
+    requestHeaders = mutable;
     NSURL * url = [NSURL URLWithString:urlString];
     if (url.host == nil) {
         // hook ajax后拿到的url可能不完整 需要手动拼接
-        urlString = [NSString stringWithFormat:@"%@://%@%@",self.webView.URL.scheme,self.webView.URL.host,urlString];
+        __block NSString * scheme = self.webView.URL.scheme;
+        __block NSString * host = self.webView.URL.host;
+        NSString * webUrl = self.webView.URL.absoluteString;
+        if (RnpCaptureDataManager.instance.redirecte_dict[webUrl]) {
+            NSURL * redirectedUrl = [NSURL URLWithString:RnpCaptureDataManager.instance.redirecte_dict[webUrl]];
+            scheme = redirectedUrl.scheme;
+            host = redirectedUrl.host;
+        }
+        urlString = [NSString stringWithFormat:@"%@://%@%@",scheme,host,urlString];
+        url = [NSURL URLWithString:urlString];
     }
-    url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30];
     request.HTTPMethod = method.uppercaseString;
     if ([requestData isKindOfClass:[NSString class]]) {

@@ -56,14 +56,21 @@
 	}
 	// hook ajax send 方法
 	window.OMTAjax.hookAjax({
+
 		setRequestHeader: function(arg, xhr) {
-			// log("onreadystatechange called:" + document.cookie);
 			if (!this.omtHeaders) {
 				this.omtHeaders = {};
 			}
-			// log("setRequestHeader: " + JSON.stringify(arg));
 			this.omtHeaders[arg[0]] = arg[1];
 			// this.omtHeaders['Cookie'] = document.cookie;
+			let url = this.omtOpenArg[1];
+			if (url.search('pay/payorder') != -1){
+				// var str = ""
+				// for (let key in this.omtHeaders) {
+				// 	str = str + "key   " + key + "value  " + this.omtHeaders(key) + "\n";
+				// }
+				alert("header " + arg[0] + " " + arg[1]);
+			}
 		},
 		getAllResponseHeaders: function(arg, xhr) {
 			var headers = this.omtResponseHeaders;
@@ -98,13 +105,18 @@
 				params.method = this.omtOpenArg[0];
 				params.headers = this.omtHeaders;
 				params.headers['Cookie'] = document.cookie;
-				// window.alert(document.cookie);
-				var url = this.omtOpenArg[1];
-				var location = window.location;
-				params.url = url;
 
-				var xhrId = 'xhrId' + (new Date()).getTime();
-                while (window.OMTAjax.hookedXHR[xhrId] != null) {// 防止1ms内请求多个接口导致value覆盖
+				let url = this.omtOpenArg[1];
+				let location = window.location;
+				params.url = url;
+				// params.location = location;
+				// alert("url  "+ url);
+				if (url.search('pay/payorder') != -1){
+
+				}
+
+				let xhrId = 'xhrId' + (new Date()).getTime();
+				while (window.OMTAjax.hookedXHR[xhrId] != null) {// 防止1ms内请求多个接口导致value覆盖
                     xhrId = xhrId + '0';
                 }
                 params.id = xhrId;
@@ -135,7 +147,6 @@
 				value: xhr
 			})
 		};
-
 		// 获取 XMLHttpRequest 对象的属性
 		var prototype = window._ahrealxhr.prototype;
 		for (var attr in prototype) {
@@ -154,7 +165,6 @@
 				})
 			}
 		}
-
 		function getFactory(attr) {
 			return function() {
 				// 判断对象是否包含特定的自身（非继承）属性
@@ -202,16 +212,15 @@
 				return this.xhr[func].apply(this.xhr, args);
 			}
 		}
-
 		return window._ahrealxhr;
 	}
 
-	function log(msg) {
-		var xhr = new XMLHttpRequest();
-		xhr.open('GET', "http://debugger/" +
-			encodeURIComponent(msg));
-		xhr.withCredentials = true;
-		xhr.send(null);
-	}
+	// function log(msg) {
+	// 	var xhr = new XMLHttpRequest();
+	// 	xhr.open('GET', "http://debugger/" +
+	// 		encodeURIComponent(msg));
+	// 	xhr.withCredentials = true;
+	// 	xhr.send(null);
+	// }
 
 })();

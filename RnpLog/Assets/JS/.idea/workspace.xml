@@ -5,13 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a048b0a5-cf43-43aa-abb0-d9470cf79101" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../../Example/Pods/Headers/Private/RnpLog/WKWebView+hookAjax.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Example/Pods/Headers/Public/RnpLog/WKWebView+hookAjax.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Example/Pods/Pods.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Example/Pods/Pods.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Resources/ajaxhook.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Resources/imywk_hookajax.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Example/RnpLog/RNPViewController.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Example/RnpLog/RNPViewController.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajaxhook.js" beforeDir="false" afterPath="$PROJECT_DIR$/ajaxhook.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Classes/Protocol/RnpMarkerURLProtocol.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../Classes/Protocol/RnpMarkerURLProtocol.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Classes/Util/WKWebView/WKUserContentController+hookAjax.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../Classes/Util/WKWebView/WKUserContentController+hookAjax.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Classes/UI/View/RnpRequestCell.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../Classes/UI/View/RnpRequestCell.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Classes/Util/RnpCaptureDataManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../Classes/Util/RnpCaptureDataManager.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Classes/Util/RnpCaptureDataManager.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../Classes/Util/RnpCaptureDataManager.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Classes/Util/WKWebView/RnpHookAjaxHandler.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../Classes/Util/WKWebView/RnpHookAjaxHandler.m" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +50,8 @@
       <workItem from="1626744422253" duration="9000" />
       <workItem from="1626747608454" duration="1586000" />
       <workItem from="1626952331232" duration="6000" />
+      <workItem from="1656041743362" duration="8606000" />
+      <workItem from="1656211488322" duration="5185000" />
     </task>
     <servers />
   </component>
