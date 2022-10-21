@@ -13,6 +13,7 @@
 #import "NSObject+top.h"
 #import "RnpSessionConfiguration.h"
 #import "RnpMarkerURLProtocol.h"
+#import "RnpCaptureDataManager.h"
 
 static RnpEnterPlugView * instance;
 static UIWindow * tempWindow;
@@ -82,6 +83,7 @@ static UIWindow * tempWindow;
         UITapGestureRecognizer * doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleClick)];
         doubleTap.numberOfTapsRequired = 2;
         [tap requireGestureRecognizerToFail:doubleTap];
+
         self.rnp
         // 00bbff
         .backgroundColor(rgba(0, 187, 255, 1))
@@ -98,8 +100,23 @@ static UIWindow * tempWindow;
         .addGesture(tap)
         .addGesture(doubleTap)
         .addGesture(self.pan);
+        NSInteger num = 3;
+        UITapGestureRecognizer * lastTap = doubleTap;
+        for (NSInteger i = 0; i < 4; i ++) {
+            num ++;
+            lastTap = [self clearTapGestureRecognizer:lastTap numberOfTapsRequired:num];
+        }
+        
     }
     return self;
+}
+
+- (UITapGestureRecognizer *)clearTapGestureRecognizer:(UITapGestureRecognizer *)lastTap numberOfTapsRequired:(NSInteger)numberOfTapsRequired{
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tripleClick)];
+    tap.numberOfTapsRequired = numberOfTapsRequired;
+    [lastTap requireGestureRecognizerToFail:tap];
+    self.rnp.addGesture(tap);
+    return tap;
 }
 
 - (void)handlePanGesture:(UIPanGestureRecognizer *)recognizer{
@@ -192,6 +209,24 @@ static UIWindow * tempWindow;
         .font([UIFont boldSystemFontOfSize:16]);
         self.backgroundColor = rgba(0, 187, 255, 1);
     }
+}
+- (void)tripleClick{
+    UILabel * label = [self viewWithTag:1000];
+    CABasicAnimation *animation = [CABasicAnimation animation];
+    animation.keyPath = @"transform.rotation";
+    animation.toValue =@(M_PI * 6); // 旋转多少角度
+    animation.duration = 1; // 持续多长时间
+    animation.repeatCount = 1; // 重复次数
+//    animation.delegate = self;
+    [self.layer addAnimation:animation forKey:nil];
+    NSString * text = label.text;
+    label.text = @"清空";
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        label.text = text;
+    });
+    [RnpCaptureDataManager.instance clear];
+    
+    NSLog(@"tripleClick");
 }
 
 - (void)presentViewControllerForController:(UIViewController *)controller{
