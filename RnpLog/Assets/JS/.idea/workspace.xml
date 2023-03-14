@@ -5,19 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a048b0a5-cf43-43aa-abb0-d9470cf79101" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../../Example/RnpLog/RNPViewController.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Example/RnpLog/RNPViewController.m" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ajaxhook2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/fetchhook.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Example/Pods/Pods.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Example/Pods/Pods.xcodeproj/project.pbxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ajaxhook.js" beforeDir="false" afterPath="$PROJECT_DIR$/ajaxhook.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Classes/Protocol/RnpMarkerURLProtocol.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../Classes/Protocol/RnpMarkerURLProtocol.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Classes/UI/View/RnpRequestCell.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../Classes/UI/View/RnpRequestCell.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Classes/Util/RnpCaptureDataManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../Classes/Util/RnpCaptureDataManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Classes/Util/RnpCaptureDataManager.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../Classes/Util/RnpCaptureDataManager.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Classes/Util/WKWebView/RnpHookAjaxHandler.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../Classes/Util/WKWebView/RnpHookAjaxHandler.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imywk_hookajax.js" beforeDir="false" afterPath="$PROJECT_DIR$/imywk_hookajax.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Classes/Util/WKWebView/WKUserContentController+hookAjax.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../Classes/Util/WKWebView/WKUserContentController+hookAjax.m" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
@@ -52,10 +58,22 @@
       <workItem from="1626952331232" duration="6000" />
       <workItem from="1656041743362" duration="8606000" />
       <workItem from="1656211488322" duration="5185000" />
+      <workItem from="1678761659685" duration="7151000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

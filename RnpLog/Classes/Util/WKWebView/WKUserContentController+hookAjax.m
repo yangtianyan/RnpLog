@@ -70,21 +70,40 @@ static NSMapTable<WKUserContentController *, WKUserScript *> * userScriptMap;
 - (instancetype)rnp_init
 {
     WKUserContentController *obj = [self rnp_init];
-    [obj removeScriptMessageHandlerForName:@"IMYXHR"];
-    [obj addScriptMessageHandler:[RnpHookAjaxHandler new] name:@"IMYXHR"];
-    NSURL * url = [[NSBundle mainBundle] URLForResource:@"RnpLog" withExtension:@"bundle"];
-    NSBundle * bundle = [NSBundle bundleWithURL:url];
-    NSString * path = [bundle pathForResource:@"ajaxhook" ofType:@"js" inDirectory:@"JS"];
-    NSString *jsScript = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    WKUserScript * script = [[WKUserScript alloc] initWithSource:jsScript injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:true];
-    [obj addUserScript:script];
-    [WKUserContentController.controllers addPointer:(__bridge  void * _Nullable)obj];
-    [WKUserContentController.userScriptMap setObject:script forKey:self];
+//    [obj removeScriptMessageHandlerForName:@"IMYXHR"];
+//    [obj addScriptMessageHandler:[RnpHookAjaxHandler new] name:@"IMYXHR"];
+//    NSURL * url = [[NSBundle mainBundle] URLForResource:@"RnpLog" withExtension:@"bundle"];
+//    NSBundle * bundle = [NSBundle bundleWithURL:url];
+//    NSString * path = [bundle pathForResource:@"ajaxhook" ofType:@"js" inDirectory:@"JS"];
+//    NSString *jsScript = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+//    WKUserScript * script = [[WKUserScript alloc] initWithSource:jsScript injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:true];
+//    [obj addUserScript:script];
+//    [WKUserContentController.controllers addPointer:(__bridge  void * _Nullable)obj];
+//    [WKUserContentController.userScriptMap setObject:script forKey:self];
+    [self addScript];
     return obj;
 }
 - (void)rnp_removeAllUserScripts{
     [self rnp_removeAllUserScripts];
+    [self addScript];
 }
+
+- (void)addScript{
+    WKUserScript * script = [WKUserContentController.userScriptMap objectForKey:self];
+    if(!script){
+        NSURL * url = [[NSBundle mainBundle] URLForResource:@"RnpLog" withExtension:@"bundle"];
+        NSBundle * bundle = [NSBundle bundleWithURL:url];
+        NSString * path = [bundle pathForResource:@"ajaxhook" ofType:@"js" inDirectory:@"JS"];
+        NSString *jsScript = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        script = [[WKUserScript alloc] initWithSource:jsScript injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:true];
+    }
+    [self removeScriptMessageHandlerForName:@"IMYXHR"];
+    [self addScriptMessageHandler:[RnpHookAjaxHandler new] name:@"IMYXHR"];
+    [self addUserScript:script];
+    [WKUserContentController.controllers addPointer:(__bridge  void * _Nullable)self];
+    [WKUserContentController.userScriptMap setObject:script forKey:self];
+}
+
 - (void)getMethod {
     unsigned int count;
     Method *methods = class_copyMethodList([self class], &count);

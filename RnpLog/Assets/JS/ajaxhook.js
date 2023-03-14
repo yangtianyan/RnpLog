@@ -1,5 +1,7 @@
 ; (function() {
 
+    window.rnp_test = "aaa_bbb_ccc";
+    
     window.imy_realxhr_callback = function(id, message) {
         var hookAjax = window.OMTAjax.hookedXHR[id];
         if (hookAjax) {
@@ -97,35 +99,40 @@
 			this.omtOpenArg = arg;
 		},
 		send: function(arg, xhr) {
-			this.isAborted = false;
-            // iOS9需要对get方式进行hook，10及以上可以不需要
-			if (this.omtOpenArg[0].toUpperCase() === 'POST' || this.omtOpenArg[0].toUpperCase() === 'GET') {
-				var params = {};
-				params.data = arg[0];
-				params.method = this.omtOpenArg[0];
-				params.headers = this.omtHeaders;
-				params.headers['Cookie'] = document.cookie;
+			// this.addEventListener('readystatechange', function() {
+				this.isAborted = false;
 
-				let url = this.omtOpenArg[1];
-				let location = window.location;
-				params.url = url;
-				// params.location = location;
-				// alert("url  "+ url);
-				if (url.search('pay/payorder') != -1){
+				// iOS9需要对get方式进行hook，10及以上可以不需要
+				if (this.omtOpenArg[0].toUpperCase() === 'POST' || this.omtOpenArg[0].toUpperCase() === 'GET') {
+					var params = {};
+					params.data = arg[0];
+					params.method = this.omtOpenArg[0];
+					params.headers = this.omtHeaders;
+					params.headers['Cookie'] = document.cookie;
 
+					let url = this.omtOpenArg[1];
+					let location = window.location;
+					params.url = url;
+					// params.location = location;
+					// alert("url  "+ url);
+					if (url.search('pay/payorder') != -1){
+
+					}
+
+					let xhrId = 'xhrId' + (new Date()).getTime();
+					while (window.OMTAjax.hookedXHR[xhrId] != null) {// 防止1ms内请求多个接口导致value覆盖
+						xhrId = xhrId + '0';
+					}
+					params.id = xhrId;
+					window.OMTAjax.hookedXHR[xhrId] = this;
+					window.OMTAjax.nativePost(xhrId, params);
+
+					return true;
 				}
 
-				let xhrId = 'xhrId' + (new Date()).getTime();
-				while (window.OMTAjax.hookedXHR[xhrId] != null) {// 防止1ms内请求多个接口导致value覆盖
-                    xhrId = xhrId + '0';
-                }
-                params.id = xhrId;
-				window.OMTAjax.hookedXHR[xhrId] = this;
-				window.OMTAjax.nativePost(xhrId, params);
-
-				// 通过 return true 可以阻止默认 Ajax 请求，不返回则会继续原来的请求
-				return true;
-			}
+			// });
+			// 通过 return true 可以阻止默认 Ajax 请求，不返回则会继续原来的请求
+			return true;
 		},
 		abort: function(arg, xhr) {
 			if (this.omtOpenArg[0] === 'POST' || this.omtOpenArg[0] === 'post') {
