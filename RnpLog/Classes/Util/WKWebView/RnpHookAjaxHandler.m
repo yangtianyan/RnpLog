@@ -30,9 +30,6 @@
     if (urlString.length == 0) {
         return;
     }
-    if ([urlString containsString:@"pay/payorder"]) {
-        NSLog(@"");
-    }
     requestHeaders = mutable;
     NSURL * url = [NSURL URLWithString:urlString];
     if (url.host == nil) {

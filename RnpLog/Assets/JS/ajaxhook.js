@@ -55,21 +55,11 @@
 	}
 	// hook ajax send 方法
 	window.OMTAjax.hookAjax({
-
 		setRequestHeader: function(arg, xhr) {
 			if (!this.omtHeaders) {
 				this.omtHeaders = {};
 			}
 			this.omtHeaders[arg[0]] = arg[1];
-			// this.omtHeaders['Cookie'] = document.cookie;
-			let url = this.omtOpenArg[1];
-			if (url.search('pay/payorder') != -1){
-				// var str = ""
-				// for (let key in this.omtHeaders) {
-				// 	str = str + "key   " + key + "value  " + this.omtHeaders(key) + "\n";
-				// }
-				alert("header " + arg[0] + " " + arg[1]);
-			}
 		},
 		getAllResponseHeaders: function(arg, xhr) {
 			var headers = this.omtResponseHeaders;
@@ -98,25 +88,18 @@
 		send: function(arg, xhr) {
 			// this.addEventListener('readystatechange', function() {
 				this.isAborted = false;
-
 				// iOS9需要对get方式进行hook，10及以上可以不需要
-				if (this.omtOpenArg[0].toUpperCase() === 'POST' || this.omtOpenArg[0].toUpperCase() === 'GET'
-					|| this.omtOpenArg[0].toUpperCase() === 'PUT' || this.omtOpenArg[0].toUpperCase() === 'DELETE') {
+				if (this.omtOpenArg[0].toUpperCase() === 'POST' || this.omtOpenArg[0].toUpperCase() === 'GET'  || this.omtOpenArg[0].toUpperCase() === 'PUT'
+					|| this.omtOpenArg[0].toUpperCase() === 'DELETE' || this.omtOpenArg[0].toUpperCase() === 'PATCH') {
 					var params = {};
 					params.data = arg[0];
 					params.method = this.omtOpenArg[0];
 					params.headers = this.omtHeaders;
 					params.headers['Cookie'] = document.cookie;
+					params.headers["User-Agent"] = window.navigator.userAgent;
 
 					let url = this.omtOpenArg[1];
-					let location = window.location;
 					params.url = url;
-					// params.location = location;
-					// alert("url  "+ url);
-					if (url.search('pay/payorder') != -1){
-
-					}
-
 					let xhrId = 'xhrId' + (new Date()).getTime();
 					while (window.OMTAjax.hookedXHR[xhrId] != null) {// 防止1ms内请求多个接口导致value覆盖
 						xhrId = xhrId + '0';
@@ -133,7 +116,9 @@
 			return true;
 		},
 		abort: function(arg, xhr) {
-			if (this.omtOpenArg[0] === 'POST' || this.omtOpenArg[0] === 'post') {
+			if (this.omtOpenArg[0] === 'POST' || this.omtOpenArg[0] === 'post'
+			|| this.omtOpenArg[0] === 'PUT' || this.omtOpenArg[0] === 'put'
+			|| this.omtOpenArg[0] === 'DELETE' || this.omtOpenArg[0] === 'delete') {
 				if (xhr.onabort) {
 					xhr.onabort()
 				}
