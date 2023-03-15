@@ -1,7 +1,4 @@
 ; (function() {
-
-    window.rnp_test = "aaa_bbb_ccc";
-    
     window.imy_realxhr_callback = function(id, message) {
         var hookAjax = window.OMTAjax.hookedXHR[id];
         if (hookAjax) {
@@ -103,7 +100,8 @@
 				this.isAborted = false;
 
 				// iOS9需要对get方式进行hook，10及以上可以不需要
-				if (this.omtOpenArg[0].toUpperCase() === 'POST' || this.omtOpenArg[0].toUpperCase() === 'GET') {
+				if (this.omtOpenArg[0].toUpperCase() === 'POST' || this.omtOpenArg[0].toUpperCase() === 'GET'
+					|| this.omtOpenArg[0].toUpperCase() === 'PUT' || this.omtOpenArg[0].toUpperCase() === 'DELETE') {
 					var params = {};
 					params.data = arg[0];
 					params.method = this.omtOpenArg[0];

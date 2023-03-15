@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a048b0a5-cf43-43aa-abb0-d9470cf79101" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ajaxhook2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fetchhook.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../Example/Pods/Pods.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Example/Pods/Pods.xcodeproj/project.pbxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ajaxhook.js" beforeDir="false" afterPath="$PROJECT_DIR$/ajaxhook.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imywk_hookajax.js" beforeDir="false" afterPath="$PROJECT_DIR$/imywk_hookajax.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Classes/Util/WKWebView/WKUserContentController+hookAjax.m" beforeDir="false" afterPath="$PROJECT_DIR$/../../Classes/Util/WKWebView/WKUserContentController+hookAjax.m" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +53,8 @@
       <workItem from="1626952331232" duration="6000" />
       <workItem from="1656041743362" duration="8606000" />
       <workItem from="1656211488322" duration="5185000" />
-      <workItem from="1678761659685" duration="7151000" />
+      <workItem from="1678761659685" duration="7476000" />
+      <workItem from="1678849006210" duration="100000" />
     </task>
     <servers />
   </component>
@@ -75,5 +71,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
