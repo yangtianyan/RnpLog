@@ -99,7 +99,7 @@
 					params.headers["User-Agent"] = window.navigator.userAgent;
 
 					let url = this.omtOpenArg[1];
-					params.url = url;
+					params.url = url.trim();
 					let xhrId = 'xhrId' + (new Date()).getTime();
 					while (window.OMTAjax.hookedXHR[xhrId] != null) {// 防止1ms内请求多个接口导致value覆盖
 						xhrId = xhrId + '0';
