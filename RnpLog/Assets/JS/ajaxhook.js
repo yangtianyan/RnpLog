@@ -89,7 +89,7 @@
 			// this.addEventListener('readystatechange', function() {
 				this.isAborted = false;
 				// iOS9需要对get方式进行hook，10及以上可以不需要
-				if (this.omtOpenArg[0].toUpperCase() === 'POST' || this.omtOpenArg[0].toUpperCase() === 'GET'  || this.omtOpenArg[0].toUpperCase() === 'PUT'
+				if (this.omtOpenArg[0].toUpperCase() === 'POST'  || this.omtOpenArg[0].toUpperCase() === 'PUT'
 					|| this.omtOpenArg[0].toUpperCase() === 'DELETE' || this.omtOpenArg[0].toUpperCase() === 'PATCH') {
 					var params = {};
 					params.data = arg[0];
@@ -113,7 +113,6 @@
 
 			// });
 			// 通过 return true 可以阻止默认 Ajax 请求，不返回则会继续原来的请求
-			return true;
 		},
 		abort: function(arg, xhr) {
 			if (this.omtOpenArg[0] === 'POST' || this.omtOpenArg[0] === 'post'

@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a048b0a5-cf43-43aa-abb0-d9470cf79101" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ajaxhook.js" beforeDir="false" afterPath="$PROJECT_DIR$/ajaxhook.js" afterDir="false" />
-    </list>
+    <list default="true" id="a048b0a5-cf43-43aa-abb0-d9470cf79101" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,7 +51,7 @@
       <workItem from="1656041743362" duration="8606000" />
       <workItem from="1656211488322" duration="5185000" />
       <workItem from="1678761659685" duration="7476000" />
-      <workItem from="1678849006210" duration="8352000" />
+      <workItem from="1678849006210" duration="8562000" />
     </task>
     <servers />
   </component>
