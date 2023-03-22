@@ -135,7 +135,6 @@
     [self initUI];
     [RnpEnterPlugView hidden];
     [self notification];
-//    NSLog(@"requests: %@", RnpCaptureDataManager.instance.requests);
 }
 - (void)dealloc
 {

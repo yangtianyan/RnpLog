@@ -225,8 +225,6 @@ static UIWindow * tempWindow;
         label.text = text;
     });
     [RnpCaptureDataManager.instance clear];
-    
-    NSLog(@"tripleClick");
 }
 
 - (void)presentViewControllerForController:(UIViewController *)controller{

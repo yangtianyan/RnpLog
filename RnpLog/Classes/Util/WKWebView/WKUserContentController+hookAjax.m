@@ -111,7 +111,6 @@ static NSMapTable<WKUserContentController *, WKUserScript *> * userScriptMap;
         Method method = methods[i];
         SEL selector = method_getName(method);
         NSString *name = NSStringFromSelector(selector);
-        NSLog(@"实例方法：%@",name);
     }
     free(methods);
 }

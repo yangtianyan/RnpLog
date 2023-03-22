@@ -171,7 +171,6 @@
     [self.dataArr addObjectsFromArray:[[RnpCaptureDataManager.instance.requests reverseObjectEnumerator] allObjects]];
     [self initUI];
     [self notification];
-//    NSLog(@"requests: %@", RnpCaptureDataManager.instance.requests);
 }
 
 @end

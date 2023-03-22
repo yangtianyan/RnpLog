@@ -52,7 +52,6 @@ static BOOL isMonitor = false;
 
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request{
-    NSLog(@"request: ===> %@", request);
     // 不是网络请求，不处理
     if (![request.URL.scheme isEqualToString:@"http"] &&
         ![request.URL.scheme isEqualToString:@"https"]) {
@@ -70,6 +69,7 @@ static BOOL isMonitor = false;
     }
     if ([[[request URL] host] isEqualToString:@"debugger"]){
         NSLog(@"JS打印: %@ \n", [[[request URL] path] substringFromIndex: 1]);
+        return false;
     }
     return YES;
 }
@@ -104,21 +104,8 @@ static BOOL isMonitor = false;
         NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
         [cookieValue appendString:appendString];
     }
-//    NSLog(@"request: %@\nCookie: %@",mutableRequest,cookieValue);
     [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
 
-//    for (NSString * key in dict.allKeys) {
-//        [mutableRequest addValue:dict[key] forHTTPHeaderField:key];
-//    }
-    
-    
-//    [mutableRequest addValue:@"pingtas.qq.com" forHTTPHeaderField:@"Host"];
-
-//    NSLog(@"************ 开始请求 %@",mutableRequest.URL);
-//    mutableRequest.URL = [NSURL URLWithString:@"https://www.baidu.com"]; // yty fix 可以篡改请求接口
-    if ([mutableRequest.URL.absoluteString containsString:@".css"]) {
-        NSLog(@"");
-    }
     mutableRequest = [RnpHostManager.instance checkAndReplaceHost:mutableRequest];
     RnpBreakpointModel * breakpoint = [RnpBreakpointManager.instance getModelForUrl:mutableRequest.URL.absoluteString];
     if (breakpoint.isActivate && breakpoint.isBefore) {
@@ -234,7 +221,6 @@ static BOOL isMonitor = false;
     }
 }
 - (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session{
-    NSLog(@"");
 }
 
 - (void)delayDidLoadData:(NSURLSessionTask *)dataTask{
