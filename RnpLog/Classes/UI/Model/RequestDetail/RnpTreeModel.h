@@ -66,6 +66,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, readonly) NSInteger count;
 
+@property (nonatomic, copy, readonly)   NSString * cpText;
+
+
 - (instancetype)initWithObject:(NSDictionary *)object;
 
 @end

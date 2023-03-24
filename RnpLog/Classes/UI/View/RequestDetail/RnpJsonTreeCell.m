@@ -10,6 +10,7 @@
 #import "RnpTreeModel.h"
 /* -- Util -- */
 #import <RnpKit.h>
+#import "NSDictionary+log.h"
 @interface RnpJsonTreeSubView : UIView
 
 @property (nonatomic, strong) UIView * leftView;
@@ -117,7 +118,6 @@
         self.leftView = UIViewNew().rnp
         .view;
         
-//        __weak typeof(self) weakSelf = self;
         self.foldView = UILabelNew().rnp
         .border(1, UIColor.lightGrayColor)
         .backgroundColor(UIColor.whiteColor)

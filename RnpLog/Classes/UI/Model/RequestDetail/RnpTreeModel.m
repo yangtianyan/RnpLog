@@ -8,6 +8,9 @@
 #import "RnpTreeModel.h"
 /* -- util -- */
 #import "NSString+log.h"
+#import "NSDictionary+log.h"
+#import "NSArray+log.h"
+
 @interface RnpTreeModel ()
 
 @property (nonatomic, strong) RnpTreeValueModel * rootTree;
@@ -70,6 +73,8 @@
 
 @property (nonatomic, assign) BOOL isLast;
 
+@property (nonatomic, copy)   NSString * cpText;
+
 /* -- 本地生成数据 -- */
 
 
@@ -103,20 +108,24 @@
             self.isLast = [object[@"isLast"] boolValue];
             self.arrayIndex = object[@"arrayIndex"] ? [object[@"arrayIndex"] integerValue] : -1;
             self.keyBGColor = self.valueBGColor = UIColor.clearColor;
+            
+            id copyValue = self.value;
+            
             if([self.value isKindOfClass:NSDictionary.class]){
                 self.type = RnpTreeDictType;
-                [self initSubTreesFromDict];
                 self.keyColor = [UIColor blackColor];
                 self.valueColor = UIColor.clearColor;
+                [self initSubTreesFromDict];
             }else if ([self.value isKindOfClass:NSArray.class]){
                 self.type = RnpTreeArrayType;
-                [self initSubTreesFromArr];
                 self.keyColor = [UIColor colorWithRed:68 / 255.f green:170 / 255.f blue:0 alpha:1];
                 self.valueColor = UIColor.whiteColor;
                 self.valueBGColor = [UIColor colorWithRed:211 / 255.f green:211 / 255.f blue:211 / 255.f alpha:1];
+                [self initSubTreesFromArr];
                 self.value = [NSString stringWithFormat:@" %ld ", self.subTrees.count];
             }else{
                 self.keyColor = [UIColor colorWithRed:68 / 255.f green:170 / 255.f blue:0 alpha:1];
+                copyValue = [NSString stringWithFormat:@"%@",self.value];
                 if([self.value isKindOfClass:NSString.class]){
                     self.type = RnpTreeStringType;
                     self.value = [NSString stringWithFormat:@"\"%@\"",self.value];
@@ -134,9 +143,15 @@
                 [self calculativeWidth];
             }
             
+            NSString * copyText = @"";
+            
             if(self.arrayIndex >= 0){
                 self.keyColor = [UIColor colorWithRed:211 / 255.f green:211 / 255.f blue:211 / 255.f alpha:1];
+                copyText = [copyValue isKindOfClass:NSString.class] ? copyValue : [copyValue toJson];
+            }else{
+                copyText = @{self.key : copyValue}.toJson;
             }
+            self.cpText = copyText;
             
             self.count = 1 + self.subTrees.count;
         }
