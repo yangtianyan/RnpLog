@@ -16,21 +16,34 @@
 
 @property (nonatomic, strong) UITableView * tableView;
 
+@property (nonatomic, strong) UIScrollView * scrollView;
+
 @end
 @implementation RnpJsonTreeView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if(self = [super initWithFrame:frame]){
+        self.scrollView = UIScrollViewNew().rnp
+        .addToSuperView(self)
+        .backgroundColor(UIColor.whiteColor)
+        .mas_makeConstraints(^(MASConstraintMaker *make){
+            (void)make.edges;
+        })
+        .view;
+        
         self.tableView = UITableViewNew().rnp
         .separatorStyle(UITableViewCellSeparatorStyleNone)
         .delegate(self)
         .dataSource(self)
         .tableFooterView([UIView new])
         .registerClass(RnpJsonTreeCell.class)
-        .addToSuperView(self)
+        .backgroundColor(UIColor.whiteColor)
+        .addToSuperView(self.scrollView)
         .mas_makeConstraints(^(MASConstraintMaker *make){
-            (void)make.edges;
+            make.top.height.equalTo(self);
+            make.left.equalTo(self.scrollView);
+            make.width.mas_equalTo(0);
         })
         .view;
     }
@@ -73,14 +86,22 @@
     if(model.subTrees.count == 0) return;
     model.isFold = !model.isFold;
     [self.treeModel updateAllTrees];
-    [tableView reloadData];
+    [self updateUI];
+}
+
+- (void)updateUI{
+    [self.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(self.treeModel.maxWidth);
+    }];
+    [self.scrollView setContentSize:CGSizeMake(self.treeModel.maxWidth, 0)];
+    [self.tableView reloadData];
 }
 
 #pragma mark -- Public
 - (void)setTreeModel:(RnpTreeModel *)treeModel
 {
     _treeModel = treeModel;
-    [self.tableView reloadData];
+    [self updateUI];
 }
 
 

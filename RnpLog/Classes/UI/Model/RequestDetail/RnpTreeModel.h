@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) NSArray * allShowTrees;
 
+@property (nonatomic, assign, readonly) CGFloat maxWidth;
+
 - (instancetype)initWithJson:(id)json;
 
 - (void)updateAllTrees;
@@ -43,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readonly) NSString * key;
 
-@property (nonatomic, copy, readonly) id value;
+@property (nonatomic, copy, readonly) NSString * value;
 
 @property (nonatomic, assign, readonly) NSInteger arrayIndex;
 
@@ -63,6 +65,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) UIColor * valueBGColor;
 
 @property (nonatomic, assign, readonly) CGFloat width;
+
+/// 加上间距的宽度
+@property (nonatomic, assign, readonly) CGFloat fullWidth;
 
 @property (nonatomic, assign, readonly) NSInteger count;
 
