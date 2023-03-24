@@ -23,7 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)rnpLogDataFormat;
 
-- (NSString *)rnpLogDataFormatToJson;
+- (NSDictionary *)rnpLogDataFormatToJson;
+
+- (NSString *)rnpLogDataFormatToJsonString;
 
 @end
 

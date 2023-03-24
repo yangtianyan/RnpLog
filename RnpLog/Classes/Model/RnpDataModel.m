@@ -60,7 +60,7 @@
     }
     return netLog;
 }
-- (NSString *)rnpLogDataFormatToJson{
+- (NSDictionary *)rnpLogDataFormatToJson{
     NSString * p_url = [NSString stringWithFormat:@"%@",self.task.originalRequest.URL];
     NSString * p_method          = self.task.originalRequest.HTTPMethod;
     NSString * p_header          = [self requestHeader];
@@ -85,7 +85,12 @@
     if (h_response.length > 0) {
         [json setObject:h_response.toJson ?: @"" forKey:@"HookResponse"];
     }
-    return json.toJson;
+    return json;
+}
+
+- (NSString *)rnpLogDataFormatToJsonString{
+
+    return [self rnpLogDataFormatToJson].toJson;
 }
 
 - (NSString *)requestHeader{

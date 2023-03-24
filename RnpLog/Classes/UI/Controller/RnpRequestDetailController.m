@@ -9,16 +9,21 @@
 #import "RnpBreakpointInfoController.h"
 /* -- Model -- */
 #import "RnpDataModel.h"
+#import "RnpTreeModel.h"
 /* -- Util -- */
 #import "RnpDefine.h"
 #import <RnpKit/RnpKitAttributedString.h>
 #import "NSString+log.h"
 #import "NSURLRequest+curl.h"
+/* -- View -- */
+#import "RnpJsonTreeView.h"
 
 
 @interface RnpRequestDetailController ()<UITextViewDelegate>
 
 @property (nonatomic, strong) UITextView * textView;
+
+@property (nonatomic, strong) RnpJsonTreeView * treeView;
 
 @end
 
@@ -26,11 +31,15 @@
 
 - (void)initUI{
     self.view.rnp
-    .addSubView(self.textView);
+    .addSubView(self.textView)
+    .addSubView(self.treeView)
+    ;
     
-    [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.treeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.bottom.mas_equalTo(0);
     }];
+    self.treeView.treeModel = [[RnpTreeModel alloc] initWithJson:[self.model rnpLogDataFormatToJson]];
+    
     [self showText];
 }
 
@@ -54,6 +63,7 @@
     }
     self.textView.attributedText = attribute;
 }
+
 #pragma mark -- setter
 - (void)setModel:(RnpDataModel *)model
 {
@@ -72,13 +82,22 @@
     }
     return _textView;
 }
+
+- (RnpJsonTreeView *)treeView
+{
+    if(!_treeView){
+        _treeView = [[RnpJsonTreeView alloc] init];
+    }
+    return _treeView;
+}
+
 #pragma mark -- Action
 - (void)copyAction {
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"复制" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     __weak typeof(self) weakSelf = self;
     UIAlertAction * copy = [UIAlertAction actionWithTitle:@"返回值" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UIPasteboard * board = [UIPasteboard generalPasteboard];
-        board.string = [weakSelf.model rnpLogDataFormatToJson];
+        board.string = [weakSelf.model rnpLogDataFormatToJsonString];
     }];
     UIAlertAction * curl = [UIAlertAction actionWithTitle:@"curl" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UIPasteboard * board = [UIPasteboard generalPasteboard];
@@ -97,7 +116,7 @@
     NSString * text = self.textView.text;
     text = [text stringByReplacingOccurrencesOfString:@"\n\n\n" withString:@","];
     text = [NSString stringWithFormat:@"{%@}",text];
-    NSString * string = [self.model rnpLogDataFormatToJson];
+    NSString * string = [self.model rnpLogDataFormatToJsonString];
     NSDate *currentDate = [NSDate date];//获取当前时间，日期
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd-hh:mm:ss"];

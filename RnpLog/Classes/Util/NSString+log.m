@@ -38,4 +38,15 @@
     id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
     return json ?: self;
 }
+- (CGSize)stringSizeWithFont:(UIFont *)font constrainedSize:(CGSize)constrainedSize{
+    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+    NSDictionary *attributes = @{NSFontAttributeName:font,
+                                 NSParagraphStyleAttributeName: paragraph};
+    CGSize size = [self boundingRectWithSize:constrainedSize
+       options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine)
+    attributes:attributes context:nil].size;;
+    return size;
+}
+
 @end

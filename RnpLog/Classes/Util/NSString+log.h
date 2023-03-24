@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSString (log)
 - (NSAttributedString *)toLogAttributedString;
 - (id)toJson;
+- (CGSize)stringSizeWithFont:(UIFont *)font constrainedSize:(CGSize)constrainedSize;
 @end
 
 NS_ASSUME_NONNULL_END

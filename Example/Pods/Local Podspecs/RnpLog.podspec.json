@@ -26,16 +26,7 @@
   },
   "frameworks": "UIKit",
   "dependencies": {
-    "RnpKit/View": [
-
-    ],
-    "RnpKit/Layout": [
-
-    ],
-    "RnpKit/AttributedString": [
-
-    ],
-    "Masonry": [
+    "RnpKit": [
 
     ]
   }

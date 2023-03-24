@@ -38,9 +38,9 @@ TODO: Add long description of the pod here.
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit'
-  s.dependency 'RnpKit/View'
-  s.dependency 'RnpKit/Layout'
-  s.dependency 'RnpKit/AttributedString'
-  s.dependency 'Masonry'
+  s.dependency 'RnpKit'
+#  s.dependency 'RnpKit/Layout'
+#  s.dependency 'RnpKit/AttributedString'
+#  s.dependency 'Masonry'
   # s.dependency 'AFNetworking', '~> 2.3'
 end
