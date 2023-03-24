@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) RnpTreeModel * treeModel;
 
+- (void)allFoldAct;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -31,9 +31,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign, readonly) CGFloat maxWidth;
 
+@property (nonatomic, assign, readonly) BOOL isAllFold;
+
 - (instancetype)initWithJson:(id)json;
 
 - (void)updateAllTrees;
+
+- (void)allFold;
 
 @end
 

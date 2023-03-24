@@ -23,6 +23,8 @@
 
 @property (nonatomic, assign) CGFloat maxWidth;
 
+@property (nonatomic, assign) BOOL isAllFold;
+
 @end
 @implementation RnpTreeModel
 
@@ -48,18 +50,34 @@
     if(treeModel.isFold){
         return;
     }
+    if (self.isAllFold) {
+        self.isAllFold = false;
+    }
     [treeModel.subTrees enumerateObjectsUsingBlock:^(RnpTreeValueModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        [self.showTrees addObject:obj];
         [self getAllShowTrees:obj];
     }];
 }
 
 - (void)updateAllTrees{
+    self.isAllFold = true;
     self.showTrees = [NSMutableArray new];
     self.allCount = 0;
     [self getAllShowTrees:self.rootTree];
     self.allShowTrees = self.showTrees;
     self.allCount = self.allShowTrees.count;
+}
+
+- (void)setupAllFold:(BOOL)isFold tree:(RnpTreeValueModel *)treeModel{
+    treeModel.isFold = isFold;
+    [treeModel.subTrees enumerateObjectsUsingBlock:^(RnpTreeValueModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self setupAllFold:isFold tree:obj];
+    }];
+}
+
+- (void)allFold{
+    [self setupAllFold:!self.isAllFold tree:self.rootTree];
+    [self updateAllTrees];
+    NSLog(@"");
 }
 
 @end

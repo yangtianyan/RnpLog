@@ -104,5 +104,8 @@
     [self updateUI];
 }
 
-
+- (void)allFoldAct{
+    [self.treeModel allFold];
+    [self updateUI];
+}
 @end

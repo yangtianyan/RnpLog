@@ -25,32 +25,38 @@
 
 @property (nonatomic, strong) RnpJsonTreeView * treeView;
 
+@property (nonatomic, strong) RnpTreeModel * treeModel;
+
+@property (nonatomic, assign) BOOL isShowText;
+
 @end
 
 @implementation RnpRequestDetailController
 
-- (void)initUI{
-    self.view.rnp
-    .addSubView(self.textView)
-    .addSubView(self.treeView)
-    ;
-    
-    [self.treeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.bottom.mas_equalTo(0);
-    }];
-    self.treeView.treeModel = [[RnpTreeModel alloc] initWithJson:[self.model rnpLogDataFormatToJson]];
-    
-    [self showText];
-}
-
-- (void)initNav{
+- (void)updateNav{
+    NSMutableArray * items = [NSMutableArray new];
+    UIBarButtonItem * switchItem = [[UIBarButtonItem alloc] initWithTitle:@"切换" style:UIBarButtonItemStylePlain target:self action:@selector(switchAction)];
     UIBarButtonItem * copy = [[UIBarButtonItem alloc] initWithTitle:@"复制" style:UIBarButtonItemStylePlain target:self action:@selector(copyAction)];
     UIBarButtonItem * airDrop = [[UIBarButtonItem alloc] initWithTitle:@"分享" style:UIBarButtonItemStylePlain target:self action:@selector(shareAction)];
     UIBarButtonItem * breakpoint = [[UIBarButtonItem alloc] initWithTitle:@"设置断点" style:UIBarButtonItemStylePlain target:self action:@selector(breakpointAct)];
-    self.navigationItem.rightBarButtonItems = @[airDrop,copy,breakpoint];
+    [items addObject:switchItem];
+    if (!self.isShowText) {
+        UIBarButtonItem * fold = [[UIBarButtonItem alloc] initWithTitle:self.treeModel.isAllFold ? @"全部展开" : @"全部折叠" style:UIBarButtonItemStylePlain target:self action:@selector(foldAction)];
+        [items addObject:fold];
+    }
+    [items addObjectsFromArray:@[airDrop,copy,breakpoint]];
+    self.navigationItem.rightBarButtonItems = items;
 }
 
 - (void)showText{
+    if(!self.textView.superview){
+        [self.view addSubview:self.textView];
+        [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.top.bottom.mas_equalTo(0);
+        }];
+    }
+    self.textView.hidden = false;
+    _treeView.hidden = true;
     NSString * content = [self.model rnpLogDataFormat];
     NSMutableAttributedString * attribute = content.toLogAttributedString.mutableCopy;
     NSArray * keys = @[@"OriginURL:",@"RedirectedURL:",@"Method:",@"Headers:",@"RequestBody:",@"Response:",@"ResponseHeader:", @"HookResponse:"];
@@ -64,11 +70,32 @@
     self.textView.attributedText = attribute;
 }
 
+- (void)showTree{
+    if(!self.treeView.superview){
+        [self.view addSubview:self.treeView];
+        [self.treeView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.top.bottom.mas_equalTo(0);
+        }];
+    }
+    if(!self.treeView.treeModel){
+        self.treeView.treeModel = self.treeModel;
+    }
+    _textView.hidden = true;
+    self.treeView.hidden = false;
+}
+
 #pragma mark -- setter
 - (void)setModel:(RnpDataModel *)model
 {
     _model = model;
     self.title = [NSString stringWithFormat:@"%@", model.task.originalRequest.URL];
+}
+
+- (void)setIsShowText:(BOOL)isShowText
+{
+    _isShowText = isShowText;
+    isShowText ? [self showText] : [self showTree];
+    [self updateNav];
 }
 #pragma mark -- lazy
 - (UITextView *)textView{
@@ -86,12 +113,23 @@
 - (RnpJsonTreeView *)treeView
 {
     if(!_treeView){
-        _treeView = [[RnpJsonTreeView alloc] init];
+        _treeView = [[RnpJsonTreeView alloc] init].rnp
+        .translatesAutoresizingMaskIntoConstraints(false)
+        .view;
     }
     return _treeView;
 }
 
 #pragma mark -- Action
+
+- (void)switchAction{
+    self.isShowText = !self.isShowText;
+}
+
+- (void)foldAction{
+    [self.treeView allFoldAct];
+}
+
 - (void)copyAction {
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"复制" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     __weak typeof(self) weakSelf = self;
@@ -151,12 +189,22 @@
     vc.dataModel = self.model;
     [self.navigationController pushViewController:vc animated:YES];
 }
+#pragma mark -- observer
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if([keyPath isEqual:@"treeModel.isAllFold"]){
+        [self updateNav];
+    }
+}
 
 #pragma mark -- 生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initUI];
-    [self initNav];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.treeModel = [[RnpTreeModel alloc] initWithJson:[self.model rnpLogDataFormatToJson]];
+    [self addObserver:self forKeyPath:@"treeModel.isAllFold" options:NSKeyValueObservingOptionNew context:NULL];
+    self.isShowText = false;
+    [self updateNav];
 }
 
 @end
