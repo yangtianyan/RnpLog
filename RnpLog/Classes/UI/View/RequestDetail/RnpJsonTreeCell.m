@@ -108,6 +108,7 @@
     
         self.keyLB = UILabelNew().rnp
         .font(kKeyFont)
+        .numberOfLines(3)
         .view;
         
         self.valueLB = UILabelNew().rnp
@@ -189,6 +190,8 @@
 
     [self.keyLB setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [self.keyLB setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [self.valueLB setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [self.valueLB setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
 }
 
 #pragma mark -- Public
