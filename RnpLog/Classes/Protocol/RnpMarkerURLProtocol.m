@@ -104,8 +104,11 @@ static BOOL isMonitor = false;
         NSString *appendString = [NSString stringWithFormat:@"%@=%@;", key, [cookieDic valueForKey:key]];
         [cookieValue appendString:appendString];
     }
-    [mutableRequest addValue:cookieValue forHTTPHeaderField:@"Cookie"];
-
+    
+    if([mutableRequest valueForHTTPHeaderField:@"cookie"].length){
+        [cookieValue appendString:[mutableRequest valueForHTTPHeaderField:@"cookie"]];
+    }
+    [mutableRequest setValue:cookieValue forHTTPHeaderField:@"Cookie"];
     mutableRequest = [RnpHostManager.instance checkAndReplaceHost:mutableRequest];
     RnpBreakpointModel * breakpoint = [RnpBreakpointManager.instance getModelForUrl:mutableRequest.URL.absoluteString];
     if (breakpoint.isActivate && breakpoint.isBefore) {
