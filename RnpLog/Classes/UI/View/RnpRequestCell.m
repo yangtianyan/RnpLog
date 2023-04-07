@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) UILabel * dateLB;
 
+@property (nonatomic, strong) UILabel * stateLB;
+
 @end
 @implementation RnpRequestCell
 
@@ -33,6 +35,11 @@
         .font([UIFont systemFontOfSize:10])
         .view;
         
+        self.stateLB = UILabelNew().rnp
+        .textColor([UIColor colorWithRed:100/255.0 green:100/255.0 blue:100/255.0 alpha:1])
+        .font([UIFont systemFontOfSize:10])
+        .view;
+        
         UIViewNew().rnp
         .addToSuperView(self.contentView)
         .backgroundColor([UIColor colorWithRed:235/355.f green:235/355.f blue:235/355.f alpha:1])
@@ -45,6 +52,7 @@
         self.contentView.rnp
         .backgroundColor(UIColor.whiteColor)
         .addSubView(self.titleLB)
+        .addSubView(self.stateLB)
         .addSubView(self.dateLB)
         .addGesture([[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longAct)])
         ;
@@ -60,9 +68,13 @@
         make.right.mas_equalTo(-padding);
         make.top.mas_equalTo(5.f);
     }];
-    [self.dateLB mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.stateLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.titleLB);
         make.top.equalTo(self.titleLB.mas_bottom).offset(5);
+    }];
+    [self.dateLB mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.titleLB);
+        make.top.equalTo(self.stateLB.mas_bottom).offset(5);
         make.bottom.mas_equalTo(-5.f);
     }];
 }
@@ -93,18 +105,24 @@
     }
     self.titleLB.text = [NSString stringWithFormat:@"%@ %@",tag, task.originalRequest.URL];
     self.dateLB.text = [NSString stringWithFormat:@"%@", model.requestDate];
+    if([task.response isKindOfClass:NSHTTPURLResponse.class]){
+        self.stateLB.text = [NSString stringWithFormat:@"HttpCode: %lu",[(NSHTTPURLResponse *)task.response statusCode]];
+    }else{
+        self.stateLB.text = @" ";
+    }
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSString * tag = @"";
-        if ([keyPath isEqualToString:@"response"]) {
-            tag = self.model.task.response ? @"✅ " : @"❌ ";
-        }else if ([keyPath isEqualToString:@"error"])
-        {
-            tag = self.model.task.error ?  @"❌  " : @"✅ ";
-        }
-        self.titleLB.text = [NSString stringWithFormat:@"%@ %@",tag, self.model.task.originalRequest.URL];
+//        NSString * tag = @"";
+//        if ([keyPath isEqualToString:@"response"]) {
+//            tag = self.model.task.response ? @"✅ " : @"❌ ";
+//        }else if ([keyPath isEqualToString:@"error"])
+//        {
+//            tag = self.model.task.error ?  @"❌  " : @"✅ ";
+//        }
+//        self.titleLB.text = [NSString stringWithFormat:@"%@ %@",tag, self.model.task.originalRequest.URL];
+        [self setModel:self.model];
     });
 
 }

@@ -38,6 +38,11 @@
         netLog = [@"URL: " mutableCopy];
         [netLog appendString:p_url];
     }
+    if([self.task.response isKindOfClass:NSHTTPURLResponse.class]){
+        [netLog appendString:@"\n\n\n"];
+        [netLog appendString:@"HttpCode: "];
+        [netLog appendString:[NSString stringWithFormat:@"%lu",[(NSHTTPURLResponse *)self.task.response statusCode]]];
+    }
     [netLog appendString:@"\n\n\n"];
     [netLog appendString:@"Method: "];
     [netLog appendString:p_method];
@@ -74,6 +79,9 @@
         [json setValue:self.redirectedUrl forKey:@"RedirectedURL"];
     }else{
         [json setValue:p_url forKey:@"URL"];
+    }
+    if([self.task.response isKindOfClass:NSHTTPURLResponse.class]){
+        [json setValue:[NSString stringWithFormat:@"%lu",[(NSHTTPURLResponse *)self.task.response statusCode]] forKey:@"HttpCode"];
     }
     [json addEntriesFromDictionary:@{
         @"Method": p_method ?: @"",
