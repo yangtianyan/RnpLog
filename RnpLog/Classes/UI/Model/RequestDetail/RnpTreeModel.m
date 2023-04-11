@@ -187,7 +187,12 @@
     CGFloat width = 200;
     CGFloat keyWidth = [[NSString stringWithFormat:@"%@: ", self.key] stringSizeWithFont:kKeyFont constrainedSize:CGSizeMake(MAXFLOAT, MAXFLOAT)].width;
     CGFloat valueMaxWidth = MAX(MAX(remainSpace, width) - keyWidth - 2, 150);
-    CGFloat valueWidth = [self.value stringSizeWithFont:kKeyFont constrainedSize:CGSizeMake(valueMaxWidth, MAXFLOAT)].width;
+    CGFloat valueWidth = 0;
+    if(self.value.length > 1000){
+        valueWidth = valueMaxWidth;
+    }else{
+        valueWidth = [self.value stringSizeWithFont:kKeyFont constrainedSize:CGSizeMake(valueMaxWidth, MAXFLOAT)].width;
+    }
     self.width = keyWidth + valueWidth;
     self.fullWidth = MAX(self.width + padding, [UIScreen mainScreen].bounds.size.width);
 }

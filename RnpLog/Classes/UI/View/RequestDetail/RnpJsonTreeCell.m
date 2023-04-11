@@ -112,7 +112,7 @@
         .view;
         
         self.valueLB = UILabelNew().rnp
-        .numberOfLines(0)
+        .numberOfLines(80)
         .font(kValueFont)
         .view;
         
