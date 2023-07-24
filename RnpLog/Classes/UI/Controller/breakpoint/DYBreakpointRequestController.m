@@ -157,10 +157,12 @@
 }
 + (void)showWithRequest:(NSMutableURLRequest *)request completion:(void(^)(void))completion
 {
-    DYBreakpointRequestController * controller = [DYBreakpointRequestController new];
-    controller.request = request;
-    controller.completion = completion;
-    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:controller];
-    [controller.topViewController presentViewController:nav animated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{    
+        DYBreakpointRequestController * controller = [DYBreakpointRequestController new];
+        controller.request = request;
+        controller.completion = completion;
+        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:controller];
+        [controller.topViewController presentViewController:nav animated:YES completion:nil];
+    });
 }
 @end
