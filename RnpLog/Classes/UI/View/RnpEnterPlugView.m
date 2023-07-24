@@ -44,6 +44,9 @@ static UIWindow * tempWindow;
     dispatch_once(&onceToken, ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 #ifndef LogForceShow
+            if(![[NSUserDefaults standardUserDefaults] objectForKey:@"rnplog_show"]){
+                [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"rnplog_show"];
+            }
             BOOL isShow = [[NSUserDefaults standardUserDefaults] boolForKey:@"rnplog_show"];
             if (!isShow) {
                 return;
