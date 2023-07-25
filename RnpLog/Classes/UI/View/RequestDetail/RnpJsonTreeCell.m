@@ -64,7 +64,11 @@
         .view;
         
         self.contentView.rnp
-        .addSubView(self.stackView);
+        .addSubView(self.stackView)
+        .addGesture(UILongPressGestureRecognizerNew().rnp
+                   .addTarget(self, @selector(handleLongPress:))
+                    .gesture)
+                ;
         self.rnp.selectionStyle(UITableViewCellSelectionStyleNone);
         [self setupLayout];
         
@@ -88,6 +92,71 @@
     
 }
 
+#pragma mark -- action
+- (void)handleLongPress:(UILongPressGestureRecognizer *)gesture{
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        // 创建 UIMenuItem
+        UIMenuItem *menuItem = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(cForward:)];
+        UIMenuItem *shareItem = [[UIMenuItem alloc] initWithTitle:@"分享" action:@selector(shareForward:)];
+
+        UIMenuController *menuController = [UIMenuController sharedMenuController];
+        [menuController setMenuItems:@[menuItem, shareItem]];
+
+        // 设置菜单显示位置
+        CGRect targetRect = self.contentView.bounds;
+        [menuController setTargetRect:targetRect inView:self.contentView];
+
+        [self becomeFirstResponder];
+        if (@available(iOS 13.0, *)) {
+            [menuController showMenuFromView:self.contentView rect:targetRect];
+        } else {
+            [menuController setMenuVisible:YES animated:YES];
+        }
+    }
+}
+- (void)cForward:(UIMenuController *)menuController {
+    RnpTreeValueModel * model = self.valueModel;
+    [UIPasteboard generalPasteboard].string = model.cpText;
+    
+}
+- (void)shareForward:(UIMenuController *)menuController {
+    NSString * text = self.valueModel.cpText;
+
+    NSDate *currentDate = [NSDate date];//获取当前时间，日期
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd-hh:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:currentDate];
+   
+    NSString *json_path = [NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"单行文本-%@.txt",dateString]];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:json_path]) {
+        [[NSFileManager defaultManager] removeItemAtPath:json_path error:nil];
+    }
+    [[NSFileManager defaultManager] createFileAtPath:json_path contents:[text dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
+    UIActivityViewController * vc = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL fileURLWithPath:json_path]] applicationActivities:nil];
+    //去除特定的分享功能 不需要展现的Activity类型
+    vc.excludedActivityTypes = @[
+                                         UIActivityTypePostToFacebook,
+                                         UIActivityTypePostToTwitter,
+                                         UIActivityTypePostToWeibo,
+                                         UIActivityTypeMessage,
+                                         UIActivityTypeMail,
+                                         UIActivityTypeAssignToContact,
+                                         UIActivityTypeSaveToCameraRoll,
+                                         UIActivityTypeAddToReadingList,
+                                         UIActivityTypePostToFlickr,
+                                         UIActivityTypePostToVimeo,
+                                         ];
+    if ([vc respondsToSelector:@selector(popoverPresentationController)]) {
+        vc.popoverPresentationController.sourceView = self;
+    }
+    id viewController = self;
+    while (![viewController isKindOfClass:UIViewController.class] && viewController != nil) {
+        viewController = [viewController nextResponder];
+    }
+    [viewController presentViewController:vc animated:YES completion:nil];
+}
+
+
 #pragma mark -- Public
 - (void)setValueModel:(RnpTreeValueModel *)valueModel
 {
@@ -96,6 +165,14 @@
         make.width.mas_equalTo(kHorizontalPadding * valueModel.level);
     }];
     self.subView.valueModel = valueModel;
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+-(BOOL) canPerformAction:(SEL)action withSender:(id)sender{
+    if (action == @selector(cForward:) || action == @selector(shareForward:))return YES;
+    return false;
 }
 
 @end
