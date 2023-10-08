@@ -29,12 +29,13 @@ static double RnpStatusFrame(){
 }
 
 static UIWindow * currentWindow(){
-    if([[[UIApplication sharedApplication] delegate] window]) {
+    id<UIApplicationDelegate> appDelegate = [[UIApplication sharedApplication] delegate];
+    if([appDelegate respondsToSelector: @selector(window)] && [appDelegate window]) {
         return[[[UIApplication sharedApplication] delegate] window];
     }else{
         if(@available(iOS 13.0, *)) {
             NSArray *array = [[[UIApplication sharedApplication] connectedScenes] allObjects];
-            UIWindowScene * windowScene = (UIWindowScene*)array[0];
+            UIWindowScene * windowScene = (UIWindowScene*)(array.firstObject);
             //如果是普通App开发，可以使用
             //SceneDelegate * delegate = (SceneDelegate *)windowScene.delegate;
             //UIWindow * mainWindow = delegate.window;
