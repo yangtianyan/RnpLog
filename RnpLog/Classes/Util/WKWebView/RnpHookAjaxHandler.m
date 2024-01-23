@@ -55,7 +55,14 @@
         NSError *err = nil;
         request.HTTPBody = [NSJSONSerialization dataWithJSONObject:requestData options:0 error:&err];
     }
-    [request setAllHTTPHeaderFields:requestHeaders];
+    
+    /// 神奇的key、value可能存在number，强行转换一波
+    NSMutableDictionary<NSString *, NSString *> *newRequestHeaders = [NSMutableDictionary new];
+    [requestHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [newRequestHeaders setValue:[NSString stringWithFormat:@"%@", obj] forKey:[NSString stringWithFormat:@"%@",key]];
+    }];
+    
+    [request setAllHTTPHeaderFields:newRequestHeaders];
     __weak typeof(self) weakSelf = self;
     NSURLSessionConfiguration * configuration = [NSURLSessionConfiguration ephemeralSessionConfiguration];//创建一个临时会话配置
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:[[NSOperationQueue alloc] init]];
