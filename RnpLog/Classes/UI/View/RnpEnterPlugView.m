@@ -65,7 +65,7 @@ static UIWindow * tempWindow;
             } else {
                 // Fallback on earlier versions
             };
-            window.windowLevel = 0;
+            window.windowLevel = 10086;
             [window makeKeyAndVisible];
             RnpEnterPlugView * view = [[RnpEnterPlugView alloc] initWithFrame:CGRectMake(20, screen_height - height - kBottomSafeHeight - 200, width, height)];
             [window addSubview:view];
