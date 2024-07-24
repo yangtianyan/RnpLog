@@ -56,7 +56,8 @@ static UIWindow * tempWindow;
             CGFloat width = 50;
             CGFloat height = width;
             //1. 创建一个window对象，并用一个对象强持有它
-            UIWindow *window = [[_RnpWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+            
+            UIWindow *window = [[_RnpWindow alloc] initWithFrame:CGRectMake(20, screen_height - height - kBottomSafeHeight - 200, width, height)];
             
             if (@available(iOS 13.0, *)) {
                 NSArray *array = [[[UIApplication sharedApplication] connectedScenes] allObjects];
@@ -65,9 +66,9 @@ static UIWindow * tempWindow;
             } else {
                 // Fallback on earlier versions
             };
-            window.windowLevel = 10086;
+            window.windowLevel = UIWindowLevelStatusBar + 99;
 //            [window makeKeyAndVisible];
-            RnpEnterPlugView * view = [[RnpEnterPlugView alloc] initWithFrame:CGRectMake(20, screen_height - height - kBottomSafeHeight - 200, width, height)];
+            RnpEnterPlugView * view = [[RnpEnterPlugView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
             [window addSubview:view];
             window.hidden = NO;
             window.alpha = 1;
@@ -127,6 +128,7 @@ static UIWindow * tempWindow;
     CGFloat y_padding = 20.f;
     //移动状态
     UIGestureRecognizerState recState =  recognizer.state;
+    UIView * superView = recognizer.view.superview;
     
     switch (recState) {
         case UIGestureRecognizerStateBegan:
@@ -134,35 +136,35 @@ static UIWindow * tempWindow;
         case UIGestureRecognizerStateChanged:
         {
             CGPoint translation = [recognizer translationInView:self.superview];
-            recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x, recognizer.view.center.y + translation.y);
+            superView.center = CGPointMake(superView.center.x + translation.x, superView.center.y + translation.y);
         }
             break;
         case UIGestureRecognizerStateEnded:
         {
             CGPoint stopPoint = CGPointMake(0, SCREEN_HEIGHT / 2.0);
             
-            if (recognizer.view.center.x < SCREEN_WIDTH / 2.0) {
-                if (recognizer.view.center.y <= SCREEN_HEIGHT/2.0) {
+            if (superView.center.x < SCREEN_WIDTH / 2.0) {
+                if (superView.center.y <= SCREEN_HEIGHT/2.0) {
                     //左上
-                    stopPoint = CGPointMake(self.frame.size.width/2.0, recognizer.view.center.y);
+                    stopPoint = CGPointMake(self.frame.size.width/2.0, superView.center.y);
                 }else{
                     //左下
-                    if (recognizer.view.center.x  >= SCREEN_HEIGHT - recognizer.view.center.y) {
-                        stopPoint = CGPointMake(recognizer.view.center.x, SCREEN_HEIGHT - self.frame.size.width/2.0);
+                    if (superView.center.x  >= SCREEN_HEIGHT - superView.center.y) {
+                        stopPoint = CGPointMake(superView.center.x, SCREEN_HEIGHT - self.frame.size.width/2.0);
                     }else{
-                        stopPoint = CGPointMake(self.frame.size.width/2.0 + x_padding, recognizer.view.center.y);
+                        stopPoint = CGPointMake(self.frame.size.width/2.0 + x_padding, superView.center.y);
                     }
                 }
             }else{
-                if (recognizer.view.center.y <= SCREEN_HEIGHT/2.0) {
+                if (superView.center.y <= SCREEN_HEIGHT/2.0) {
                     //右上
-                    stopPoint = CGPointMake(SCREEN_WIDTH - self.frame.size.width/2.0 - x_padding, recognizer.view.center.y);
+                    stopPoint = CGPointMake(SCREEN_WIDTH - self.frame.size.width/2.0 - x_padding, superView.center.y);
                 }else{
                     //右下
-                    if (SCREEN_WIDTH - recognizer.view.center.x  >= SCREEN_HEIGHT - recognizer.view.center.y) {
-                        stopPoint = CGPointMake(recognizer.view.center.x, SCREEN_HEIGHT - self.frame.size.width/2.0);
+                    if (SCREEN_WIDTH - superView.center.x  >= SCREEN_HEIGHT - superView.center.y) {
+                        stopPoint = CGPointMake(superView.center.x, SCREEN_HEIGHT - self.frame.size.width/2.0);
                     }else{
-                        stopPoint = CGPointMake(SCREEN_WIDTH - self.frame.size.width/2.0 - x_padding,recognizer.view.center.y);
+                        stopPoint = CGPointMake(SCREEN_WIDTH - self.frame.size.width/2.0 - x_padding,superView.center.y);
                     }
                 }
             }
@@ -181,7 +183,7 @@ static UIWindow * tempWindow;
                 stopPoint = CGPointMake(stopPoint.x, maxTopPadding);
             }
             [UIView animateWithDuration:0.3 animations:^{
-                recognizer.view.center = stopPoint;
+                superView.center = stopPoint;
             }];
         }
             break;
