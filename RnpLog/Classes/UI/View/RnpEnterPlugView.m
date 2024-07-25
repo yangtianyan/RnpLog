@@ -23,11 +23,68 @@ static UIWindow * tempWindow;
 @end
 @implementation _RnpWindow
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(handleOrientationChange)
+                                                         name:UIDeviceOrientationDidChangeNotification
+                                                       object:nil];
+    }
+    return self;
+}
+
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
     UIView * view = [super hitTest:point withEvent:event];
     if([view isEqual:self]) return nil;
     return view;
+}
+
+- (void)handleOrientationChange {
+    // 根据当前的界面方向处理你的逻辑
+    if (UIDevice.currentDevice.orientation == UIDeviceOrientationLandscapeLeft ||
+        UIDevice.currentDevice.orientation == UIDeviceOrientationLandscapeRight) {
+        
+        
+    } else if (UIDevice.currentDevice.orientation == UIDeviceOrientationPortrait ||
+               UIDevice.currentDevice.orientation == UIDeviceOrientationPortraitUpsideDown) {
+        NSLog(@"Portrait");
+    }
+    [self adjustWindowPositionIfNeeded];
+
+}
+
+- (void)adjustWindowPositionIfNeeded {
+    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    CGFloat width = screenBounds.size.width;
+    CGFloat height = screenBounds.size.height;
+    if (UIDevice.currentDevice.orientation == UIDeviceOrientationPortrait || UIDevice.currentDevice.orientation == UIDeviceOrientationPortraitUpsideDown) {
+        screenBounds.size.width = MIN(width, height);
+        screenBounds.size.height = MAX(width, height);
+    }else if (UIDevice.currentDevice.orientation == UIDeviceOrientationLandscapeLeft ||
+              UIDevice.currentDevice.orientation == UIDeviceOrientationLandscapeRight) {
+        screenBounds.size.width = MAX(width, height);
+        screenBounds.size.height = MIN(width, height);
+    }
+    CGRect windowFrame = self.frame;
+
+    // 检查窗口是否超出屏幕边界并调整位置
+    if (CGRectGetMinX(windowFrame) < 0) {
+        windowFrame.origin.x = 20;
+    } else if (CGRectGetMaxX(windowFrame) > CGRectGetWidth(screenBounds)) {
+        windowFrame.origin.x = CGRectGetWidth(screenBounds) - CGRectGetWidth(windowFrame) - 20;
+    }
+
+    if (CGRectGetMinY(windowFrame) < 0) {
+        windowFrame.origin.y = StatusHieght + 20;
+    } else if (CGRectGetMaxY(windowFrame) > CGRectGetHeight(screenBounds)) {
+        windowFrame.origin.y = CGRectGetHeight(screenBounds) - CGRectGetHeight(windowFrame) - kBottomSafeHeight - 200;
+    }
+
+    // 更新窗口位置
+    self.frame = windowFrame;
 }
 
 @end
