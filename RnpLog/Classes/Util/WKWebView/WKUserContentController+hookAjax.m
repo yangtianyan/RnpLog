@@ -8,6 +8,7 @@
 #import "WKUserContentController+hookAjax.h"
 #import "RnpDefine.h"
 #import "RnpHookAjaxHandler.h"
+#import "RnpResourceLoader.h"
 static BOOL isSwizzle = false;
 static NSPointerArray * controllers;
 static NSMapTable<WKUserContentController *, WKUserScript *> * userScriptMap;
@@ -91,7 +92,7 @@ static NSMapTable<WKUserContentController *, WKUserScript *> * userScriptMap;
 - (void)addScript{
     WKUserScript * script = [WKUserContentController.userScriptMap objectForKey:self];
     if(!script){
-        NSURL * url = [[NSBundle bundleForClass:[self class]] URLForResource:@"RnpLog" withExtension:@"bundle"];
+        NSURL * url = [[RnpResourceLoader currentBundle] URLForResource:@"RnpLog" withExtension:@"bundle"];
         NSBundle * bundle = [NSBundle bundleWithURL:url];
         NSString * path = [bundle pathForResource:@"ajaxhook" ofType:@"js" inDirectory:@"JS"];
         NSString *jsScript = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
