@@ -10,7 +10,7 @@
 /* -- Model -- */
 #import "RnpTreeModel.h"
 /* -- Util -- */
-#import <RnpKit.h>
+#import <RnpKit/RnpKit.h>
 
 @interface RnpJsonTreeView ()<UITableViewDelegate, UITableViewDataSource>
 

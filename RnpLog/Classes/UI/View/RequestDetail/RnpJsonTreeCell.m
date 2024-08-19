@@ -9,7 +9,7 @@
 /* -- Model -- */
 #import "RnpTreeModel.h"
 /* -- Util -- */
-#import <RnpKit.h>
+#import <RnpKit/RnpKit.h>
 #import "NSDictionary+log.h"
 @interface RnpJsonTreeSubView : UIView
 
