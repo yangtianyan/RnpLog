@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RnpLog'
-  s.version          = '0.1.0'
+  s.version          = '1.0'
   s.summary          = 'A short description of RnpLog.'
 
 # This description is used to generate tags and improve search results.
@@ -31,16 +31,11 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '9.0'
 
   s.source_files = 'RnpLog/Classes/**/*'
-  
+
    s.resource_bundles = {
      'RnpLog' => ['RnpLog/Assets/**/*']
    }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit'
   s.dependency 'RnpKit'
-#  s.dependency 'RnpKit/Layout'
-#  s.dependency 'RnpKit/AttributedString'
-#  s.dependency 'Masonry'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
