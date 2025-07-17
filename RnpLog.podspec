@@ -30,7 +30,7 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '9.0'
 
-  s.source_files = 'RnpLog/Classes/**/*'
+  s.source_files = 'RnpLog/Classes/Model/*.{h,m}', 'RnpLog/Classes/Protocol/*.{h,m}', 'RnpLog/Classes/UI/**/*.{h,m}', 'RnpLog/Classes/Util/**/*.{h,m}'
 
    s.resource_bundles = {
      'RnpLog' => ['RnpLog/Assets/**/*']

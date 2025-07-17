@@ -34,7 +34,7 @@ PODS:
     - Masonry
     - RnpKit/View
   - RnpKit/View (1.2.0)
-  - RnpLog (0.1.0):
+  - RnpLog (1.0):
     - RnpKit
   - SDWebImage (5.12.3):
     - SDWebImage/Core (= 5.12.3)
@@ -60,9 +60,9 @@ SPEC CHECKSUMS:
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   RnpKit: c289210813fd78178f28d1b5bde98aa27d9ca632
-  RnpLog: 2a9ac7135c7aec47c54d7c1d89c3e80ba27a938c
+  RnpLog: 096efce2e1900b3e04e0fbb5454ee45aea4acc6f
   SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f
 
-PODFILE CHECKSUM: c1f4ad13d1420c2eaa2a5a20224f0df53c043d7a
+PODFILE CHECKSUM: 29ca8f689fd263a0452100ba04731efd8a3d3c8c
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.0

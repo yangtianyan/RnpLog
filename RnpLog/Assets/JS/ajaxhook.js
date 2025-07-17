@@ -26,27 +26,47 @@
 	function nativeCallback(xhrId, statusCode, responseText, responseHeaders, error) {
 		var xhr = window.OMTAjax.hookedXHR[xhrId];
 		if (xhr.isAborted) { // 如果该请求已经手动取消了
-
 			xhr.readyState = 1;
 		} else {
-			xhr.status = statusCode;
+			// 确保状态码是数字类型
+			xhr.status = parseInt(statusCode, 10);
 			xhr.responseText = responseText;
 			xhr.readyState = 4;
-
 			xhr.omtResponseHeaders = responseHeaders;
 		}
         if (xhr.readyState >= 3) {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                xhr.statusText = "OK"
+            // 根据HTTP标准设置statusText
+            if (xhr.status >= 400 && xhr.status < 500) {
+                xhr.statusText = "Client Error";
+                if (xhr.status === 400) xhr.statusText = "Bad Request";
+                else if (xhr.status === 401) xhr.statusText = "Unauthorized";
+                else if (xhr.status === 403) xhr.statusText = "Forbidden";
+                else if (xhr.status === 404) xhr.statusText = "Not Found";
+                else if (xhr.status === 409) xhr.statusText = "Conflict";
+                else if (xhr.status === 429) xhr.statusText = "Too Many Requests";
+            } else if (xhr.status >= 500) {
+                xhr.statusText = "Server Error";
+                if (xhr.status === 500) xhr.statusText = "Internal Server Error";
+                else if (xhr.status === 502) xhr.statusText = "Bad Gateway";
+                else if (xhr.status === 503) xhr.statusText = "Service Unavailable";
+            } else if (xhr.status >= 300 && xhr.status < 400) {
+                xhr.statusText = "Redirect";
+                if (xhr.status === 301) xhr.statusText = "Moved Permanently";
+                else if (xhr.status === 302) xhr.statusText = "Found";
+                else if (xhr.status === 304) xhr.statusText = "Not Modified";
+            } else if (xhr.status >= 200 && xhr.status < 300) {
+                xhr.statusText = "OK";
+                if (xhr.status === 201) xhr.statusText = "Created";
+                else if (xhr.status === 204) xhr.statusText = "No Content";
             } else {
-                xhr.statusText = "Fail"
+                xhr.statusText = "Unknown";
             }
         }
         if (xhr.onreadystatechange) {
             xhr.onreadystatechange()
         }
         if (xhr.readyState == 4) {
-            if (xhr.statusText == "OK") {
+            if (xhr.status >= 200 && xhr.status < 300) {
                 xhr.onload ? xhr.onload() : ""
             } else {
                 xhr.onerror ? xhr.onerror() : ""
