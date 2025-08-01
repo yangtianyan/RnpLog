@@ -69,6 +69,7 @@
             if (xhr.status >= 200 && xhr.status < 300) {
                 xhr.onload ? xhr.onload() : ""
             } else {
+		xhr.onload ? xhr.onload() : ""
                 xhr.onerror ? xhr.onerror() : ""
             }
         }
