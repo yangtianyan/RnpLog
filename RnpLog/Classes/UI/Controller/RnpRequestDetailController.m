@@ -147,6 +147,10 @@
     [alertController addAction:copy];
     [alertController addAction:curl];
     [alertController addAction:cancel];
+    if ([alertController respondsToSelector:@selector(popoverPresentationController)]) {
+        alertController.popoverPresentationController.sourceView = self.navigationController.navigationBar;
+    }
+
     [self presentViewController:alertController animated:true completion:nil];
 
 }
@@ -180,7 +184,7 @@
                                          UIActivityTypePostToVimeo,
                                          ];
     if ([vc respondsToSelector:@selector(popoverPresentationController)]) {
-        vc.popoverPresentationController.sourceView = self.view;
+        vc.popoverPresentationController.sourceView = self.navigationController.navigationBar;
     }
     [self presentViewController:vc animated:YES completion:nil];
 }
