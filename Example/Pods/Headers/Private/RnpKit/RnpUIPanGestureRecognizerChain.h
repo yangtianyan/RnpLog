@@ -1,1 +1,0 @@
-../../../RnpKit/RnpKit/Classes/Gesture/RnpUIPanGestureRecognizerChain.h

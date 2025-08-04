@@ -1,20 +1,22 @@
 //
-//  RnpHookAjaxHandler.m
+//  RnpHookFetchHandler.m
 //  RnpLog
 //
-//  Created by user on 2021/5/26.
+//  Created by user on 2023/5/26.
 //
 
-#import "RnpHookAjaxHandler.h"
+#import "RnpHookFetchHandler.h"
 #import "RnpCaptureDataManager.h"
 /* -- Model -- */
 #import "RnpDataModel.h"
-@interface RnpHookAjaxHandler ()
+
+@interface RnpHookFetchHandler ()
 
 @property (nonatomic, weak) WKWebView * webView;
 
 @end
-@implementation RnpHookAjaxHandler
+
+@implementation RnpHookFetchHandler
 
 - (void)userContentController:(nonnull WKUserContentController *)userContentController didReceiveScriptMessage:(nonnull WKScriptMessage *)message {
     self.webView = message.webView;
@@ -33,7 +35,7 @@
     requestHeaders = mutable;
     NSURL * url = [NSURL URLWithString:urlString];
     if (url.host == nil) {
-        // hook ajax后拿到的url可能不完整 需要手动拼接
+        // hook fetch后拿到的url可能不完整 需要手动拼接
         __block NSString * scheme = self.webView.URL.scheme;
         __block NSString * host = self.webView.URL.host;
         NSString * webUrl = self.webView.URL.absoluteString;
@@ -57,10 +59,19 @@
     }
     
     /// 神奇的key、value可能存在number，强行转换一波
-//    NSMutableDictionary<NSString *, NSString *> *newRequestHeaders = [NSMutableDictionary new];
+    NSMutableDictionary<NSString *, NSString *> *newRequestHeaders = [NSMutableDictionary new];
     [requestHeaders enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+//        NSString * newKey = [NSString stringWithFormat:@"%@",key];
+//        if ([[newKey capitalizedString] isEqualToString:@"Accept"]) {
+//            newKey = @"Accept";
+//            NSString * oldValue = newRequestHeaders[newKey];
+//            if (oldValue) {
+//                obj = [oldValue ];
+//            }
+//        }
+        
 //        [newRequestHeaders setValue:[NSString stringWithFormat:@"%@", obj] forKey:[NSString stringWithFormat:@"%@",key]];
-       /// Accept与accept 在 setAllHTTPHeaderFields函数中认为是一个key
+        /// Accept与accept 在 setAllHTTPHeaderFields函数中认为是一个key
         [request setValue:[NSString stringWithFormat:@"%@", obj] forHTTPHeaderField:[NSString stringWithFormat:@"%@",key]];
     }];
     
@@ -78,6 +89,9 @@
         if (data.length > 0) {
             responseString = [weakSelf responseStringWithData:data charset:allHeaderFields[@"Content-Type"]];
             [weakSelf requestCallback:requestID httpCode:httpResponse.statusCode headers:allHeaderFields data:responseString];
+        } else {
+            // 处理没有响应数据的情况
+            [weakSelf requestCallback:requestID httpCode:httpResponse.statusCode headers:allHeaderFields data:@""];
         }
     }];
     [task resume];
@@ -87,7 +101,7 @@
 {
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     dict[@"status"] = @(httpCode);
-    dict[@"headers"] = headers;
+    dict[@"headers"] = headers ?: @{};
     if (data.length > 0) {
         dict[@"data"] = data;
     }
@@ -96,14 +110,21 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:0 error:&err];
     if (jsonData.length > 0) {
         jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    } else if (err) {
+        NSLog(@"JSON序列化错误: %@", err);
+        // 创建一个简单的错误响应
+        jsonString = [NSString stringWithFormat:@"{\"status\":%ld,\"headers\":{},\"error\":\"JSON序列化错误\"}", (long)httpCode];
     }
-    NSString *jsScript = [NSString stringWithFormat:@"window.imy_realxhr_callback('%@', %@);", requestId, jsonString?:@"{}"];
+    NSString *jsScript = [NSString stringWithFormat:@"window.imy_realfetch_callback('%@', %@);", requestId, jsonString?:@"{}"];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.webView evaluateJavaScript:jsScript completionHandler:^(id result, NSError *error) {
-            
+            if (error) {
+                NSLog(@"执行JavaScript回调错误: %@", error);
+            }
         }];
     });
 }
+
 - (NSString *)responseStringWithData:(NSData *)data charset:(NSString *)charset
 {
     NSStringEncoding stringEncoding = NSUTF8StringEncoding;
@@ -116,4 +137,4 @@
     return responseString;
 }
 
-@end
+@end 

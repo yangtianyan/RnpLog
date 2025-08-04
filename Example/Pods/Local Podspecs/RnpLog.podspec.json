@@ -1,9 +1,9 @@
 {
   "name": "RnpLog",
-  "version": "0.1.0",
+  "version": "1.0",
   "summary": "A short description of RnpLog.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/905935769@qq.com/RnpLog",
+  "homepage": "https://github.com/yangtianyan/RnpLog",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,13 +12,18 @@
     "905935769@qq.com": "yangtianyan@diyiedy.com"
   },
   "source": {
-    "git": "https://github.com/905935769@qq.com/RnpLog.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/yangtianyan/RnpLog.git",
+    "tag": "1.0"
   },
   "platforms": {
     "ios": "9.0"
   },
-  "source_files": "RnpLog/Classes/**/*",
+  "source_files": [
+    "RnpLog/Classes/Model/*.{h,m}",
+    "RnpLog/Classes/Protocol/*.{h,m}",
+    "RnpLog/Classes/UI/**/*.{h,m}",
+    "RnpLog/Classes/Util/**/*.{h,m}"
+  ],
   "resource_bundles": {
     "RnpLog": [
       "RnpLog/Assets/**/*"

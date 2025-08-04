@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)close;
 
+// 添加fetch钩子方法
+- (void)hookFetch;
+
 @end
 
 NS_ASSUME_NONNULL_END
